@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Beijing FMSoft Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall
+    use it only in accordance you entered into with FMSoft.
+
+				http://www.minigui.com
+
+-->
+
+<window class="ItemBar" extends="Widget">
+	<set-property name="Class"  value="itembar"/>
+    
+	<default-property name="Width"   value="140"/>
+	<default-property name="Height"  value="70"/>
+	<default-property name="BgColor" value="0xFFFFFFFF"/>
+	<default-property name="Border"  value="FALSE"/>
+
+	<property name="Checkable" id="2010" type="enum" value="True">
+		<enum>
+			<option name="True"  value="0x2"/>
+			<option name="False" value="0"/>
+		</enum>
+	</property>
+
+	<property name="HasChild" id="2011" type="enum" value="True">
+		<enum>
+			<option name="True"  value="0x4"/>
+			<option name="False" value="0"/>
+		</enum>
+	</property>
+
+	<property name="Checked" id="7" type="enum" value="True">
+		<enum>
+			<option name="True"  value="1"/>
+			<option name="False" value="0"/>
+		</enum>
+	</property>
+    
+    <property name="Icon"   id="8" type="image"/>
+    <property name="Margin" id="9" type="int" default="0"/>
+    
+    <property name="RoundCorner" id="3010" type="enum" default="None">
+		<enum>
+			<option name="None"     value="0"/> 
+			<option name="Top"      value="0x00000010L"/>
+			<option name="Bottom"   value="0x00000020L"/>
+			<option name="Both"     value="0x00000030L"/>
+		</enum>
+	</property>
+
+	<event id="4100">
+		<handler>void onChecked(mItemBar *self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_ITEMBAR_CHECKED)</code>
+	</event>
+	<event id="4101">
+		<handler>void onClicked(mItemBar *self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_WIDGET_CLICKED)</code>
+	</event>
+</window>

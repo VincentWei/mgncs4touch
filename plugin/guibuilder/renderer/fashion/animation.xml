@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Feynman Software Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall use
+    it only in accordance you entered into with Feynman Software.
+
+                http://www.minigui.com
+-->
+
+<renderer class="Fashion.Animation" extends="renderer::Fashion.ItemView">
+
+    <set-property name="Class"                  value="animation"/>
+    <set-property name="ColorFgHiliteItem"      value="0xFFFFFFFF"/>
+    <set-property name="ColorBgHiliteItem"      value="0xFFF54512"/>
+    <set-property name="ColorBgSelItem"         value="0xFF6B2408"/>
+    <set-property name="ColorFgSelItem"         value="0xFFFFFFFF"/>
+    <set-property name="ColorFgDisableItem"     value="0xFF99A8AC"/>
+    <set-property name="ColorBgDisableItem"     value="0xFFFFFFFF"/>
+    <set-property name="ColorFgSignificantItem" value="0xFFFFFFFF"/>
+    <set-property name="ColorBgDisableItem"     value="0xFFC56A31"/>
+    <set-property name="ItemGradientMode"       value="Vert"/>
+    <set-property name="ScrollBarSize"          value="16"/>
+    <set-property name="ScrollBarBaseColor"     value="0xFFD8E9EC"/>
+    <set-property name="BaseFgColorScrollBar"   value="0xFFFF953D"/>
+    <set-property name="ColorFgWindow"          value="0xFF000000"/>
+    <set-property name="ColorBgWindow"          value="0xFFFFFFFF"/>
+    <set-property name="ColorBorderInActive"    value="0xFFC8D0D4"/>
+
+</renderer>
+

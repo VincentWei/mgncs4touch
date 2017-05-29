@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Beijing FMSoft Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall
+    use it only in accordance you entered into with FMSoft.
+
+				http://www.minigui.com
+
+-->
+
+<window class="TimePicker" extends="ComboPicker">
+	<set-property name="Class" value="timepicker"/>
+
+	<property name="TimeFormat" id="2020" type="enum" value="Number">
+		<enum>
+			<option name="24H"  value="0x0"/>
+			<option name="12H"  value="0x2"/>
+		</enum>
+	</property>
+
+	<property name="Hour"       id="12"  type="int"  default="0"/>
+	<property name="Minute"     id="13"  type="int"  default="0"/>
+	<property name="AmPmStings" id="14"  type="text" default="Am\nPm"/>
+   
+	<event id="4100">
+		<handler>void onTimeChanged(mTimePicker* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_TPCK_TIMECHANGED)</code>
+	</event>
+</window>
+

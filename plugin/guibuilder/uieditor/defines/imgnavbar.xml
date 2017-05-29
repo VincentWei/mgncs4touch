@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Beijing FMSoft Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall
+    use it only in accordance you entered into with FMSoft.
+
+				http://www.minigui.com
+
+-->
+
+<window class="ImgNavBar" extends="Widget">
+	<set-property name="Class"      value="imgnavbar"/>
+	<set-property name="Border"     value="FALSE"/>
+    
+	<default-property name="Width"   value="150"/>
+	<default-property name="Height"  value="60"/>
+	<default-property name="BgColor" value="0xFFFDECC9"/>
+
+    <property name="LeftImage"          id="7" type="image"/>
+    <property name="RightImage"         id="8" type="image"/>
+    <!--property name="CaptionFont"        id="9" type="font" /-->
+    <property name="Margin"             id="10" type="int"  default="3"/>
+    <property name="LeftImageWidth"     id="11" type="int"  default="60"/>
+    <property name="RightImageWidth"    id="12" type="int"  default="60"/>
+    <property name="ImageHeight"        id="13" type="int"  default="30"/>
+    <property name="ImageDrawMode"      id="14" type="enum DrawMode" default="Scaled"/>
+
+	<event id="4100">
+		<handler>void onImgClicked(mImgNavBar* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_TC_IMGCLICK)</code>
+	</event>
+</window>
+

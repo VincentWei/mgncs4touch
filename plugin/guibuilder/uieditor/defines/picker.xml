@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Beijing FMSoft Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall
+    use it only in accordance you entered into with FMSoft.
+
+				http://www.minigui.com
+
+-->
+
+<window class="Picker" extends="Animation">
+	<set-property name="Class" value="picker"/>
+	<set-property name="HScroll" value="FALSE"/>
+	<set-property name="VScroll" value="FALSE"/>
+    <set-property name="ScrollBarMode" value="Never"/>
+	<set-property name="ContentX" value="0"/>
+	<set-property name="ContentY" value="0"/>
+	<set-property name="HStepValue" value="0"/>
+	<set-property name="VStepValue" value="0"/>
+    
+    <default-property name="Width"   value="200"/>
+	<default-property name="Height"  value="200"/>
+    <default-property name="Border"  value="FALSE"/>
+
+    <property name="Align" id="23" type="enum" default="Center">
+		<enum>
+			<option name="left"    value="0x0"/>
+			<option name="Right"   value="0x2"/>
+			<option name="Center"  value="0x1"/>
+		</enum>
+    </property>
+    <property name="Lines"         type="int"  default="5"/>
+
+    <property name="Select"           id = "26"  type="int"  default="0"/>
+    <property name="HorizontalMargin" id = "27"  type="int"  default="0"/>
+    <property name="VerticalMargin"   id = "28"  type="int"  default="0"/>
+    <property name="NumberBits"       id = "29"  type="int"  default="0"/>
+
+	<property name="NumberString" id="2040" type="enum" default="Number">
+		<enum>
+			<option name="Number"  value="0x20"/>
+			<option name="String"  value="0x40"/>
+		</enum>
+    </property>
+
+	<event id="4100">
+		<handler>void onSelChanged(mPicker* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_PCK_SELCHANGED)</code>
+	</event>
+	<event id="4101">
+		<handler>void onReachMax(mPicker* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_PCK_REACHMAX)</code>
+	</event>
+	<event id="4102">
+		<handler>void onReachMin(mPicker* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_PCK_REACHMIN)</code>
+	</event>
+</window>
+

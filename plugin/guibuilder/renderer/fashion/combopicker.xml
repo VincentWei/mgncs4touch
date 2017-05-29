@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Feynman Software Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall use
+    it only in accordance you entered into with Feynman Software.
+
+                http://www.minigui.com
+-->
+
+<renderer class="Fashion.ComboPicker" extends="renderer::Fashion.Panel">
+    <set-property name="Class"               value="combopicker"/>
+    <set-property name="ColorFgWindow"       value="0xFF000000"/>
+    <set-property name="ColorBgWindow"       value="0xFFFFFFFF"/>
+    <set-property name="ColorBorderInActive" value="0xFFC8D0D4"/>
+
+    <property name="ColorBgMain"        id="41008" type="color" default="0xFF808080"/>
+    <property name="ColorFgMain"        id="41009" type="color" default="0xFF000000"/>
+    <property name="ColorSelectBG"      id="41010" type="color" default="0xFFE5C177"/>
+    <property name="ColorSelectFG"      id="41011" type="color" default="0xFFFFFFFF"/>
+    <property name="ColorNotEffect"     id="41012" type="color" default="0xFFE7E7E7"/>
+</renderer>
+

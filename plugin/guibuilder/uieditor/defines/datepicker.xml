@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
+    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
+    District, Beijing, P. R. CHINA 100191.
+    All rights reserved.
+
+    This software is the confidential and proprietary information of
+    Beijing FMSoft Technology Co., Ltd. ("Confidential Information").
+    You shall not disclose such Confidential Information and shall
+    use it only in accordance you entered into with FMSoft.
+
+				http://www.minigui.com
+
+-->
+
+<window class="DatePicker" extends="ComboPicker">
+	<set-property name="Class" value="datepicker"/>
+    
+    <property name="DateFormat" id="2020" type="enum" value="YYYYMMDD">
+		<enum>
+			<option name="YYYYMMDD" value="0x0"/>
+			<option name="MMDDYYYY" value="0x2"/>
+			<option name="YYMMDD"   value="0x4"/>
+			<option name="MMDDYY"   value="0x8"/>
+		</enum>
+    </property>
+    
+    <property name="Year"   id="12"  type="int"  default="2010"/>
+    <property name="Month"  id="13"  type="int"  default="10"/>
+    <property name="Day"    id="14"  type="int"  default="1"/>
+    
+    <event id="4100">
+		<handler>void onDateChanged(mDatePicker* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_DPCK_DATECHANGED)</code>
+	</event>
+</window>
+

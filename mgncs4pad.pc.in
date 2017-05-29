@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: mGNCS4Pad
+Description: MiniGUI New Control Set for Pad
+Version: @MGNCS4PAD_VERSION@
+Requires:
+Libs: -L${libdir} @PC_LIBS@
+Libs.private:
+Cflags: -I${includedir} @PC_CFLAGS@
