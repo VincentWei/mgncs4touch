@@ -17,7 +17,7 @@ SUBDIRS = pieces
 
 TOP_DIR = ..
 
-INCLUDES = -I$(TOP_DIR)/include -I. -I$(TOP_DIR)
+AM_CPPFLAGS = -I$(TOP_DIR)/include -I. -I$(TOP_DIR)
 
 lib_LTLIBRARIES = libmgncs4pad@NCS4PAD_LIBSUFFIX@.la
 
@@ -29,7 +29,7 @@ COMMON_SRCS = mpad.c mpcomm.c lf_pad.c mpadrdr.c pad_pieces.c         \
 
 libmgncs4pad@NCS4PAD_LIBSUFFIX@_la_LIBADD  = pieces/libpieces.la 
 libmgncs4pad@NCS4PAD_LIBSUFFIX@_la_SOURCES = $(COMMON_SRCS) 
-libmgncs4pad@NCS4PAD_LIBSUFFIX@_la_LDFLAGS =
+libmgncs4pad@NCS4PAD_LIBSUFFIX@_la_LDFLAGS = -release $(LT_RELEASE) -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 EXTRA_DIST =
 CLEANFILES = *.a

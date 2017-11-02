@@ -21,3 +21,5 @@ else
 SUBDIRS = include src etc
 endif
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA=mgncs4pad.pc

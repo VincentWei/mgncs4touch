@@ -19,9 +19,9 @@ TOP_DIR = ..
 
 SUBDIRS = res
 
-INCLUDES = -I$(TOP_DIR) -I$(TOP_DIR)/include -I.
+AM_CPPFLAGS = -I$(TOP_DIR) -I$(TOP_DIR)/include -I.
 
-COMMON_LADD = $(TOP_DIR)/src/.libs/libmgncs4pad.so -lmgutils -lmgplus -lmgeff -lmgncs @APP_LIBS@ 
+COMMON_LADD = -lmgncs4pad -lmgncs -lmgeff -lmgplus -lmgutils @APP_LIBS@ 
 
 noinst_PROGRAMS = switchbutton picker newtrackbar commdraw datepicker \
 				  timepicker exlist btnnavbar imgnavbar name2value itembar \

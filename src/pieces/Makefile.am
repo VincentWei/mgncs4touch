@@ -15,7 +15,7 @@
 
 TOP_DIR = ../..
 
-INCLUDES = -I$(TOP_DIR)/include -I$(TOP_DIR)/include/ -I. -I$(TOP_DIR) -I..
+AM_CPPFLAGS = -I$(TOP_DIR)/include -I$(TOP_DIR)/include/ -I. -I$(TOP_DIR) -I..
 
 noinst_LTLIBRARIES = libpieces.la
 
