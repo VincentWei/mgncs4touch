@@ -123,40 +123,48 @@ dnl ========================================================================
 dnl check for dependencies
 dnl ========================================================================
 
-PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.0.10])
-APP_LIBS="$APP_LIBS $MINIGUI_LIBS"
+PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.0.6])
+APP_LIBS="$APP_LIBS $MGNCS_LIBS"
+
+PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.0.0])
+APP_LIBS="$APP_LIBS $MGEFF_LIBS"
 
 PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.2.0])
 APP_LIBS="$APP_LIBS $MGPLUS_LIBS"
 
-PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.0.6])
-APP_LIBS="$APP_LIBS $MGNCS_LIBS"
+PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.0.10])
+APP_LIBS="$APP_LIBS $MINIGUI_LIBS"
 
-APP_LIBS="$APP_LIBS -lpthread"
+PC_LIBS="-lmgncs4pad$NCS4PAD_LIBSUFFIX"
+APP_LIBS="$PC_LIBS $APP_LIBS"
 
-CFLAGS="$CFLAGS -D__NCS4PAD_LIB__"
+PC_CFLAGS=""
+AC_SUBST(APP_LIBS)
+AC_SUBST(PC_LIBS)
+AC_SUBST(PC_CFLAGS)
 
 if test "$ac_cv_prog_gcc" = "yes"; then
     CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -pipe"
 fi
 
-AC_SUBST(APP_LIBS)
-
-AC_CONFIG_FILES([Makefile
-                mgncs4pad.pc
-				include/Makefile
-				include/pieces/Makefile
-				src/Makefile
-				src/pieces/Makefile
-				etc/Makefile
-				plugin/Makefile
-				plugin/guibuilder/Makefile
-				plugin/guibuilder/icon/Makefile
-				plugin/guibuilder/renderer/Makefile
-				plugin/guibuilder/renderer/fashion/Makefile
-				plugin/guibuilder/uieditor/Makefile
-				plugin/guibuilder/uieditor/defines/Makefile
-				])
+AC_CONFIG_FILES([
+    Makefile
+    mgncs4pad.pc
+	include/Makefile
+	include/pieces/Makefile
+	src/Makefile
+	src/pieces/Makefile
+	etc/Makefile
+    samples/Makefile
+    samples/res/Makefile
+	plugin/Makefile
+	plugin/guibuilder/Makefile
+	plugin/guibuilder/icon/Makefile
+	plugin/guibuilder/renderer/Makefile
+	plugin/guibuilder/renderer/fashion/Makefile
+	plugin/guibuilder/uieditor/Makefile
+	plugin/guibuilder/uieditor/defines/Makefile
+])
 
 AC_OUTPUT
 

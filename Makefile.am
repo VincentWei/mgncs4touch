@@ -23,3 +23,5 @@ endif
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA=mgncs4pad.pc
+
+EXTRA_DIST=README.md RELEASE-NOTES.md LICENSE samples
