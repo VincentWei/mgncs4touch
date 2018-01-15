@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT([libmgncs4pad], [1.0.1])
+AC_INIT([libmgncs4touch], [1.0.1])
 AC_CONFIG_SRCDIR([src/mpad.c])
 
 dnl Set various version strings
@@ -30,15 +30,15 @@ AC_SUBST(MGNCS4PAD_BINARY_AGE)
 AC_SUBST(MGNCS4PAD_VERSION)
 
 AC_DEFINE_UNQUOTED(MGNCS4PAD_MAJOR_VERSION, 
-                   $MGNCS4PAD_MAJOR_VERSION, [Major version of mgncs4pad])
+                   $MGNCS4PAD_MAJOR_VERSION, [Major version of mgncs4touch])
 AC_DEFINE_UNQUOTED(MGNCS4PAD_MINOR_VERSION, 
-                   $MGNCS4PAD_MINOR_VERSION, [Minor version of mgncs4pad])
+                   $MGNCS4PAD_MINOR_VERSION, [Minor version of mgncs4touch])
 AC_DEFINE_UNQUOTED(MGNCS4PAD_MICRO_VERSION, 
-                   $MGNCS4PAD_MICRO_VERSION, [Micro version of mgncs4pad])
+                   $MGNCS4PAD_MICRO_VERSION, [Micro version of mgncs4touch])
 AC_DEFINE_UNQUOTED(MGNCS4PAD_INTERFACE_AGE, 
-                   $MGNCS4PAD_INTERFACE_AGE, [Interface age of mgncs4pad])
+                   $MGNCS4PAD_INTERFACE_AGE, [Interface age of mgncs4touch])
 AC_DEFINE_UNQUOTED(MGNCS4PAD_BINARY_AGE, 
-                   $MGNCS4PAD_BINARY_AGE, [Binary age of mgncs4pad])
+                   $MGNCS4PAD_BINARY_AGE, [Binary age of mgncs4touch])
 
 # libtool versioning
 LT_RELEASE=$MGNCS4PAD_MAJOR_VERSION.$MGNCS4PAD_MINOR_VERSION
@@ -86,7 +86,7 @@ AC_FUNC_VPRINTF
 AC_FUNC_ALLOCA
 AC_CHECK_FUNCS([bzero dup2 getcwd memmove memset putenv strchr strdup strerror strstr])
 
-AC_CONFIG_HEADER(mgncs4padconfig.h)
+AC_CONFIG_HEADER(mgncs4touchconfig.h)
 
 AC_ARG_WITH(libsuffix,
   [  --with-libsuffix=ARG    configure the suffix of the library name.])
@@ -107,15 +107,15 @@ AC_ARG_ENABLE(guibuilder-support,
 guibuilder_support=$enableval)
 
 if test "x$guibuilder_support" = "xyes"; then
-	AC_DEFINE(_MGNCS4PAD_GUIBUILDER_SUPPORT, 1,
-		[Define if support guibuilder])
+    AC_DEFINE(_MGNCS4PAD_GUIBUILDER_SUPPORT, 1,
+        [Define if support guibuilder])
 fi
 
 AM_CONDITIONAL(NCS4PAD_HAVE_LIBSUFFIX, test "x$have_libsuffix" = "xyes")
 AC_SUBST(NCS4PAD_LIBSUFFIX)
 AC_DEFINE_UNQUOTED(_NCS4PAD_LIBSUFFIX, "${NCS4PAD_LIBSUFFIX}", [MGNCS library suffix])
 
-cfgfile=mgncs4pad.cfg
+cfgfile=mgncs4touch.cfg
 
 AC_DEFINE_UNQUOTED(MGNCS4PAD_ETCFILE, "${cfgfile}", [MGNCS4PAD configure file name])
 
@@ -135,7 +135,7 @@ APP_LIBS="$APP_LIBS $MGPLUS_LIBS"
 PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.0.10])
 APP_LIBS="$APP_LIBS $MINIGUI_LIBS"
 
-PC_LIBS="-lmgncs4pad$NCS4PAD_LIBSUFFIX"
+PC_LIBS="-lmgncs4touch$NCS4PAD_LIBSUFFIX"
 APP_LIBS="$PC_LIBS $APP_LIBS"
 
 PC_CFLAGS=""
@@ -149,21 +149,21 @@ fi
 
 AC_CONFIG_FILES([
     Makefile
-    mgncs4pad.pc
-	include/Makefile
-	include/pieces/Makefile
-	src/Makefile
-	src/pieces/Makefile
-	etc/Makefile
+    mgncs4touch.pc
+    include/Makefile
+    include/pieces/Makefile
+    src/Makefile
+    src/pieces/Makefile
+    etc/Makefile
     samples/Makefile
     samples/res/Makefile
-	plugin/Makefile
-	plugin/guibuilder/Makefile
-	plugin/guibuilder/icon/Makefile
-	plugin/guibuilder/renderer/Makefile
-	plugin/guibuilder/renderer/fashion/Makefile
-	plugin/guibuilder/uieditor/Makefile
-	plugin/guibuilder/uieditor/defines/Makefile
+    plugin/Makefile
+    plugin/guibuilder/Makefile
+    plugin/guibuilder/icon/Makefile
+    plugin/guibuilder/renderer/Makefile
+    plugin/guibuilder/renderer/fashion/Makefile
+    plugin/guibuilder/uieditor/Makefile
+    plugin/guibuilder/uieditor/defines/Makefile
 ])
 
 AC_OUTPUT

@@ -1,9 +1,9 @@
-# mGNCS4Pad
+# mGNCS4Touch
 
-mGNCS4Pad - This component provides some new controls, which are compliant
-to new control API spec of mGNCS, for iPad-like devices.
+mGNCS4Touch - This component provides some new controls, which are compliant
+to new control API spec of mGNCS, for devices with a touch screen.
 
-This is the mainline release of mGNCS4pad for MiniGUI V3.0.x or later.
+This is the mainline release of mGNCS4Touch for MiniGUI V3.0.x or later.
 
 ## Prerequisites
 
@@ -14,20 +14,20 @@ This is the mainline release of mGNCS4pad for MiniGUI V3.0.x or later.
 
 ## Building
 
-mGNCS4Pad uses GNU autoconf/automake scripts to configure and build the project.
+mGNCS4Touch uses GNU autoconf/automake scripts to configure and build the project.
 
 Run
 
     $ ./configure; make; sudo make install
 
-to configure, make, and install the headers and the libraries (libmgncs4pad).
+to configure, make, and install the headers and the libraries (libmgncs4touch).
 
-mGNCS4Pad also provides some configuration options to customize the features.
+mGNCS4Touch also provides some configuration options to customize the features.
 For more information, please run
 
     $ ./configure --help
 
-After installed mGNCS4Pad successfully, you can change to samples/ to make
+After installed mGNCS4Touch successfully, you can change to samples/ to make
 the samples:
 
     $ cd samples/
@@ -35,6 +35,6 @@ the samples:
 
 ## Copying
 
-Copyright (C) 2008 ~ 2017, Beijing FMSoft Technologies Co., Ltd.
+Copyright (C) 2008 ~ 2018, Beijing FMSoft Technologies Co., Ltd.
 
 
