@@ -13,15 +13,12 @@
 #                                                                    #
 ######################################################################
 
-AUTOMAKE_OPTIONS = foreign
+AUTOMAKE_OPTIONS=foreign
 
-if NCS4PAD_HAVE_LIBSUFFIX
-SUBDIRS = include src etc plugin
-else
-SUBDIRS = include src etc
-endif
+SUBDIRS=include src etc samples
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA=mgncs4pad.pc
+pkgconfig_DATA=mgncs4touch.pc
 
-EXTRA_DIST=README.md RELEASE-NOTES.md LICENSE samples
+EXTRA_DIST=README.md RELEASE-NOTES.md LICENSE
+DIST_SUBDIRS=plugin
