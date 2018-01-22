@@ -13,15 +13,15 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_COMMON_H__
-#define __MGNCS4PAD_COMMON_H__
+#ifndef __MGNCS4TOUCH_COMMON_H__
+#define __MGNCS4TOUCH_COMMON_H__
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
 #ifdef WIN32
-#   ifdef __MGNCS4PAD_LIB__
+#   ifdef __MGNCS4TOUCH_LIB__
 #       define MPAD_EXPORT       __declspec(dllexport)
 #   else
 #       define MPAD_EXPORT       __declspec(dllimport)
@@ -65,5 +65,5 @@ MPAD_EXPORT int DrawRectRing(HDC hdc, PRECT pRcOutside, PRECT pRcInside, DWORD c
 }
 #endif
 
-#endif //__MGNCS4PAD_COMMON_H__
+#endif //__MGNCS4TOUCH_COMMON_H__
 

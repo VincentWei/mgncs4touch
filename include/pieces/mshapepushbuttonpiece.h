@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_SHAPEPUSHBUTTONPIECE_H__
-#define __MGNCS4PAD_SHAPEPUSHBUTTONPIECE_H__
+#ifndef __MGNCS4TOUCH_SHAPEPUSHBUTTONPIECE_H__
+#define __MGNCS4TOUCH_SHAPEPUSHBUTTONPIECE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -54,5 +54,5 @@ enum mShapePushButtonPieceProps {
 }
 #endif
 
-#endif	// __MGNCS4PAD_SHAPEPUSHBUTTONPIECE_H__
+#endif	// __MGNCS4TOUCH_SHAPEPUSHBUTTONPIECE_H__
 

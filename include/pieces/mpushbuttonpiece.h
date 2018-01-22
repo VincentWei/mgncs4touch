@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_PUSHBUTTONPIECE_H__
-#define __MGNCS4PAD_PUSHBUTTONPIECE_H__
+#ifndef __MGNCS4TOUCH_PUSHBUTTONPIECE_H__
+#define __MGNCS4TOUCH_PUSHBUTTONPIECE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,5 +44,5 @@ struct _mPushButtonPiece {
 }
 #endif
 
-#endif	// __MGNCS4PAD_PUSHBUTTONPIECE_H__
+#endif	// __MGNCS4TOUCH_PUSHBUTTONPIECE_H__
 

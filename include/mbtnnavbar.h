@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_BNB_H__
-#define __MGNCS4PAD_BNB_H__
+#ifndef __MGNCS4TOUCH_BNB_H__
+#define __MGNCS4TOUCH_BNB_H__
 
 /**
  * \defgroup ControlBtnNavBar mBtnNavBar
@@ -206,5 +206,5 @@ enum mBtnNavBarBoxLayoutPieceIndexID {
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_BNB_H__ */
+#endif  /* __MGNCS4TOUCH_BNB_H__ */
 

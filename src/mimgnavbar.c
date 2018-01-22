@@ -1,17 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
- * Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
- * District, Beijing, P. R. CHINA 100191.
- * All rights reserved.
+/*
+ * \file mimgnavbar.c
+ * \author FMSoft
+ * \date 2010/10/09
  *
- * This software is the confidential and proprietary information of
- * Beijing FMSoft Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall
- * use it only in accordance you entered into with FMSoft.
- *
- *          http://www.minigui.com
- *
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,9 +47,8 @@
 #include <minigui/window.h>
 #include <mgncs/mgncs.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "mimgnavbar.h"
 #include "pieces/mshapepushbuttonpiece.h"
 #include "pieces/mshapeboxpiece.h"
@@ -106,7 +129,7 @@ static BOOL mImgNavBar_onCreate(mImgNavBar* self, DWORD add)
     GetClientRect(self->hwnd, &rc);
     self->leftbt_w = self->rightbt_w = ((RECTH(rc)) - (self->margin_w << 1)) << 1;
 
-    _M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4PAD_RENDERER);
+    _M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4TOUCH_RENDERER);
 
     return TRUE;
 }
@@ -184,7 +207,7 @@ static void mImgNavBar_onPaint(mImgNavBar* self, HDC hdc, const PCLIPRGN pinv_cl
 
     SelectFont(hdc, self->caption_font);
     oldTxtColor = SetTextColor(hdc,
-            ncsColor2Pixel(hdc, ncsGetElement(self, NCS4PAD_FGC_INB_TEXT)));
+            ncsColor2Pixel(hdc, ncsGetElement(self, NCS4TOUCH_FGC_INB_TEXT)));
     oldMode = SetBkMode(hdc, BM_TRANSPARENT);
     DrawText(hdc, text, -1, &text_rc, DT_CENTER|DT_VCENTER | DT_SINGLELINE);
     SetBkMode(hdc, oldMode);
@@ -204,7 +227,7 @@ static BOOL mImgNavBar_setProperty(mImgNavBar* self, int id, DWORD value)
 
     switch (id) {
         case NCSP_WIDGET_RDR:
-            if (strcmp((char*)value, NCS4PAD_RENDERER) == 0)
+            if (strcmp((char*)value, NCS4TOUCH_RENDERER) == 0)
                 break;
             else
                 return FALSE;

@@ -1,6 +1,6 @@
 TOP_DIR = ../..
 
-AM_CPPFLAGS = -D__NCS4PAD_LIB__ -I$(TOP_DIR)/include -I$(TOP_DIR)/include/ -I. -I$(TOP_DIR) -I..
+AM_CPPFLAGS = -D__NCS4TOUCH_LIB__ -I$(TOP_DIR)/include -I$(TOP_DIR)/include/ -I. -I$(TOP_DIR) -I..
 
 noinst_LTLIBRARIES = libpieces.la
 

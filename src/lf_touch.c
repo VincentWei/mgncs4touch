@@ -1,17 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
- * Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
- * District, Beijing, P. R. CHINA 100191.
- * All rights reserved.
+/*
+ * \file lf_touch.c
+ * \author FMSoft
+ * \date 2010/10/09
  *
- * This software is the confidential and proprietary information of
- * Beijing FMSoft Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall
- * use it only in accordance you entered into with FMSoft.
- *
- *          http://www.minigui.com
- *
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,11 +49,11 @@
 #include <mgplus/mgplus.h>
 #include <mgncs/mgncs.h>
 
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 
 // #define NDEBUG	1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 
 #define CAP_BTN_INTERVAL        2
@@ -57,23 +81,18 @@
         ((win_info)->dwExStyle & WS_EX_LEFTSCROLLBAR)
 
 
-static WINDOW_ELEMENT_RENDERER* current_rdr = NULL;
+static const WINDOW_ELEMENT_RENDERER* old_fashion_rdr = NULL;
+static WINDOW_ELEMENT_RENDERER new_fashion_rdr;
 
-static int (*old_fashion_calc_we_area)(HWND, int, RECT*) = NULL;
-static int (*old_fashion_hit_test)(HWND, int, int) = NULL;
-static void (*old_fashion_draw_border)(HWND, HDC, BOOL) = NULL;
-static void (*old_fashion_calc_thumb_area)(HWND, BOOL, LFSCROLLBARINFO*) = NULL;
-static int (*old_fashion_calc_we_metrics)(HWND, LFRDR_WINSTYLEINFO*, int) = NULL;
-
-static int pad_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int which);
+static int touch_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int which);
 
 
 static inline int get_window_scrollbar(HWND hWnd, BOOL is_vertival)
 {
     if (is_vertival) {
-        return pad_calc_we_metrics(hWnd, NULL, LFRDR_METRICS_VSCROLL_W);
+        return touch_calc_we_metrics(hWnd, NULL, LFRDR_METRICS_VSCROLL_W);
     } else {
-        return pad_calc_we_metrics(hWnd, NULL, LFRDR_METRICS_HSCROLL_H);
+        return touch_calc_we_metrics(hWnd, NULL, LFRDR_METRICS_HSCROLL_H);
     }
 }
 
@@ -248,7 +267,7 @@ static int calc_vscroll_area(HWND hWnd, int which, RECT* we_area)
     return -1;
 }
 
-static int pad_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int which)
+static int touch_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int which)
 {
     switch (which & LFRDR_METRICS_MASK) {
         case LFRDR_METRICS_BORDER:
@@ -267,7 +286,7 @@ static int pad_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int wh
                     return 0;
                 }
                 _idx = WE_METRICS_SCROLLBAR & WE_ATTR_INDEX_MASK;
-                return current_rdr->we_metrics[_idx];
+                return old_fashion_rdr->we_metrics[_idx];
             }
             else if (hWnd != HWND_NULL) {
                 const WINDOWINFO *win_info = GetWindowInfo(hWnd);
@@ -284,7 +303,7 @@ static int pad_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int wh
                     return 0;
                 }
                 _idx = WE_METRICS_SCROLLBAR & WE_ATTR_INDEX_MASK;
-                return current_rdr->we_metrics[_idx];
+                return old_fashion_rdr->we_metrics[_idx];
             } else if (hWnd != HWND_NULL) {
                 const WINDOWINFO *win_info = GetWindowInfo(hWnd);
                 if (!IS_HSCROLL_VISIBLE(win_info))
@@ -294,17 +313,17 @@ static int pad_calc_we_metrics(HWND hWnd, LFRDR_WINSTYLEINFO* style_info, int wh
         }
 
         case LFRDR_METRICS_MINWIN_WIDTH: {
-            return (pad_calc_we_metrics(hWnd, style_info, LFRDR_METRICS_BORDER)<< 1);
+            return (touch_calc_we_metrics(hWnd, style_info, LFRDR_METRICS_BORDER)<< 1);
         }
 
         case LFRDR_METRICS_MINWIN_HEIGHT: {
-            return (pad_calc_we_metrics(hWnd, style_info, LFRDR_METRICS_BORDER)<< 1);
+            return (touch_calc_we_metrics(hWnd, style_info, LFRDR_METRICS_BORDER)<< 1);
         }
     }
-    return old_fashion_calc_we_metrics(hWnd, style_info, which);
+    return old_fashion_rdr->calc_we_metrics(hWnd, style_info, which);
 }
 
-static int pad_calc_we_area(HWND hWnd, int which, RECT* we_area)
+static int touch_calc_we_area(HWND hWnd, int which, RECT* we_area)
 {
     const WINDOWINFO* win_info = NULL;
     int border = 0;
@@ -361,10 +380,10 @@ static int pad_calc_we_area(HWND hWnd, int which, RECT* we_area)
             }
     }
 
-    return old_fashion_calc_we_area(hWnd, which, we_area);
+    return old_fashion_rdr->calc_we_area(hWnd, which, we_area);
 }
 
-static void pad_calc_thumb_area(HWND hWnd, BOOL vertical, LFSCROLLBARINFO* sb_info)
+static void touch_calc_thumb_area(HWND hWnd, BOOL vertical, LFSCROLLBARINFO* sb_info)
 {
     RECT rc;
     div_t divt;
@@ -415,16 +434,16 @@ static int test_caption(HWND hWnd, int x, int y)
 {
     RECT rc;
 
-    if (pad_calc_we_area(hWnd, HT_ICON, &rc) == 0)
+    if (touch_calc_we_area(hWnd, HT_ICON, &rc) == 0)
         CHECK_RET_VAL(PtInRect(&rc, x, y), HT_ICON);
 
-    if (pad_calc_we_area(hWnd, HT_MINBUTTON, &rc) == 0)
+    if (touch_calc_we_area(hWnd, HT_MINBUTTON, &rc) == 0)
         CHECK_RET_VAL(PtInRect(&rc, x, y), HT_MINBUTTON);
 
-    if (pad_calc_we_area(hWnd, HT_MAXBUTTON, &rc) == 0)
+    if (touch_calc_we_area(hWnd, HT_MAXBUTTON, &rc) == 0)
         CHECK_RET_VAL(PtInRect(&rc, x, y), HT_MAXBUTTON);
 
-    if (pad_calc_we_area(hWnd, HT_CLOSEBUTTON, &rc) == 0)
+    if (touch_calc_we_area(hWnd, HT_CLOSEBUTTON, &rc) == 0)
         CHECK_RET_VAL(PtInRect(&rc, x, y), HT_CLOSEBUTTON);
 
     return HT_CAPTION;
@@ -456,7 +475,7 @@ static int test_scroll(const LFSCROLLBARINFO* sb_info,
         return x_poses[x_pos]|((is_vertival) ? HT_SB_VMASK : 0);
 }
 
-static int pad_hit_test(HWND hWnd, int x, int y)
+static int touch_hit_test(HWND hWnd, int x, int y)
 {
     static const int ht_inner_border[4] = {
         HT_CAPTION, HT_MENUBAR, HT_VSCROLL, HT_HSCROLL
@@ -552,7 +571,7 @@ static int pad_hit_test(HWND hWnd, int x, int y)
 
 }
 
-static void pad_draw_border(HWND hWnd, HDC hdc, BOOL is_active)
+static void touch_draw_border(HWND hWnd, HDC hdc, BOOL is_active)
 {
     RECT rect;
     ECONER con;
@@ -565,7 +584,7 @@ static void pad_draw_border(HWND hWnd, HDC hdc, BOOL is_active)
         if (border < 0)
             return;
 
-        if (pad_calc_we_area(hWnd, HT_BORDER, &rect) == -1)
+        if (touch_calc_we_area(hWnd, HT_BORDER, &rect) == -1)
             return;
 
         color = GetWindowElementAttr(hWnd,
@@ -587,40 +606,36 @@ static void pad_draw_border(HWND hWnd, HDC hdc, BOOL is_active)
         return;
     }
 
-    return old_fashion_draw_border(hWnd, hdc, is_active);
+    return old_fashion_rdr->draw_border(hWnd, hdc, is_active);
 }
 
-static int pad_init(PWERENDERER renderer)
+static int touch_init(PWERENDERER renderer)
 {
     return 0;
 }
 
-static int pad_deinit(PWERENDERER renderer)
+static int touch_deinit(PWERENDERER renderer)
 {
     return 0;
 }
 
 BOOL RegisterPadRDR(void)
 {
-    if (NULL == (current_rdr = GetWindowRendererFromName(NCS4PAD_RENDERER))) {
-        LOGE("%s :: get fashion renderer Error.", __FUNCTION__);
+    if (NULL == (old_fashion_rdr = GetWindowRendererFromName(NCS4TOUCH_RENDERER))) {
+        LOGE("%s :: get fashion renderer error.", __FUNCTION__);
         return FALSE;
     }
 
-    old_fashion_calc_we_area 	= current_rdr->calc_we_area;
-    old_fashion_hit_test 		= current_rdr->hit_test;
-    old_fashion_draw_border 	= current_rdr->draw_border;
-    old_fashion_calc_thumb_area = current_rdr->calc_thumb_area;
-    old_fashion_calc_we_metrics = current_rdr->calc_we_metrics;
+    memcpy (&new_fashion_rdr, old_fashion_rdr, sizeof (WINDOW_ELEMENT_RENDERER));
 
-    current_rdr->init            = pad_init;
-    current_rdr->deinit          = pad_deinit;
-    current_rdr->calc_we_area    = pad_calc_we_area;
-    current_rdr->hit_test        = pad_hit_test;
-    current_rdr->draw_border     = pad_draw_border;
-    current_rdr->calc_thumb_area = pad_calc_thumb_area;
-    current_rdr->calc_we_metrics = pad_calc_we_metrics;
+    new_fashion_rdr.init            = touch_init;
+    new_fashion_rdr.deinit          = touch_deinit;
+    new_fashion_rdr.calc_we_area    = touch_calc_we_area;
+    new_fashion_rdr.hit_test        = touch_hit_test;
+    new_fashion_rdr.draw_border     = touch_draw_border;
+    new_fashion_rdr.calc_thumb_area = touch_calc_thumb_area;
+    new_fashion_rdr.calc_we_metrics = touch_calc_we_metrics;
 
-    return TRUE;
+    RemoveWindowElementRenderer (NCS4TOUCH_RENDERER);
+    return AddWindowElementRenderer (NCS4TOUCH_RENDERER, &new_fashion_rdr);
 }
-

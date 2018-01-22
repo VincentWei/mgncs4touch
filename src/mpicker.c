@@ -1,15 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
- * Room 508B-C, Floor 5, Citic Guoan Shumagang, No.32, Haidian South
- * Road, Haidian District, Beijing, P. R. CHINA 100080.
- * All rights reserved.
+/*
+ * \file mpicker.c
+ * \author FMSoft
+ * \date 2010/10/09
  *
- * This software is the confidential and proprietary information of
- * Feynman Software Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall use
- * it only in accordance you entered into with Feynman Software.
- *          http://www.minigui.com
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,14 +50,13 @@
 #include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "manimation.h"
 #include "mpicker.h"
 
 #define NDEBUG  1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 #define PCK_EPSINON			0.01
 #define USEPARENTRDR(self)	(GetWindowExStyle(self->hwnd) & WS_EX_USEPARENTRDR)
@@ -123,9 +148,9 @@ static void _drawItem(mPicker* self, HITEM hItem, HDC hdc, RECT* pRc)
     const char* text = _c(self)->getText(self, hItem);
 
     if (!_M(self, isEnabled, hItem)) {
-        c = GETELEMENT(self, NCS4PAD_FGC_PCK_DISABLE);
+        c = GETELEMENT(self, NCS4TOUCH_FGC_PCK_DISABLE);
     } else {
-        c = GETELEMENT(self, NCS4PAD_FGC_PCK_PICKER);
+        c = GETELEMENT(self, NCS4TOUCH_FGC_PCK_PICKER);
     }
 
     SetBkMode(hdc, BM_TRANSPARENT);
@@ -156,7 +181,7 @@ static void prepareBkDC(mPicker* self)
     rcP.top    = rc.top    + self->hMargin;
     rcP.bottom = rc.bottom - self->hMargin;
 
-    c = GETELEMENT(self, NCS4PAD_BGC_PCK_MAIN);
+    c = GETELEMENT(self, NCS4TOUCH_BGC_PCK_MAIN);
     DrawRectRing(self->bkDC, &rc, &rcP, c);
 
 	style = GetWindowStyle(self->hwnd);
@@ -167,7 +192,7 @@ static void prepareBkDC(mPicker* self)
 	} else if (style & NCSS_PCK_RRC) {
 		corner = ECT_RIGHTR;
 	}
-    mc = GETELEMENT(self, NCS4PAD_BGC_PCK_PICKER);
+    mc = GETELEMENT(self, NCS4TOUCH_BGC_PCK_PICKER);
     bc = ncsCommRDRCalc3dboxColor(mc, NCSR_COLOR_DARKER);
     DrawPickerRect(self->bkDC, &rcP, bc, mc, corner);
 }
@@ -219,7 +244,7 @@ static void mPicker_destroy (mPicker *self)
 
 static BOOL mPicker_onCreate(mPicker* self, DWORD add)
 {
-    _M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4PAD_RENDERER);
+    _M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4TOUCH_RENDERER);
 
     return TRUE;
 }
@@ -333,7 +358,7 @@ static void mPicker_onPaint(mPicker* self, HDC hdc, const PCLIPRGN _clip)
     rcSel.right = rc.right-1;
     rcSel.top = rc.top + RECTH(rc) / self->itemVisible * (self->itemVisible >> 1);
     rcSel.bottom = rcSel.top + RECTH(rc) / self->itemVisible;
-    drawAlphaCover(tmpDc, &rcSel, GETELEMENT(self, NCS4PAD_BGC_PCK_SELECT), 112);
+    drawAlphaCover(tmpDc, &rcSel, GETELEMENT(self, NCS4TOUCH_BGC_PCK_SELECT), 112);
 
 	if (isCompDC) {
 		BitBlt(tmpDc, 0, 0, 0, 0, hdc, 0, 0, 0);
@@ -438,7 +463,7 @@ static BOOL mPicker_setProperty(mPicker* self, int id, DWORD value)
 
     switch (id) {
         case NCSP_WIDGET_RDR:
-            if (strcmp((char*)value, NCS4PAD_RENDERER) == 0)
+            if (strcmp((char*)value, NCS4TOUCH_RENDERER) == 0)
                 break;
             else
                 return FALSE;
@@ -776,7 +801,7 @@ static MGEFF_ANIMATION mPicker_createAnimation(mPicker* self,
     return group;
 }
 
-#ifdef _MGNCS4PAD_GUIBUILDER_SUPPORT
+#ifdef _MGNCS4TOUCH_GUIBUILDER_SUPPORT
 static BOOL mPicker_refresh(mPicker* self)
 {
     DWORD dwStyle = GetWindowStyle(self->hwnd);
@@ -815,7 +840,7 @@ BEGIN_CMPT_CLASS(mPicker, mAnimation)
     CLASS_METHOD_MAP(mPicker, setSpan)
     CLASS_METHOD_MAP(mPicker, enableItems)
     CLASS_METHOD_MAP(mPicker, disableItems)
-#ifdef _MGNCS4PAD_GUIBUILDER_SUPPORT
+#ifdef _MGNCS4TOUCH_GUIBUILDER_SUPPORT
     CLASS_METHOD_MAP(mPicker, refresh)
 #endif
 END_CMPT_CLASS

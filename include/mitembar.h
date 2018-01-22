@@ -16,8 +16,8 @@
  *     Version : 0.0.0.1
  *********************************************************************/
 
-#ifndef __NCS4PAD_ITEM_BAR_H__
-#define __NCS4PAD_ITEM_BAR_H__
+#ifndef __NCS4TOUCH_ITEM_BAR_H__
+#define __NCS4TOUCH_ITEM_BAR_H__
 
 /**
  * \defgroup ControlItemBar mItemBar
@@ -141,5 +141,5 @@ enum mItemBarNotify {
 }
 #endif  /* __cplusplus */
 
-#endif  /* __NCS4PAD_ITEM_BAR_H__ */
+#endif  /* __NCS4TOUCH_ITEM_BAR_H__ */
 

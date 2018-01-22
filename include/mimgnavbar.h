@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_INB_H__
-#define __MGNCS4PAD_INB_H__
+#ifndef __MGNCS4TOUCH_INB_H__
+#define __MGNCS4TOUCH_INB_H__
 
 /**
  * \defgroup ControlImgNavBar mImgNavBar
@@ -184,5 +184,5 @@ enum mImgNavBarBoxLayoutPieceIndexID {
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_INB_H__ */
+#endif  /* __MGNCS4TOUCH_INB_H__ */
 

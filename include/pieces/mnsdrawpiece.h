@@ -16,8 +16,8 @@
  *     Version : 0.0.0.1
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_NSDRAWPIECE_H__
-#define __MGNCS4PAD_NSDRAWPIECE_H__
+#ifndef __MGNCS4TOUCH_NSDRAWPIECE_H__
+#define __MGNCS4TOUCH_NSDRAWPIECE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -71,5 +71,5 @@ enum mNSDrawPieceShape {
 }
 #endif
 
-#endif	// __MGNCS4PAD_NSDRAWPIECE_H__
+#endif	// __MGNCS4TOUCH_NSDRAWPIECE_H__
 

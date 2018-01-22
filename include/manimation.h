@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_ANIMATION_H__
-#define __MGNCS4PAD_ANIMATION_H__
+#ifndef __MGNCS4TOUCH_ANIMATION_H__
+#define __MGNCS4TOUCH_ANIMATION_H__
 
 /**
  * \defgroup Ctrl_Aniamtion mAnimation
@@ -88,5 +88,5 @@ MGNCS_EXPORT  extern mAnimationClass g_stmAnimationCls;
 }
 #endif  /* __cplusplus */
 
-#endif /* __MGNCS4PAD_ANIMATION_H__ */
+#endif /* __MGNCS4TOUCH_ANIMATION_H__ */
 

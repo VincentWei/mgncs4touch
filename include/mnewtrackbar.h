@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_NTRKBAR_H__
-#define __MGNCS4PAD_NTRKBAR_H__
+#ifndef __MGNCS4TOUCH_NTRKBAR_H__
+#define __MGNCS4TOUCH_NTRKBAR_H__
 
 /**
  * \defgroup ControlNewTrackBar mNewTrackBar
@@ -109,5 +109,5 @@ enum mNewTrackBarProp {
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_NTRKBAR_H__ */
+#endif  /* __MGNCS4TOUCH_NTRKBAR_H__ */
 

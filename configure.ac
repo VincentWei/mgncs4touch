@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT([libmgncs4touch], [1.0.1])
+AC_INIT([libmgncs4touch], [1.2.0])
 AC_CONFIG_SRCDIR([src/mgncs4touch.c])
 
 dnl Set various version strings
@@ -16,8 +16,8 @@ dnl Set various version strings
 # set _BINARY_AGE and _INTERFACE_AGE to 0.
 #
 MGNCS4TOUCH_MAJOR_VERSION=1
-MGNCS4TOUCH_MINOR_VERSION=0
-MGNCS4TOUCH_MICRO_VERSION=1
+MGNCS4TOUCH_MINOR_VERSION=2
+MGNCS4TOUCH_MICRO_VERSION=0
 MGNCS4TOUCH_INTERFACE_AGE=0
 MGNCS4TOUCH_BINARY_AGE=0
 MGNCS4TOUCH_VERSION=$MGNCS4TOUCH_MAJOR_VERSION.$MGNCS4TOUCH_MINOR_VERSION.$MGNCS4TOUCH_MICRO_VERSION
@@ -88,8 +88,13 @@ AC_CHECK_FUNCS([bzero dup2 getcwd memmove memset putenv strchr strdup strerror s
 
 AC_CONFIG_HEADER(mgncs4touchconfig.h)
 
+devel_mode="no"
+AC_ARG_ENABLE(develmode,
+[  --enable-develmode       developer mode <default=no>],
+devel_mode=$enableval)
+
 AC_ARG_WITH(libsuffix,
-  [  --with-libsuffix=ARG    configure the suffix of the library name.])
+  [  --with-libsuffix=ARG   configure the suffix of the library name.])
 
 case "$with_libsuffix" in
     "")
@@ -102,22 +107,17 @@ case "$with_libsuffix" in
     ;;
 esac
 
-AC_ARG_ENABLE(guibuilder-support,
-[ --enable-guibuilder-support   new control set used to support guibuilder <default=no>],
+guibuilder_support="yes"
+AC_ARG_ENABLE(guibuildersupport,
+[ --enable-guibuildersupport   definitions for plugin of guibuilder <default=no>],
 guibuilder_support=$enableval)
 
 if test "x$guibuilder_support" = "xyes"; then
-    AC_DEFINE(_MGNCS4TOUCH_GUIBUILDER_SUPPORT, 1,
-        [Define if support guibuilder])
+    AC_DEFINE(_MGNCS4TOUCH_GUIBUILDER_SUPPORT, 1, [Define if support guibuilder])
 fi
 
 AM_CONDITIONAL(NCS4TOUCH_HAVE_LIBSUFFIX, test "x$have_libsuffix" = "xyes")
 AC_SUBST(NCS4TOUCH_LIBSUFFIX)
-AC_DEFINE_UNQUOTED(_NCS4TOUCH_LIBSUFFIX, "${NCS4TOUCH_LIBSUFFIX}", [MGNCS library suffix])
-
-cfgfile=mgncs4touch.cfg
-
-AC_DEFINE_UNQUOTED(MGNCS4TOUCH_ETCFILE, "${cfgfile}", [MGNCS4TOUCH configure file name])
 
 dnl ========================================================================
 dnl check for dependencies
@@ -136,18 +136,24 @@ PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.2.0])
 APP_LIBS="$APP_LIBS $MINIGUI_LIBS"
 
 PC_LIBS="-lmgncs4touch$NCS4TOUCH_LIBSUFFIX"
-APP_LIBS="$PC_LIBS $APP_LIBS"
 
 PC_CFLAGS=""
 AC_SUBST(APP_LIBS)
 AC_SUBST(PC_LIBS)
 AC_SUBST(PC_CFLAGS)
 
-if test "$ac_cv_prog_gcc" = "yes"; then
-    CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -pipe"
+CFLAGS="$CFLAGS -D__MGNCS4TOUCH_LIB__"
+if test "x$devel_mode" = "xyes"; then
+    if test "$ac_cv_prog_gcc" = "yes"; then
+        CPPFLAGS="$CPPFLAGS -Wall -Werror"
+    fi
 fi
 
-AC_CONFIG_FILES([
+if test "$ac_cv_prog_gcc" = "yes"; then
+    CFLAGS="$CFLAGS -Wstrict-prototypes -pipe"
+fi
+
+AC_OUTPUT([
     Makefile
     mgncs4touch.pc
     include/Makefile
@@ -159,6 +165,11 @@ AC_CONFIG_FILES([
     samples/res/Makefile
 ])
 
-AC_OUTPUT
-
-
+echo
+echo "Creating include directory for samples"
+cd samples/
+if test ! -h mgncs4touch; then
+    ln -s ../include mgncs4touch
+fi
+cd ..
+echo "Done."

@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_IMAGEPIECE_H__
-#define __MGNCS4PAD_IMAGEPIECE_H__
+#ifndef __MGNCS4TOUCH_IMAGEPIECE_H__
+#define __MGNCS4TOUCH_IMAGEPIECE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,5 +60,5 @@ enum mImagePieceProps {
 }
 #endif
 
-#endif	// __MGNCS4PAD_IMAGEPIECE_H__
+#endif	// __MGNCS4TOUCH_IMAGEPIECE_H__
 

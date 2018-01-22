@@ -11,8 +11,8 @@
  *          http://www.minigui.com
  *********************************************************************/
 
-#ifndef _MGUI_NCS4PAD_ENOD_H_
-#define _MGUI_NCS4PAD_ENOD_H_
+#ifndef _MGUI_NCS4TOUCH_ENOD_H_
+#define _MGUI_NCS4TOUCH_ENOD_H_
  
 #ifdef __cplusplus
 extern "C" {
@@ -111,5 +111,5 @@ MPAD_EXPORT extern mExNodeClass g_stmExNodeCls;
 }
 #endif  /* __cplusplus */
 
-#endif  /* _MGUI_NCS4PAD_ENOD_H_ */
+#endif  /* _MGUI_NCS4TOUCH_ENOD_H_ */
 

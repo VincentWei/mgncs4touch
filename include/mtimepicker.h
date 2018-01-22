@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_TPCK_H__
-#define __MGNCS4PAD_TPCK_H__
+#ifndef __MGNCS4TOUCH_TPCK_H__
+#define __MGNCS4TOUCH_TPCK_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,5 +77,5 @@ MPAD_EXPORT extern mTimePickerClass g_stmTimePickerCls;
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_TPCK_H__ */
+#endif  /* __MGNCS4TOUCH_TPCK_H__ */
 

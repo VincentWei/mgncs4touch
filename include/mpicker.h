@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_PCK_H__
-#define __MGNCS4PAD_PCK_H__
+#ifndef __MGNCS4TOUCH_PCK_H__
+#define __MGNCS4TOUCH_PCK_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -107,5 +107,5 @@ MPAD_EXPORT extern mPickerClass g_stmPickerCls;
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_PCK_H__ */
+#endif  /* __MGNCS4TOUCH_PCK_H__ */
 

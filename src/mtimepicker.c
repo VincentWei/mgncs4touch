@@ -1,20 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
- * Room 508B-C, Floor 5, Citic Guoan Shumagang, No.32, Haidian South
- * Road, Haidian District, Beijing, P. R. CHINA 100080.
- * All rights reserved.
+/*
+ * \file mtimerpicker.c
+ * \author FMSoft
+ * \date 2010/09/09
  *
- * This software is the confidential and proprietary information of
- * Feynman Software Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall use
- * it only in accordance you entered into with Feynman Software.
- *          http://www.minigui.com
- *
- *    FileName : mtimepicker.c
- *      Author : <wangxin@minigui.org>
- * Create Date : Thursday September 09, 2010
- *     Version : 0.0.0.1
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,15 +50,14 @@
 #include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
+#include "mtouchcomm.h"
 #include "manimation.h"
 #include "mpicker.h"
 #include "mcombopicker.h"
 #include "mtimepicker.h"
 
 // #define NDEBUG	1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 
 #define TP_AMPM_ID		1001
@@ -509,7 +529,7 @@ static int mTimePicker_onSizeChanged(mTimePicker *self, RECT *rtClient)
 }
 
 
-#ifdef _MGNCS4PAD_GUIBUILDER_SUPPORT
+#ifdef _MGNCS4TOUCH_GUIBUILDER_SUPPORT
 static BOOL mTimePicker_refresh(mTimePicker* self)
 {
 	LOGELINE();
@@ -532,7 +552,7 @@ BEGIN_CMPT_CLASS(mTimePicker, mComboPicker)
 	CLASS_METHOD_MAP(mTimePicker, setProperty)
 	CLASS_METHOD_MAP(mTimePicker, getProperty)
 	CLASS_METHOD_MAP(mTimePicker, listenerCallBack)
-#ifdef _MGNCS4PAD_GUIBUILDER_SUPPORT
+#ifdef _MGNCS4TOUCH_GUIBUILDER_SUPPORT
 	CLASS_METHOD_MAP(mTimePicker, refresh)
 #endif
 END_CMPT_CLASS

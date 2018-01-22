@@ -1,15 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
- * Room 508B-C, Floor 5, Citic Guoan Shumagang, No.32, Haidian South
- * Road, Haidian District, Beijing, P. R. CHINA 100080.
- * All rights reserved.
+/*
+ * \file touch_pieces.c
+ * \author FMSoft
+ * \date 2010/10/09
  *
- * This software is the confidential and proprietary information of
- * Feynman Software Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall use
- * it only in accordance you entered into with Feynman Software.
- *          http://www.minigui.com
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,13 +49,13 @@
 #include <mgncs/mgncs.h>
 //#include <mgeff/mgeff.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mgncs4touchconfig.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "mnewtrackbar.h"
 
 #define NDEBUG    1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 #define NTB_TRIP_L    1
 #define NTB_TRIP_R    1
@@ -49,7 +75,7 @@ static void pad_thumbbox_paint(mThumbBoxPiece* self, HDC hdc,
         return;
 
     dwStyle = GetWindowStyle(newTrackBar->hwnd);
-    thumbColor = ncsGetElement(owner, NCS4PAD_BGC_NTB_BLOCK);
+    thumbColor = ncsGetElement(owner, NCS4TOUCH_BGC_NTB_BLOCK);
 
     if (dwStyle & NCSS_NTRKBAR_CIRCLE) {
         Draw3DCircle(hdc, &rc, thumbColor);
@@ -64,7 +90,7 @@ static void pad_thumbbox_paint(mThumbBoxPiece* self, HDC hdc,
     else
         r = RECTW(rc) / 5;
 
-    thumbColor = ncsGetElement(owner, NCS4PAD_BGC_NTB_BLOCK);
+    thumbColor = ncsGetElement(owner, NCS4TOUCH_BGC_NTB_BLOCK);
     DrawGradientRroundRect(hdc, thumbColor, &rc, r, TRUE);
 }
 
@@ -125,8 +151,8 @@ static void pad_trackbar_paint(mTrackBarPiece* self, HDC hdc,
     if (!_c(self)->getRect(self, &rc))
         return;
 
-    lbgcolor = ncsGetElement(owner, NCS4PAD_BGC_NTB_HITEM);
-    rbgcolor = ncsGetElement(owner, NCS4PAD_BGC_NTB_DITEM);
+    lbgcolor = ncsGetElement(owner, NCS4TOUCH_BGC_NTB_HITEM);
+    rbgcolor = ncsGetElement(owner, NCS4TOUCH_BGC_NTB_DITEM);
 
     pad_trackbar_set_rect(owner, add_data, &rc, &rcl, &rcr, &r);
 	
@@ -166,6 +192,6 @@ void pad_init_piece_renderer(void)
         {Class(mTrackBarPiece).typeName, (mWidgetRenderer*)(void*)pad_trackbar_paint},
     };
 
-    ncsRegisterCtrlRDRs(NCS4PAD_RENDERER, entries, sizeof(entries) / sizeof(NCS_RDR_ENTRY));
+    ncsRegisterCtrlRDRs(NCS4TOUCH_RENDERER, entries, sizeof(entries) / sizeof(NCS_RDR_ENTRY));
 }
 

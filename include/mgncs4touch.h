@@ -16,12 +16,10 @@
 #ifndef __MGNCS4TOUCH_H__
 #define __MGNCS4TOUCH_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#define MGNCS4TOUCH_ETCFILE "mgncs4touch.cfg"
 
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "manimation.h"
 #include "mswitchbutton.h"
 #include "mnewtrackbar.h"
@@ -38,6 +36,10 @@ extern "C" {
 #include "mexlist.h"
 #include "pieces/mnsdrawpiece.h"
 #include "mitembar.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 MPAD_EXPORT extern BOOL ncs4PadInitialize(void);
 

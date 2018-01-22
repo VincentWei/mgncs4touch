@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_SWB_H__
-#define __MGNCS4PAD_SWB_H__
+#ifndef __MGNCS4TOUCH_SWB_H__
+#define __MGNCS4TOUCH_SWB_H__
 
 /**
  * \defgroup ControlSwitchButton mSwitchButton
@@ -141,5 +141,5 @@ enum mSwitchButtonNotify {
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_SWB_H__ */
+#endif  /* __MGNCS4TOUCH_SWB_H__ */
 

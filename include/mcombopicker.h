@@ -17,8 +17,8 @@
  *     Version : 0.0.0.1
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_COMBOPICKER_H__
-#define __MGNCS4PAD_COMBOPICKER_H__
+#ifndef __MGNCS4TOUCH_COMBOPICKER_H__
+#define __MGNCS4TOUCH_COMBOPICKER_H__
 
 /**
  * \defgroup Control_ComboPicker mComboPicker
@@ -134,5 +134,5 @@ enum mComboPickerNotify {
 }
 #endif  /* __cplusplus */
 
-#endif  /* __MGNCS4PAD_COMBOPICKER_H__ */
+#endif  /* __MGNCS4TOUCH_COMBOPICKER_H__ */
 

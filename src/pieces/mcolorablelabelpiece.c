@@ -1,3 +1,42 @@
+/*
+ * \file mcolorablelabelpiece.c
+ * \author FMSoft
+ * \date 2008/01/06
+ *
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.minigui.com).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +62,7 @@ static void mColorableLabelPiece_paint(mColorableLabelPiece *self, HDC hdc, mWid
 {
     RECT rcClient;
     DWORD uFormat = DT_WORDBREAK;
-	gal_pixel old_color;
+	//gal_pixel old_color;
     const char* str = self->str;
 
     if(owner == NULL || str == NULL)
@@ -32,7 +71,7 @@ static void mColorableLabelPiece_paint(mColorableLabelPiece *self, HDC hdc, mWid
     SelectFont(hdc, GetWindowFont(owner->hwnd));
 	_c(self)->getRect(self, &rcClient);
 
-	old_color = SetTextColor(hdc, ncsColor2Pixel(hdc, self->txtColor));
+	/*old_color = */SetTextColor(hdc, ncsColor2Pixel(hdc, self->txtColor));
 
     if(self->align == NCS_ALIGN_CENTER)
         uFormat |= DT_CENTER ;

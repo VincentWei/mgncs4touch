@@ -17,7 +17,7 @@ SUBDIRS = pieces
 
 libmgncs4touchincludedir = $(includedir)/mgncs4touch
 
-libmgncs4touchinclude_HEADERS = ../mgncs4touchconfig.h mtouchdebug.h mgncs4touch.h mpcomm.h     \
+libmgncs4touchinclude_HEADERS = ../mgncs4touchconfig.h mtouchdebug.h mgncs4touch.h mtouchcomm.h     \
 							 mtouchrdr.h manimation.h mswitchbutton.h mnewtrackbar.h \
 							 mpicker.h mcombopicker.h mtimepicker.h mdatepicker.h  \
 							 mbtnnavbar.h mimgnavbar.h mexlist.h mitembar.h        \

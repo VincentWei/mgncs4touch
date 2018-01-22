@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS4PAD_SHAPEBOXPIECE_H__
-#define __MGNCS4PAD_SHAPEBOXPIECE_H__
+#ifndef __MGNCS4TOUCH_SHAPEBOXPIECE_H__
+#define __MGNCS4TOUCH_SHAPEBOXPIECE_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,5 +43,5 @@ struct _mShapeBoxPiece {
 }
 #endif
 
-#endif	// __MGNCS4PAD_SHAPEBOXPIECE_H__
+#endif	// __MGNCS4TOUCH_SHAPEBOXPIECE_H__
 

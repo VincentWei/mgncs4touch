@@ -1,17 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Beijing FMSoft Technology Co., Ltd.
- * Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
- * District, Beijing, P. R. CHINA 100191.
- * All rights reserved.
+/*
+ * \file mswitchbutton.c
+ * \author FMSoft
+ * \date 2010/10/09
  *
- * This software is the confidential and proprietary information of
- * Beijing FMSoft Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall
- * use it only in accordance you entered into with FMSoft.
- *
- *          http://www.minigui.com
- *
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +48,9 @@
 
 #include <mgncs/mgncs.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mgncs4touchconfig.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "mswitchbutton.h"
 
 #ifndef WIN32
@@ -34,7 +58,7 @@
 #endif
 
 #define NDEBUG	1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 
 #define	SWB_TEXT_LEN	32
@@ -185,11 +209,11 @@ static void DrawSwitchButton(mSwitchButton* self, HDC hdc, PRECT pRc, int r)
 	DWORD onColorFg = 0, offColorFg = 0;
 	DWORD onColorBg = 0, offColorBg = 0;
 
-	onColorBg    = ncsGetElement((mWidget*)self, NCS4PAD_BGC_SWBON);
-	onColorFg    = ncsGetElement((mWidget*)self, NCS4PAD_FGC_SWBON);
-	offColorBg   = ncsGetElement((mWidget*)self, NCS4PAD_BGC_SWBOFF);
-	offColorFg   = ncsGetElement((mWidget*)self, NCS4PAD_FGC_SWBOFF);
-	blockColorBg = ncsGetElement((mWidget*)self, NCS4PAD_BGC_BLOCK);
+	onColorBg    = ncsGetElement((mWidget*)self, NCS4TOUCH_BGC_SWBON);
+	onColorFg    = ncsGetElement((mWidget*)self, NCS4TOUCH_FGC_SWBON);
+	offColorBg   = ncsGetElement((mWidget*)self, NCS4TOUCH_BGC_SWBOFF);
+	offColorFg   = ncsGetElement((mWidget*)self, NCS4TOUCH_FGC_SWBOFF);
+	blockColorBg = ncsGetElement((mWidget*)self, NCS4TOUCH_BGC_BLOCK);
 
 	DivideRect(self, pRc, &rtTxtOn, &rtTxtOff, &rtBlock, &rtOn, &rtOff);
 
@@ -234,7 +258,7 @@ static void mSwitchButton_destroy(mSwitchButton* self)
 static BOOL mSwitchButton_onCreate(mSwitchButton* self, DWORD addData)
 {
 	Class(mWidget).onCreate((mWidget*)self, addData);
-	_M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4PAD_RENDERER);
+	_M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4TOUCH_RENDERER);
 
 	return TRUE;
 }
@@ -245,7 +269,7 @@ static void mSwitchButton_onPaint(mSwitchButton* self, HDC hdc, const PCLIPRGN p
 	RECT rc;
 
 	GetClientRect(self->hwnd, &rc);
-	self->radius = ncsGetElement((mWidget*)self, NCS4PAD_RRECT_RADIUS);
+	self->radius = ncsGetElement((mWidget*)self, NCS4TOUCH_RRECT_RADIUS);
 
     if (0 == self->step)
 		SetDist(self, &rc);
@@ -358,7 +382,7 @@ static BOOL mSwitchButton_setProperty(mSwitchButton* self, int id, DWORD value)
 
 	switch (id) {
 		case NCSP_WIDGET_RDR:
-			if (strcmp((char*)value, NCS4PAD_RENDERER) == 0)
+			if (strcmp((char*)value, NCS4TOUCH_RENDERER) == 0)
 				break;
 			else
 				return FALSE;
@@ -416,7 +440,7 @@ static void mSwitchButton_runAnimation(mSwitchButton* self, int start, int end, 
 }
 
 
-#ifdef _MGNCS4PAD_GUIBUILDER_SUPPORT
+#ifdef _MGNCS4TOUCH_GUIBUILDER_SUPPORT
 static BOOL mSwitchButton_refresh(mSwitchButton* self)
 {
 	UpdateWindow(self->hwnd, TRUE);
@@ -437,7 +461,7 @@ BEGIN_CMPT_CLASS(mSwitchButton, mWidget)
 	CLASS_METHOD_MAP(mSwitchButton, setProperty)
 	CLASS_METHOD_MAP(mSwitchButton, getProperty)
 	CLASS_METHOD_MAP(mSwitchButton, runAnimation)
-#ifdef _MGNCS4PAD_GUIBUILDER_SUPPORT
+#ifdef _MGNCS4TOUCH_GUIBUILDER_SUPPORT
 	CLASS_METHOD_MAP(mSwitchButton, refresh)
 #endif
 END_CMPT_CLASS

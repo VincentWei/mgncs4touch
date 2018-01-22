@@ -1,20 +1,41 @@
-/*********************************************************************
- * Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
- * Room 508B-C, Floor 5, Citic Guoan Shumagang, No.32, Haidian South
- * Road, Haidian District, Beijing, P. R. CHINA 100080.
- * All rights reserved.
+/*
+ * \file mitembar.c
+ * \author Wang Xin
+ * \date 2010/11/25
  *
- * This software is the confidential and proprietary information of
- * Feynman Software Technology Co. Ltd. ("Confidential Information").
- * You shall not disclose such Confidential Information and shall use
- * it only in accordance you entered into with Feynman Software.
- *          http://www.minigui.com
- *
- *    FileName : mitembar.c
- *      Author : <wangxin@minigui.org>
- * Create Date : Monday September 25, 2010
- *     Version : 0.0.0.1
- *********************************************************************/
+ \verbatim
+
+    This file is part of mGNCS4Touch, one of MiniGUI components.
+
+    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Or,
+
+    As this program is a library, any link to this program must follow
+    GNU General Public License version 3 (GPLv3). If you cannot accept
+    GPLv3, you need to be licensed from FMSoft.
+
+    If you have got a commercial license of this program, please use it
+    under the terms and conditions of the commercial license.
+
+    For more information about the commercial license, please refer to
+    <http://www.minigui.com/en/about/licensing-policy/>.
+
+ \endverbatim
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,14 +49,13 @@
 #include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "pieces/mnsdrawpiece.h"
 #include "mitembar.h"
 
 // #define NDEBUG   1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 #define _TEXT_LEN   128
 
@@ -170,7 +190,7 @@ static BOOL mItemBar_onCreate(mItemBar* self, DWORD addData)
                 setProperty, NCSP_NSDRAW_PIECE_ANGLE, NSDRAW_SHAPE_ANGLE);
     }
 
-    _M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4PAD_RENDERER);
+    _M(self, setProperty, NCSP_WIDGET_RDR, (DWORD)NCS4TOUCH_RENDERER);
 
     return TRUE;
 }
@@ -199,9 +219,9 @@ static BOOL DrawItemBk(mItemBar* self, HDC hdc)
     ECONER con = ECT_NORMAL;
     int radius = 5;
 
-    radius = ncsGetElement((mWidget*)self, NCS4PAD_RRECT_RADIUS);
+    radius = ncsGetElement((mWidget*)self, NCS4TOUCH_RRECT_RADIUS);
     color = ncsGetElement((mWidget*)self, 
-            self->dotHit ? NCS4PAD_BGC_ITB_LIGHT : NCS4PAD_BGC_ITB);
+            self->dotHit ? NCS4TOUCH_BGC_ITB_LIGHT : NCS4TOUCH_BGC_ITB);
     exstyle = GetWindowExStyle(self->hwnd); 
 
     if ((exstyle & WS_EX_TROUNDCNS) && (exstyle & WS_EX_BROUNDCNS))
@@ -231,9 +251,9 @@ static void mItemBar_onPaint(mItemBar* self, HDC hdc, const PCLIPRGN pClip)
     Class(mWidget).onPaint((mWidget*)self, hdc, pClip);
 
     lcolor = ncsGetElement((mWidget*)self, 
-            self->dotHit ? NCS4PAD_FGC_ITB_LTEXT_LIGHT : NCS4PAD_FGC_ITB_LTEXT);
+            self->dotHit ? NCS4TOUCH_FGC_ITB_LTEXT_LIGHT : NCS4TOUCH_FGC_ITB_LTEXT);
     rcolor = ncsGetElement((mWidget*)self,
-            self->dotHit ? NCS4PAD_FGC_ITB_RTEXT_LIGHT : NCS4PAD_FGC_ITB_RTEXT);
+            self->dotHit ? NCS4TOUCH_FGC_ITB_RTEXT_LIGHT : NCS4TOUCH_FGC_ITB_RTEXT);
 
     parseString(GetWindowCaption(self->hwnd), str1, str2, _TEXT_LEN, _TEXT_LEN);
 
@@ -312,7 +332,7 @@ static BOOL mItemBar_setProperty(mItemBar* self, int id, DWORD value)
 
     switch (id) {
         case NCSP_WIDGET_RDR:
-            if (strcmp((char*)value, NCS4PAD_RENDERER) == 0)
+            if (strcmp((char*)value, NCS4TOUCH_RENDERER) == 0)
                 break;
             else 
                 return FALSE;
