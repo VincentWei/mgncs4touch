@@ -1,6 +1,0 @@
-#ifndef MGNCS4PADCONFIG_H
-#define MGNCS4PADCONFIG_H
-
-#define MGNCS4PAD_ETCFILE "mgncs4pad.cfg"
-
-#endif  /* MGNCS4PADCONFIG_H */
