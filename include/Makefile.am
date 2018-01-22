@@ -17,8 +17,8 @@ SUBDIRS = pieces
 
 libmgncs4padincludedir = $(includedir)/mgncs4pad
 
-libmgncs4padinclude_HEADERS = ../mgncs4padconfig.h mpaddebug.h mpad.h mpcomm.h     \
-							 mpadrdr.h manimation.h mswitchbutton.h mnewtrackbar.h \
+libmgncs4padinclude_HEADERS = ../mgncs4padconfig.h mtouchdebug.h mgncs4touch.h mpcomm.h     \
+							 mtouchrdr.h manimation.h mswitchbutton.h mnewtrackbar.h \
 							 mpicker.h mcombopicker.h mtimepicker.h mdatepicker.h  \
 							 mbtnnavbar.h mimgnavbar.h mexlist.h mitembar.h        \
 							 balloon_tip_maker.h

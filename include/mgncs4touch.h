@@ -13,8 +13,8 @@
  *
  *********************************************************************/
 
-#ifndef __MGNCS_4_PAD_H__
-#define __MGNCS_4_PAD_H__
+#ifndef __MGNCS4TOUCH_H__
+#define __MGNCS4TOUCH_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,4 +47,4 @@ MPAD_EXPORT extern void ncs4PadUninitialize(void);
 }
 #endif
 
-#endif //__MGNCS_4_PAD_H__
+#endif //__MGNCS4TOUCH_H__
