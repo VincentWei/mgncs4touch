@@ -6,7 +6,7 @@ SUBDIRS = res
 
 AM_CPPFLAGS = -I$(TOP_DIR) -I$(TOP_DIR)/include -I.
 
-COMMON_LADD = ../src/libmgncs4touch.la
+COMMON_LADD = ../src/.libs/libmgncs4touch.a
 
 noinst_PROGRAMS = switchbutton picker newtrackbar commdraw datepicker \
 				  timepicker exlist btnnavbar imgnavbar name2value itembar \
