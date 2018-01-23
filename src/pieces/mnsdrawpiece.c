@@ -81,13 +81,13 @@ static void mNSDrawPiece_paint(mNSDrawPiece* self, HDC hdc, mObject* owner, DWOR
 			color = ncsGetElement((mWidget*)owner, NCS4TOUCH_FGC_ITB_TICK_LIGHT);
 		else
 			color = ncsGetElement((mWidget*)owner, NCS4TOUCH_FGC_ITB_TICK);
-		DrawPadTick(hdc, &rc, color);
+		DrawTouchTick(hdc, &rc, color);
 	} else if (self->shape == NSDRAW_SHAPE_ANGLE) {
 		if (self->dotHit)
 			color = ncsGetElement((mWidget*)owner, NCS4TOUCH_FGC_ITB_ANGLE_LIGHT);
 		else
 			color = ncsGetElement((mWidget*)owner, NCS4TOUCH_FGC_ITB_ANGLE);
-		DrawPadAngle(hdc, &rc, color);
+		DrawTouchAngle(hdc, &rc, color);
 	}
 }
 

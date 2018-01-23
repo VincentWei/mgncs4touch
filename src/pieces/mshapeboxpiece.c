@@ -65,7 +65,7 @@ static void mShapeBoxPiece_paint(mShapeBoxPiece *self,
     mShapePushButtonPiece *shapepiece = NULL, *p = NULL; 
 	int r = 3;
 	
-    bgcolor = padGetElement(owner, NCS4TOUCH_BGC_BNB_BUTTON); 
+    bgcolor = ncsGetElement(owner, NCS4TOUCH_BGC_BNB_BUTTON); 
 	if (add_data == NCS_ABP_PUSHED) {
         bgcolor = ncsCommRDRCalc3dboxColor(bgcolor, NCSR_COLOR_DARKER); 
 	}

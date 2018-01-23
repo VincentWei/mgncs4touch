@@ -561,7 +561,7 @@ int DrawSharpButton(HDC hdc, RECT *prc, DWORD color, BOOL left)
 }
 
 
-int DrawPadTick(HDC hdc, RECT* prc, DWORD color)
+int DrawTouchTick(HDC hdc, RECT* prc, DWORD color)
 {
     HPATH path;
     HPEN pen;
@@ -613,7 +613,7 @@ int DrawPadTick(HDC hdc, RECT* prc, DWORD color)
 }
 
 
-int DrawPadAngle(HDC hdc, RECT* prc, DWORD color)
+int DrawTouchAngle(HDC hdc, RECT* prc, DWORD color)
 {
     HPATH path;
     HPEN pen;

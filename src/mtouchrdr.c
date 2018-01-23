@@ -98,14 +98,14 @@ static NCS_RDR_ID_NAME config_str[] = {
     {NULL, 0}
 };
 
-static char ncsPadRdrEtcFile[MAX_PATH + 1];
+static char ncsTouchRdrEtcFile[MAX_PATH + 1];
 
-extern mWidgetRenderer pad_widget_renderer;
+extern mWidgetRenderer _ncs_touch_widget_renderer;
 
-extern BOOL pad_init_piece_renderer(void);
+extern BOOL _ncs_touch_init_piece_renderer(void);
 
 #define RDR_ENTRY(CLASSNAME, classname) \
-    { NCSCTRL_##CLASSNAME, (mWidgetRenderer*)(void*)(&(pad_##classname##_renderer))}
+    { NCSCTRL_##CLASSNAME, (mWidgetRenderer*)(void*)(&(_ncs_touch_##classname##_renderer))}
 
 
 static BOOL _lookup_etcfile(const char* filename)
@@ -121,7 +121,7 @@ static BOOL _lookup_etcfile(const char* filename)
         fp = fopen(etcfile, "r");
         if (NULL != fp) {
             fclose(fp);
-            strcpy(ncsPadRdrEtcFile, etcfile);
+            strcpy(ncsTouchRdrEtcFile, etcfile);
             return TRUE;
         }
     }
@@ -134,7 +134,7 @@ static BOOL _lookup_etcfile(const char* filename)
     fp = fopen(etcfile, "r");
     if (NULL != fp) {
         fclose(fp);
-        strcpy(ncsPadRdrEtcFile, etcfile);
+        strcpy(ncsTouchRdrEtcFile, etcfile);
         return TRUE;
     }
 #ifndef __NOUNIX__
@@ -149,7 +149,7 @@ static BOOL _lookup_etcfile(const char* filename)
         fp = fopen(etcfile, "r");
         if (NULL != fp) {
             fclose(fp);
-            strcpy(ncsPadRdrEtcFile, etcfile);
+            strcpy(ncsTouchRdrEtcFile, etcfile);
             return TRUE;
         }
     }
@@ -159,7 +159,7 @@ static BOOL _lookup_etcfile(const char* filename)
     fp = fopen(etcfile, "r");
     if (NULL != fp) {
         fclose(fp);
-        strcpy(ncsPadRdrEtcFile, etcfile);
+        strcpy(ncsTouchRdrEtcFile, etcfile);
         return TRUE;
     }
 
@@ -167,7 +167,7 @@ static BOOL _lookup_etcfile(const char* filename)
     fp = fopen(etcfile, "r");
     if (NULL != fp) {
         fclose(fp);
-        strcpy(ncsPadRdrEtcFile, etcfile);
+        strcpy(ncsTouchRdrEtcFile, etcfile);
         return TRUE;
     }
 
@@ -177,7 +177,7 @@ static BOOL _lookup_etcfile(const char* filename)
     fp = fopen(etcfile, "r");
     if (NULL != fp) {
         fclose(fp);
-        strcpy(ncsPadRdrEtcFile, etcfile);
+        strcpy(ncsTouchRdrEtcFile, etcfile);
         return TRUE;
     }
 
@@ -185,7 +185,7 @@ static BOOL _lookup_etcfile(const char* filename)
      fp = fopen(etcfile, "r");
     if (NULL != fp) {
         fclose(fp);
-        strcpy(ncsPadRdrEtcFile, etcfile);
+        strcpy(ncsTouchRdrEtcFile, etcfile);
         return TRUE;
     }
     return FALSE;
@@ -193,7 +193,7 @@ static BOOL _lookup_etcfile(const char* filename)
 
     if (NULL != fp) {
         fclose(fp);
-        strcpy(ncsPadRdrEtcFile, etcfile);
+        strcpy(ncsTouchRdrEtcFile, etcfile);
         return TRUE;
     }
 
@@ -201,10 +201,10 @@ static BOOL _lookup_etcfile(const char* filename)
 }
 
 
-BOOL ncsInitPadRenderers(void)
+BOOL ncsTouchInitRenderers(void)
 {
     int i = 0;
-    const char *padname[] = {NCS4TOUCH_RENDERER, NULL};
+    const char *rdrname[] = {NCS4TOUCH_RENDERER, NULL};
 
     NCS_RDR_ENTRY entries[] = {
         RDR_ENTRY(WIDGET, widget),
@@ -212,13 +212,13 @@ BOOL ncsInitPadRenderers(void)
     };
 
     if (!_lookup_etcfile(MGNCS4TOUCH_ETCFILE)) {
-        LOGE("File [mgncs4pad.cfg] not found !\n");
+        LOGE("mGNCS4Touch: File [" MGNCS4TOUCH_ETCFILE "] not found !\n");
         return FALSE;
     }
 
-    if (!ncsLoadRdrElementsFromEtcFile(ncsPadRdrEtcFile,
-                padname, 1, config_str)) {
-        LOGE("Load Pad renderer Error!\n");
+    if (!ncsLoadRdrElementsFromEtcFile(ncsTouchRdrEtcFile,
+                rdrname, 1, config_str)) {
+        LOGE("mGNCS4Touch: Load renderer Error!\n");
         return FALSE;
     }
 
@@ -228,7 +228,7 @@ BOOL ncsInitPadRenderers(void)
             entries[i].renderer->init_self(entries[i].renderer);
     }
 
-    pad_init_piece_renderer();
+    _ncs_touch_init_piece_renderer();
 
     return ncsRegisterCtrlRDRs(NCS4TOUCH_RENDERER,
             entries,

@@ -58,10 +58,10 @@
         Class(className).classConstructor((mObjectClass*)(void*)(&(Class(className))))
 
 
-extern BOOL RegisterPadRDR(void);
+extern BOOL RegisterTouchRDR(void);
 
 
-void init_mgncs4pad_pieces_classes(void)
+static void init_mgncs4touch_pieces_classes(void)
 {
     InitPieceClass(mShapePushButtonPiece);
     InitPieceClass(mShapeBoxPiece);
@@ -71,18 +71,18 @@ void init_mgncs4pad_pieces_classes(void)
 }
 
 
-BOOL ncs4PadInitialize(void)
+BOOL ncs4TouchInitialize(void)
 {
-    if (!ncsInitPadRenderers()) {
-        LOGE("Init Pad renderer Error.\n");
+    if (!ncsTouchInitRenderers()) {
+        LOGE("mGNCS4Touch: Init renderer error.\n");
         return FALSE;
     }
-    if (!RegisterPadRDR()) {
-        LOGE("Init system renderer [pad] Error.\n");
+    if (!RegisterTouchRDR()) {
+        LOGE("mGNCS4Touch: Init system renderer error.\n");
         return FALSE;
     }
 
-    init_mgncs4pad_pieces_classes();
+    init_mgncs4touch_pieces_classes();
     // TODO
     MGNCS_REGISTER_COMPONENT(mAnimation);
     MGNCS_REGISTER_COMPONENT(mSwitchButton);
@@ -100,7 +100,7 @@ BOOL ncs4PadInitialize(void)
 }
 
 
-void ncs4PadUninitialize(void)
+void ncs4TouchUninitialize(void)
 {
     // TODO
     MGNCS_UNREG_COMPONENT(mAnimation);

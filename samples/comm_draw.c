@@ -106,11 +106,11 @@ static void mymain_onPaint(mWidget* self, HDC hdc, const PCLIPRGN clip_rgn)
     TextOut(hdc, 250, 320, "TickAndAngle(...)");
 	rc = (RECT){260, 360, 260+50, 360+50};
 	c = 0xff991f22;
-	DrawPadTick(hdc, &rc, c);
+	DrawTouchTick(hdc, &rc, c);
 	rc = (RECT){320, 360, 320+50, 360+50};
 	// c = random() | 0xFF000000;
 	c = 0xff991f22;
-	DrawPadAngle(hdc, &rc, c);
+	DrawTouchAngle(hdc, &rc, c);
 
 	// draw circle
     TextOut(hdc, 380, 360, "Draw3DCircle(...)");
@@ -167,13 +167,13 @@ int MiniGUIMain(int argc, const char* argv[])
 #endif
 	
 	ncsInitialize();
-	ncs4PadInitialize();
+	ncs4TouchInitialize();
 
 	mDialogBox* mydlg = (mDialogBox*)ncsCreateMainWindowIndirect
 									(&mymain_templ, HWND_DESKTOP);
 	_c(mydlg)->doModal(mydlg, TRUE);
 
-	ncs4PadUninitialize();
+	ncs4TouchUninitialize();
 	ncsUninitialize();
 
 	MainWindowThreadCleanup(mydlg->hwnd);

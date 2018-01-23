@@ -127,7 +127,7 @@ static DWORD mShapePushButtonPiece_getProperty(mShapePushButtonPiece *self, int 
 static void mShapePushButtonPiece_paint(mShapePushButtonPiece *self, HDC hdc, mWidget * owner, DWORD add_data)
 {
 	if (self->content){
-		DWORD tcolor = padGetElement(owner, NCS4TOUCH_FGC_BNB_BUTTON);
+		DWORD tcolor = ncsGetElement(owner, NCS4TOUCH_FGC_BNB_BUTTON);
 		_M((mColorableLabelPiece *)self->content, setProperty, NCSP_CLP_PIECE_COLOR , tcolor);
 	}
 	Class(mPushButtonPiece).paint((mPushButtonPiece *)self, hdc, (mObject *)owner, add_data);

@@ -180,13 +180,13 @@ int MiniGUIMain(int argc, const char* argv[])
 	printf(" sytle = %x\n", NCSS_PCK_BRC );
 	
     ncsInitialize();
-	ncs4PadInitialize();
+	ncs4TouchInitialize();
 
 	mDialogBox* mydlg = (mDialogBox*)ncsCreateMainWindowIndirect
 									(&mymain_templ, HWND_DESKTOP);
 	_c(mydlg)->doModal(mydlg, TRUE);
 
-	ncs4PadUninitialize();
+	ncs4TouchUninitialize();
 	ncsUninitialize();
 
 	MainWindowThreadCleanup(mydlg->hwnd);

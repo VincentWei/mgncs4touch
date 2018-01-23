@@ -163,6 +163,13 @@ AC_OUTPUT([
     etc/Makefile
     samples/Makefile
     samples/res/Makefile
+    plugin/Makefile
+    plugin/guibuilder/Makefile
+    plugin/guibuilder/icon/Makefile
+    plugin/guibuilder/renderer/Makefile
+    plugin/guibuilder/renderer/fashion/Makefile
+    plugin/guibuilder/uieditor/Makefile
+    plugin/guibuilder/uieditor/defines/Makefile
 ])
 
 echo

@@ -9,10 +9,10 @@
             <panel class="ToolboxPanel" caption="Standard">
 				<param name="ctrllist">uieditor/control.cfg</param>
 			</panel>
-            <panel class="ToolboxPanel" caption="Pad">
-				<param name="ctrllist">uieditor/pad.cfg</param>
+            <panel class="ToolboxPanel" caption="Touch">
+				<param name="ctrllist">uieditor/mgncs4touch.cfg</param>
                 <lib src="mgeff" init="mGEffInit"/>
-                <lib src="mgncs4pad_msd" init="ncs4PadInitialize"/>
+                <lib src="mgncs4touch_msd" init="ncs4TouchInitialize"/>
 			</panel>
         </page> 
     </cell>

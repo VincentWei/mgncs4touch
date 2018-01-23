@@ -50,9 +50,9 @@
 
 #include "mtouchrdr.h"
 
-static const char* pad_name = NCS4TOUCH_RENDERER;
+static const char* touch_name = NCS4TOUCH_RENDERER;
 
-static void pad_uninit(mWidgetRenderer* rdr)
+static void touch_uninit(mWidgetRenderer* rdr)
 {
 	if (NULL != rdr->prv_data) {
 		free(rdr->prv_data);
@@ -61,31 +61,31 @@ static void pad_uninit(mWidgetRenderer* rdr)
 }
 
 
-static void pad_drawFocusFrame(mWidget* self, HDC hdc, const RECT* rc)
+static void touch_drawFocusFrame(mWidget* self, HDC hdc, const RECT* rc)
 {
 	ncsCommRDRDrawFocusFrame(self->hwnd, hdc, rc);
 }
 
 
-static BOOL pad_drawBkground(mWidget* self, HDC hdc, const RECT* inv_rc)
+static BOOL touch_drawBkground(mWidget* self, HDC hdc, const RECT* inv_rc)
 {
 	return ncsCommRDRDrawBkgnd(self->hwnd, hdc, inv_rc);
 }
 
 
-static BOOL pad_init(mWidgetRenderer* rdr)
+static BOOL touch_init(mWidgetRenderer* rdr)
 {
 	return TRUE;
 }
 
 
-static void pad_draw3dbox(mWidget* self, HDC hdc, const RECT* rc, DWORD color, DWORD flag)
+static void touch_draw3dbox(mWidget* self, HDC hdc, const RECT* rc, DWORD color, DWORD flag)
 {
 	ncsCommRDRDraw3dbox(hdc, rc, color, flag);
 }
 
 
-static void pad_drawCheckbox(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
+static void touch_drawCheckbox(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
 {
 	DWORD fgcolor = ncsGetElement(self, NCS_FGC_WINDOW);
 	DWORD bgcolor = ncsGetElement(self, NCS_BGC_WINDOW);
@@ -95,7 +95,7 @@ static void pad_drawCheckbox(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
 }
 
 
-static void pad_drawRadio(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
+static void touch_drawRadio(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
 {
 	DWORD fgcolor = ncsGetElement(self, NCS_FGC_WINDOW);
 	DWORD bgcolor = ncsGetElement(self, NCS_BGC_WINDOW);
@@ -105,14 +105,14 @@ static void pad_drawRadio(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
 }
 
 
-static void pad_drawArrow(mWidget* self, HDC hdc,
+static void touch_drawArrow(mWidget* self, HDC hdc,
         const RECT* rc, int arrow,DWORD basiccolor, DWORD flag)
 {
 	ncsCommRDRDrawArrow(hdc, rc, arrow, basiccolor, flag&NCSRF_FILL);
 }
 
 
-static void pad_drawItem(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
+static void touch_drawItem(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
 {
 	int id = 0;
 	DWORD color = 0;
@@ -141,24 +141,24 @@ static void pad_drawItem(mWidget* self, HDC hdc, const RECT* rc, DWORD flag)
 }
 
 
-static void pad_class_init(mWidgetRenderer* rdr)
+static void touch_class_init(mWidgetRenderer* rdr)
 {
-	rdr->rdr_name       = pad_name;
-	rdr->drawFocusFrame = pad_drawFocusFrame;
-	rdr->drawBkground   = pad_drawBkground;
-	rdr->draw3dbox      = pad_draw3dbox;
-	rdr->drawCheckbox   = pad_drawCheckbox;
-	rdr->drawRadio      = pad_drawRadio;
-	rdr->drawArrow      = pad_drawArrow;
-	rdr->drawItem       = pad_drawItem;
+	rdr->rdr_name       = touch_name;
+	rdr->drawFocusFrame = touch_drawFocusFrame;
+	rdr->drawBkground   = touch_drawBkground;
+	rdr->draw3dbox      = touch_draw3dbox;
+	rdr->drawCheckbox   = touch_drawCheckbox;
+	rdr->drawRadio      = touch_drawRadio;
+	rdr->drawArrow      = touch_drawArrow;
+	rdr->drawItem       = touch_drawItem;
 }
 
 
-mWidgetRenderer pad_widget_renderer = {
+mWidgetRenderer _ncs_touch_widget_renderer = {
 	"",
-	pad_class_init,
+	touch_class_init,
 	NULL,
-	pad_init,
-	pad_uninit,
+	touch_init,
+	touch_uninit,
 };
 

@@ -48,13 +48,12 @@
 
 #include <mgncs/mgncs.h>
 
-#include "mgncs4padconfig.h"
-#include "mpcomm.h"
-#include "mpadrdr.h"
+#include "mtouchcomm.h"
+#include "mtouchrdr.h"
 #include "mexnode.h"
 
 // #define NDEBUG	1
-#include "mpaddebug.h"
+#include "mtouchdebug.h"
 
 BEGIN_MINI_CLASS(mExNode, mObject)
 END_MINI_CLASS

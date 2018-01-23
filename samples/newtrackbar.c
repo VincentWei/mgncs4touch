@@ -193,14 +193,14 @@ int MiniGUIMain(int argc, const char* argv[])
 #endif
 	
 	ncsInitialize();
-	ncs4PadInitialize();
+	ncs4TouchInitialize();
     SetDefaultWindowElementRenderer ("classic");
 
 	mDialogBox* mydlg = (mDialogBox*)ncsCreateMainWindowIndirect 
 									(&mymain_templ, HWND_DESKTOP);
 	_c(mydlg)->doModal(mydlg, TRUE);
 
-	ncs4PadUninitialize();
+	ncs4TouchUninitialize();
 	ncsUninitialize();
 
 	MainWindowThreadCleanup(mydlg->hwnd);

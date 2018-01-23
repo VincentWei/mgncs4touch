@@ -619,7 +619,7 @@ static int touch_deinit(PWERENDERER renderer)
     return 0;
 }
 
-BOOL RegisterPadRDR(void)
+BOOL RegisterTouchRDR(void)
 {
     if (NULL == (old_fashion_rdr = GetWindowRendererFromName(NCS4TOUCH_RENDERER))) {
         LOGE("%s :: get fashion renderer error.", __FUNCTION__);

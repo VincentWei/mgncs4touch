@@ -62,7 +62,7 @@
 
 
 // thumbbox
-static void pad_thumbbox_paint(mThumbBoxPiece* self, HDC hdc,
+static void touch_thumbbox_paint(mThumbBoxPiece* self, HDC hdc,
 		mWidget* owner, DWORD add_data)
 {
     RECT rc;
@@ -95,7 +95,7 @@ static void pad_thumbbox_paint(mThumbBoxPiece* self, HDC hdc,
 }
 
 
-static void pad_trackbar_set_rect(mWidget* owner, DWORD add_data,
+static void touch_trackbar_set_rect(mWidget* owner, DWORD add_data,
         PRECT prc, PRECT prcl, PRECT prcr, int* r)
 {
     RECT rc_thumb;
@@ -133,7 +133,7 @@ static void pad_trackbar_set_rect(mWidget* owner, DWORD add_data,
 
 
 // draw trackbar
-static void pad_trackbar_paint(mTrackBarPiece* self, HDC hdc,
+static void touch_trackbar_paint(mTrackBarPiece* self, HDC hdc,
         mWidget* owner, DWORD add_data)
 {
     /*
@@ -154,7 +154,7 @@ static void pad_trackbar_paint(mTrackBarPiece* self, HDC hdc,
     lbgcolor = ncsGetElement(owner, NCS4TOUCH_BGC_NTB_HITEM);
     rbgcolor = ncsGetElement(owner, NCS4TOUCH_BGC_NTB_DITEM);
 
-    pad_trackbar_set_rect(owner, add_data, &rc, &rcl, &rcr, &r);
+    touch_trackbar_set_rect(owner, add_data, &rc, &rcl, &rcr, &r);
 	
     if (!(NCS_PIECE_PAINT_VERT & add_data)) {	//horzontal
         RECT rcLeftT, rcRightT;
@@ -185,11 +185,11 @@ static void pad_trackbar_paint(mTrackBarPiece* self, HDC hdc,
 
 
 // init boxpiece
-void pad_init_piece_renderer(void)
+void _ncs_touch_init_piece_renderer(void)
 {
     NCS_RDR_ENTRY entries [] = {
-        {Class(mThumbBoxPiece).typeName, (mWidgetRenderer*)(void*)pad_thumbbox_paint},
-        {Class(mTrackBarPiece).typeName, (mWidgetRenderer*)(void*)pad_trackbar_paint},
+        {Class(mThumbBoxPiece).typeName, (mWidgetRenderer*)(void*)touch_thumbbox_paint},
+        {Class(mTrackBarPiece).typeName, (mWidgetRenderer*)(void*)touch_trackbar_paint},
     };
 
     ncsRegisterCtrlRDRs(NCS4TOUCH_RENDERER, entries, sizeof(entries) / sizeof(NCS_RDR_ENTRY));

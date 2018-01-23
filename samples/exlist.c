@@ -164,7 +164,7 @@ int MiniGUIMain(int argc, const char* argv[])
 
     UnloadBitmap(&demoBmp);
 	ncsInitialize();
-	ncs4PadInitialize();
+	ncs4TouchInitialize();
 
 	mDialogBox* mydlg = (mDialogBox*)ncsCreateMainWindowIndirect
                                 (&mymain_templ, HWND_DESKTOP);
@@ -177,7 +177,7 @@ int MiniGUIMain(int argc, const char* argv[])
 	MainWindowThreadCleanup(mydlg->hwnd);
 
     UnloadBitmap(&demoBmp);
-	ncs4PadUninitialize();
+	ncs4TouchUninitialize();
 	ncsUninitialize();
 
     UnloadBitmap(&demoBmp);

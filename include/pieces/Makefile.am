@@ -1,4 +1,4 @@
-libmgncs4padincludedir = $(includedir)/mgncs4pad/pieces
+libmgncs4touchincludedir = $(includedir)/mgncs4touch/pieces
 
 HEAD_FILES = mshapepushbuttonpiece.h \
 			 mshapeboxpiece.h        \
@@ -6,7 +6,7 @@ HEAD_FILES = mshapepushbuttonpiece.h \
 			 mnsdrawpiece.h			 \
 			 mcolorablelabelpiece.h
 
-libmgncs4padinclude_HEADERS = $(HEAD_FILES)
+libmgncs4touchinclude_HEADERS = $(HEAD_FILES)
 
 TOP_DIR = ../
 
