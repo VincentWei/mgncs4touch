@@ -39,6 +39,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
 #include <minigui/common.h>
@@ -55,7 +56,7 @@
 #define _(name)  {#name, (const char*)(name)}
 
 static const char * name_values[][2] = {
-    {"mGNCS4Pad  ==== renderer ====", 0},
+    {"mGNCS4Touch  ==== renderer ====", 0},
 	_(NCS4TOUCH_RRECT_RADIUS),
 	_(NCS4TOUCH_BGC_BLOCK ),
 	_(NCS4TOUCH_FGC_SWBON ),
@@ -85,17 +86,17 @@ static const char * name_values[][2] = {
 	_(NCS4TOUCH_FGC_ITB_RTEXT      ),
 	_(NCS4TOUCH_FGC_ITB_RTEXT_LIGHT),
     // switch button
-    {"mGNCS4Pad  ==== switch button ====", 0},
+    {"mGNCS4Touch  ==== switch button ====", 0},
 	_(NCSP_SWB_STATUS),
 	_(NCSP_SWB_MAX),
 	_(NCSN_SWB_STATUSCHANGED),
 	_(NCSN_SWB_MAX),
     // new track bar
-    {"mGNCS4Pad  ==== new trackbar ====", 0},
+    {"mGNCS4Touch  ==== new trackbar ====", 0},
     _(NCSS_NTRKBAR_CIRCLE),
     _(NCSP_NTRKBAR_MAX),
     // tool caption
-    {"mGNCS4Pad  ==== btnnavbar(button navigation bar) ====", 0},
+    {"mGNCS4Touch  ==== btnnavbar(button navigation bar) ====", 0},
     _(NCSS_BNB_LRECT    ),
     _(NCSS_BNB_LOPT     ),
     _(NCSS_BNB_LNONE    ),
@@ -111,7 +112,7 @@ static const char * name_values[][2] = {
     _(NCSP_BNB_BTN_H ),
     _(NCSP_BNB_MAX      ),
     _(NCSN_BNB_BTNCLICK ),
-    {"mGNCS4Pad  ==== imgnavbar(image navigation bar) ====", 0},
+    {"mGNCS4Touch  ==== imgnavbar(image navigation bar) ====", 0},
     _(NCSP_INB_LBITMAP  ),
     _(NCSP_INB_RBITMAP  ),
     _(NCSP_INB_FONT     ),
@@ -123,7 +124,7 @@ static const char * name_values[][2] = {
     _(NCSP_INB_MAX      ),
     _(NCSN_INB_IMGCLICK ),
     // picker
-    {"mGNCS4Pad  ==== picker ====", 0 },
+    {"mGNCS4Touch  ==== picker ====", 0 },
     _(NCSS_PCK_NUMBER   ),
     _(NCSS_PCK_STRINGS	),
     _(NCSS_PCK_LOOP		),
@@ -141,13 +142,13 @@ static const char * name_values[][2] = {
     _(NCSN_PCK_REACHMAX),
     _(NCSN_PCK_MAX      ),
     // combo picker
-    {"mGNCS4Pad  ==== combo picker ====", 0},
+    {"mGNCS4Touch  ==== combo picker ====", 0},
     _(NCSP_CMBPCK_HMARGIN),
     _(NCSP_CMBPCK_VMARGIN),
     _(NCSP_CMBPCK_VISLINE),
     _(NCSP_CMBPCK_MAX    ),
     // time picker
-    {"mGNCS4Pad  ==== time picker ====", 0},
+    {"mGNCS4Touch  ==== time picker ====", 0},
     _(NCSS_TPCK_24H         ),
     _(NCSS_TPCK_12H         ),
     _(NCSP_TPCK_HOUR        ),
@@ -155,7 +156,7 @@ static const char * name_values[][2] = {
     _(NCSP_TPCK_AMPMSTRINGS ),
     _(NCSN_TPCK_TIMECHANGED ),
     //date picker
-    {"mGNCS4Pad  ==== date picker ====", 0},
+    {"mGNCS4Touch  ==== date picker ====", 0},
     _(NCSS_DPCK_YYYYMMDD    ),
     _(NCSS_DPCK_MMDDYYYY    ),
     _(NCSS_DPCK_YYMMDD      ),
@@ -165,7 +166,7 @@ static const char * name_values[][2] = {
     _(NCSP_DPCK_DAY         ),
     _(NCSN_DPCK_DATECHANGED ),
     //itembar
-    {"mGNCS4Pad  ==== itembar ====", 0},
+    {"mGNCS4Touch  ==== itembar ====", 0},
     _(NCSS_ITEMBAR_CHECKABLE),
     _(NCSS_ITEMBAR_HASCHILD	),
     _(NCSP_ITEMBAR_CHECKED  ),
@@ -183,9 +184,9 @@ int main(int argc, const char* argv[])
 
 		if (strcasecmp("-find", argv[1])==0) {
 			for (j=2; j<argc;j++) {
-				int v = strtol(argv[j], NULL, 0);
+				intptr_t v = strtol(argv[j], NULL, 0);
 				for (i=0;i<sizeof(name_values)/sizeof(char*[2]);i++) {
-					if ((int)name_values[i][1] == v) {
+					if ((intptr_t)name_values[i][1] == v) {
 						LOGE("%s:%s\n", argv[j], name_values[i][0]);
                     }
 				}
