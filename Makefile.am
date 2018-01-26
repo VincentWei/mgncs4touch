@@ -1,6 +1,12 @@
 AUTOMAKE_OPTIONS=foreign
 
-SUBDIRS=include src etc samples
+if NCS4TOUCH_HAVE_LIBSUFFIX
+SAMPLES=
+else
+SAMPLES=samples
+endif
+
+SUBDIRS=include src etc $(SAMPLES)
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA=mgncs4touch.pc
