@@ -316,6 +316,7 @@ static void mPicker_onPaint(mPicker* self, HDC hdc, const PCLIPRGN _clip)
     vis = self->itemVisible + 1;
     cursor = self->key;
 
+    printf ("cursor: %f; count: %d\n", cursor, count);
     if (dwStyle & NCSS_PCK_LOOP) {
         while (cursor >= count)
             cursor -= count;
@@ -485,7 +486,7 @@ static BOOL mPicker_setProperty(mPicker* self, int id, DWORD value)
 
         case NCSP_PCK_SELIDX:
             self->selIdx = value;
-            self->key = value;
+            self->key = (float)(int)value;
             InvalidateRect(self->hwnd, NULL, TRUE);
             return TRUE;
 
