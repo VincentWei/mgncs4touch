@@ -53,6 +53,25 @@ extern "C"{
 #   define MTOUCH_EXPORT
 #endif
 
+#ifndef MGNCS4TOUCH_MAJOR_VERSION
+#   undef PACKAGE
+#   undef VERSION
+#   undef PACKAGE_BUGREPORT
+#   undef PACKAGE_NAME
+#   undef PACKAGE_STRING
+#   undef PACKAGE_TARNAME
+#   undef PACKAGE_VERSION
+#   ifdef __MGNCS4TOUCH_LIB__
+#       if defined(__CMAKE_PROJECT__) || defined(WIN32)
+#           include "mgncs4touchconfig.h"
+#       else
+#           include "../mgncs4touchconfig.h"
+#       endif
+#   else
+#       include "mgncs4touchconfig.h"
+#   endif
+#endif
+
 #define ABGR2ARGB(c) (((c) & 0xFF00FF00) | (((c) & 0x000000FF)<<16) | (((c) & 0x00FF0000)>>16))
 
 typedef enum _eCornerType {

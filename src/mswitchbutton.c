@@ -48,7 +48,6 @@
 
 #include <mgncs/mgncs.h>
 
-#include "mgncs4touchconfig.h"
 #include "mtouchcomm.h"
 #include "mtouchrdr.h"
 #include "mswitchbutton.h"

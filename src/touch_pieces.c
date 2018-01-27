@@ -45,11 +45,8 @@
 #include <minigui/minigui.h>
 #include <minigui/gdi.h>
 #include <minigui/window.h>
-//#include <minigui/fixedmath.h>
 #include <mgncs/mgncs.h>
-//#include <mgeff/mgeff.h>
 
-#include "mgncs4touchconfig.h"
 #include "mtouchcomm.h"
 #include "mtouchrdr.h"
 #include "mnewtrackbar.h"
