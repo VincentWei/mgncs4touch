@@ -85,12 +85,12 @@ BOOL ncs4TouchInitialize(void)
     init_mgncs4touch_pieces_classes();
 
     MGNCS_REGISTER_COMPONENT(mAnimation);
-    MGNCS_REGISTER_COMPONENT(mTimePicker);
     MGNCS_REGISTER_COMPONENT(mSwitchButton);
     MGNCS_REGISTER_COMPONENT(mNewTrackBar);
     MGNCS_REGISTER_COMPONENT(mPicker);
     MGNCS_REGISTER_COMPONENT(mComboPicker);
     MGNCS_REGISTER_COMPONENT(mDatePicker);
+    MGNCS_REGISTER_COMPONENT(mTimePicker);
     MGNCS_REGISTER_COMPONENT(mBtnNavBar);
     MGNCS_REGISTER_COMPONENT(mImgNavBar);
     MGNCS_REGISTER_COMPONENT(mExList);
