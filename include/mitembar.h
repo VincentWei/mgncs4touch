@@ -107,7 +107,7 @@ struct _mItemBarRenderer {
  * \var g_stmItemBarCls
  * \brief global mItemBarClass
  */
-MTOUCH_EXPORT mItemBarClass g_stmItemBarCls;
+MTOUCH_EXPORT extern mItemBarClass g_stmItemBarCls;
 
 /**
  * \enum mItemBarProp

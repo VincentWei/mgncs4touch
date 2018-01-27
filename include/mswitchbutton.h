@@ -126,7 +126,7 @@ struct _mSwitchButtonRenderer {
  * \var g_stmSwitchButtonCls
  * \brief global mSwitchButtonClass
  */
-MTOUCH_EXPORT mSwitchButtonClass g_stmSwitchButtonCls;
+MTOUCH_EXPORT extern mSwitchButtonClass g_stmSwitchButtonCls;
 
 /**
  * \define mSwitchButtonStyle

@@ -94,7 +94,7 @@ enum mTimePickerNotify {
     NCSN_TPCK_MAX
 };
 
-MTOUCH_EXPORT mTimePickerClass g_stmTimePickerCls;
+MTOUCH_EXPORT extern mTimePickerClass g_stmTimePickerCls;
 
 #ifdef __cplusplus
 }

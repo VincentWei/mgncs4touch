@@ -98,7 +98,7 @@ enum mDatePickerNotify {
     NCSN_DPCK_MAX
 };
 
-MTOUCH_EXPORT mDatePickerClass g_stmDatePickerCls;
+MTOUCH_EXPORT extern mDatePickerClass g_stmDatePickerCls;
 
 #ifdef __cplusplus
 }

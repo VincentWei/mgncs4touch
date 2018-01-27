@@ -96,7 +96,7 @@ enum mExListNotify
 };
 
 
-MTOUCH_EXPORT mExListClass g_stmExListCls;
+MTOUCH_EXPORT extern mExListClass g_stmExListCls;
 
 #ifdef __cplusplus
 }

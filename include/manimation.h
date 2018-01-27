@@ -106,7 +106,7 @@ struct _mAnimationRenderer {
  *
  * \sa mAnimationClass
  */
-MGNCS_EXPORT  extern mAnimationClass g_stmAnimationCls;
+MGNCS_EXPORT extern mAnimationClass g_stmAnimationCls;
 
 #ifdef  __cplusplus
 }

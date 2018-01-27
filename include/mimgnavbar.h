@@ -151,7 +151,7 @@ struct _mImgNavBarRenderer {
  * \var g_stmImgNavBarCls
  * \brief global mImgNavBarClass
  */
-MTOUCH_EXPORT mImgNavBarClass g_stmImgNavBarCls;
+MTOUCH_EXPORT extern mImgNavBarClass g_stmImgNavBarCls;
 
 /**
  * \enum mImgNavBarData

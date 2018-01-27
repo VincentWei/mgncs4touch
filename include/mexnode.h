@@ -131,7 +131,7 @@ enum eExNodeNotify
 	NCSN_ENOD_MAX
 };
 
-MTOUCH_EXPORT mExNodeClass g_stmExNodeCls;
+MTOUCH_EXPORT extern mExNodeClass g_stmExNodeCls;
 
 #ifdef __cplusplus
 }

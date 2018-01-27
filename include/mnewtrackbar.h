@@ -100,7 +100,7 @@ struct _mNewTrackBarRenderer {
  * \var g_stmNewTrackBarCls
  * \brief global mNewTrackBarClass
  */
-MTOUCH_EXPORT mNewTrackBarClass g_stmNewTrackBarCls;
+MTOUCH_EXPORT extern mNewTrackBarClass g_stmNewTrackBarCls;
 
 /**
  * \define mNewTrackBarStyle

@@ -107,7 +107,7 @@ struct _mComboPickerRenderer {
  *
  * \sa mComboPickerClass
  */
-MTOUCH_EXPORT mComboPickerClass g_stmComboPickerCls;
+MTOUCH_EXPORT extern mComboPickerClass g_stmComboPickerCls;
 
 /**
  * \def NCSS_CMBPCK_SHIFT

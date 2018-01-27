@@ -174,7 +174,7 @@ struct _mBtnNavBarRenderer {
  * \var g_stmBtnNavBarCls
  * \brief global mBtnNavBarClass
  */
-MTOUCH_EXPORT mBtnNavBarClass g_stmBtnNavBarCls;
+MTOUCH_EXPORT extern mBtnNavBarClass g_stmBtnNavBarCls;
 
 /**
  * \enum mBtnNavBarData

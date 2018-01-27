@@ -125,7 +125,7 @@ enum mPickerNotify {
     NCSN_PCK_MAX
 };
 
-MTOUCH_EXPORT mPickerClass g_stmPickerCls;
+MTOUCH_EXPORT extern mPickerClass g_stmPickerCls;
 
 #ifdef __cplusplus
 }
