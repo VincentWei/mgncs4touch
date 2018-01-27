@@ -72,7 +72,7 @@ static void mAnimation_destroy(mAnimation* self)
 }
 
 
-static void _call_draw(MGEFF_ANIMATION animation, void* target, int id, void* value)
+static void _call_draw(MGEFF_ANIMATION animation, void* target, intptr_t id, void* value)
 {
     UpdateWindow((HWND)target, TRUE);
 }

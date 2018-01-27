@@ -768,7 +768,7 @@ static void mPicker_disableItems(mPicker *self, int idxFrom, int count)
 }
 
 
-static void _call_draw(MGEFF_ANIMATION animation, void* target, int id, void* value)
+static void _call_draw(MGEFF_ANIMATION animation, void* target, intptr_t id, void* value)
 {
     UpdateWindow((HWND)target, FALSE);
 }
