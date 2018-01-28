@@ -174,8 +174,6 @@ int MiniGUIMain(int argc, const char* argv[])
 
 	_c(mydlg)->doModal(mydlg, TRUE);
 
-	MainWindowThreadCleanup(mydlg->hwnd);
-
     UnloadBitmap(&demoBmp);
 	ncs4TouchUninitialize();
 	ncsUninitialize();
