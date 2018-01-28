@@ -199,11 +199,11 @@ int MiniGUIMain(int argc, const char* argv[])
 	mDialogBox* mydlg = (mDialogBox*)ncsCreateMainWindowIndirect 
 									(&mymain_templ, HWND_DESKTOP);
 	_c(mydlg)->doModal(mydlg, TRUE);
+	MainWindowThreadCleanup(mydlg->hwnd);
 
 	ncs4TouchUninitialize();
 	ncsUninitialize();
 
-	MainWindowThreadCleanup(mydlg->hwnd);
 	return 0;
 }
 

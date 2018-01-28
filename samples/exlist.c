@@ -57,8 +57,6 @@
 #define IDL_FILE   110
 #define INFO_NUM   3
 
-static BITMAP demoBmp;
-
 static NCS_MENU_DATA child[] = {
     {0, NULL, NCSS_NODE_LTEXTRS, "home:  100", NULL, -1, 0, NULL},
     {0, NULL, NCSS_NODE_LTEXTRS, "office:101", NULL, -1, 0, NULL},
@@ -67,13 +65,13 @@ static NCS_MENU_DATA child[] = {
 
 //nr_child, child, style, text, image, height, addData, parent
 static NCS_MENU_DATA data[] = {
-    {3, child, NCSS_NODE_LTEXTRS, "Zeus",     &demoBmp, -1, 0, NULL},
-    {3, child, NCSS_NODE_LTEXTRS, "Pan",      &demoBmp, -1, 0, NULL},
-    {3, child, NCSS_NODE_LTEXTRS, "Apollo",   &demoBmp, -1, 0, NULL},
-    {3, child, NCSS_NODE_LTEXTRS, "Heracles", &demoBmp, -1, 0, NULL},
-    {3, child, NCSS_NODE_LTEXTRS, "Achilles", &demoBmp, -1, 0, NULL},
-    {3, child, NCSS_NODE_LTEXTRS, "Jason",    &demoBmp, -1, 0, NULL},
-    {3, child, NCSS_NODE_LTEXTRS, "Theseus",  &demoBmp, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Zeus",     NULL, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Pan",      NULL, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Apollo",   NULL, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Heracles", NULL, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Achilles", NULL, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Jason",    NULL, -1, 0, NULL},
+    {3, child, NCSS_NODE_LTEXTRS, "Theseus",  NULL, -1, 0, NULL},
 };
 
 static void initListData(mDialogBox* dialog, PBITMAP bmp)
@@ -162,23 +160,17 @@ int MiniGUIMain(int argc, const char* argv[])
 		lb_rdr_info[0].ctl_rdr = argv[1];
 	}
 
-    UnloadBitmap(&demoBmp);
 	ncsInitialize();
 	ncs4TouchInitialize();
 
 	mDialogBox* mydlg = (mDialogBox*)ncsCreateMainWindowIndirect
                                 (&mymain_templ, HWND_DESKTOP);
-
-    LoadBitmap(HDC_SCREEN, &demoBmp, "listfolder.png");
-    initListData (mydlg, &demoBmp);
-
+    initListData (mydlg, NULL);
 	_c(mydlg)->doModal(mydlg, TRUE);
+	MainWindowThreadCleanup(mydlg->hwnd);
 
-    UnloadBitmap(&demoBmp);
 	ncs4TouchUninitialize();
 	ncsUninitialize();
-
-    UnloadBitmap(&demoBmp);
 	return 0;
 }
 

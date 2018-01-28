@@ -626,6 +626,8 @@ BOOL RegisterTouchRDR(void)
         return FALSE;
     }
 
+    return TRUE;
+
     memcpy (&new_fashion_rdr, old_fashion_rdr, sizeof (WINDOW_ELEMENT_RENDERER));
 
     new_fashion_rdr.init            = touch_init;
