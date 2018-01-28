@@ -146,9 +146,12 @@ AC_SUBST(PC_CFLAGS)
 
 CFLAGS="$CFLAGS -D__MGNCS4TOUCH_LIB__"
 if test "x$devel_mode" = "xyes"; then
+    CPPFLAGS="$CPPFLAGS -D_DEBUG"
     if test "$ac_cv_prog_gcc" = "yes"; then
         CPPFLAGS="$CPPFLAGS -Wall -Werror"
     fi
+else
+    CPPFLAGS="$CPPFLAGS -DNDEBUG"
 fi
 
 if test "$ac_cv_prog_gcc" = "yes"; then

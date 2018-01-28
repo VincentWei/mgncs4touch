@@ -12,7 +12,10 @@ COMMON_SRCS = mgncs4touch.c mtouchcomm.c lf_touch.c mtouchrdr.c touch_pieces.c  
 			mexlist.c mbtnnavbar.c mimgnavbar.c mitembar.c            \
 			balloon_tip_maker.c
 
-libmgncs4touch@NCS4TOUCH_LIBSUFFIX@_la_LIBADD  = @DEP_LIBS@ pieces/libpieces.la 
+SUBLIBS = pieces/libpieces.la 
+
+libmgncs4touch@NCS4TOUCH_LIBSUFFIX@_la_LIBADD  = $(SUBLIBS) @DEP_LIBS@ 
+libmgncs4touch@NCS4TOUCH_LIBSUFFIX@_la_DEPENDENCIES  = $(SUBLIBS)
 libmgncs4touch@NCS4TOUCH_LIBSUFFIX@_la_SOURCES = $(COMMON_SRCS) 
 libmgncs4touch@NCS4TOUCH_LIBSUFFIX@_la_LDFLAGS = -release $(LT_RELEASE) -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
