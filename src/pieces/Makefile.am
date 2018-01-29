@@ -29,13 +29,14 @@ COMMON_SRCS = \
     mpieceitem.c \
     mradiopiece.c \
     mrotateswitchpiece.c \
-    mscrollviewpiece.c \
     mslideswitchpiece.c \
     mtableviewitempiece.c \
     mtableviewpiece.c \
     mtextpiece.c \
     mtransroundpiece.c \
-    mwrappaintpiece.c
+    mwrappaintpiece.c \
+    mscrollviewpiece.c \
+    mhscrollviewpiece.c
 
 #    mnavigationbarpiece.c
 #    mnavigationitem.c

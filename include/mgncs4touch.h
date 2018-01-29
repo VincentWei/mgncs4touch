@@ -76,6 +76,8 @@
 #include "pieces/m3dbuttonpiece.h"
 #include "pieces/msimagepiece.h"
 #include "pieces/mitempiece.h"
+#include "pieces/mscrollviewpiece.h"
+#include "pieces/mhscrollviewpiece.h"
 
 #if 0
 #include "pieces/mnavigationitem.h"

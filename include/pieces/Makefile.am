@@ -31,14 +31,15 @@ HEAD_FILES = \
     mpieceitem.h \
     mradiopiece.h \
     mrotateswitchpiece.h \
-    mscrollviewpiece.h \
     mslideswitchpiece.h \
     mtableviewitempiece.h \
     mtableviewpiece.h \
     mtextpiece.h \
     mtransroundpiece.h \
     mwidgethostpiece.h \
-    mwrappaintpiece.h
+    mwrappaintpiece.h \
+    mscrollviewpiece.h \
+    mhscrollviewpiece.h
 
 libmgncs4touchinclude_HEADERS = $(HEAD_FILES)
 

@@ -96,13 +96,47 @@ BOOL ncs4TouchInitialize(void)
     MGNCS_REGISTER_COMPONENT(mExList);
     MGNCS_REGISTER_COMPONENT(mItemBar);
 
+    MGNCS_INIT_CLASS(mPieceItem);
+    MGNCS_INIT_CLASS(mAbstractItemManager);
+    MGNCS_INIT_CLASS(mItemIterator);
+    MGNCS_INIT_CLASS(mListItemManager);
+    MGNCS_INIT_CLASS(mListItemIterator);
+    MGNCS_INIT_CLASS(mRotateSwitchPiece);
+    MGNCS_INIT_CLASS(mPanelPiece);
+    MGNCS_INIT_CLASS(mItemPiece);
+    MGNCS_INIT_CLASS(mCheckMarkPiece);
+    MGNCS_INIT_CLASS(mRadioPiece);
+    MGNCS_INIT_CLASS(mIndicatorPiece);
+    MGNCS_INIT_CLASS(mIndicatorButtonPiece);
+    MGNCS_INIT_CLASS(mSlideSwitchPiece);
+    MGNCS_INIT_CLASS(mTextPiece);
+    MGNCS_INIT_CLASS(mWrapPaintPiece);
+    MGNCS_INIT_CLASS(mShapeTransRoundPiece);
+    MGNCS_INIT_CLASS(mAnimationEditPiece);
+    MGNCS_INIT_CLASS(mButtonPanelPiece);
+    MGNCS_INIT_CLASS(mLayoutManager);
+    MGNCS_INIT_CLASS(mCenterHBox);
+    MGNCS_INIT_CLASS(mExSeparatorPiece);
+    MGNCS_INIT_CLASS(mLineVBox);
+    MGNCS_INIT_CLASS(mScrollViewPiece);
+    MGNCS_INIT_CLASS(mHScrollViewPiece);
+    MGNCS_INIT_CLASS(mTableViewItemPiece);
+    MGNCS_INIT_CLASS(mTableViewPiece);
+    MGNCS_INIT_CLASS(mIndexLocatePiece);
+    //MGNCS_INIT_CLASS(mNavigationItem);
+    //MGNCS_INIT_CLASS(mNavigationBarPiece);
+    //MGNCS_INIT_CLASS(mNavigationPanelPiece);
+    //MGNCS_INIT_CLASS(mWidgetHostPiece);
+    MGNCS_INIT_CLASS(m3DButtonPiece);
+    MGNCS_REGISTER_COMPONENT(mContainerCtrl);
+    MGNCS_REGISTER_COMPONENT_EX(mIconFlow, WS_VSCROLL, WS_EX_NONE, IDC_ARROW, NCS_BGC_WINDOW);
+
     return TRUE;
 }
 
 
 void ncs4TouchUninitialize(void)
 {
-    // TODO
     MGNCS_UNREG_COMPONENT(mAnimation);
     MGNCS_UNREG_COMPONENT(mSwitchButton);
     MGNCS_UNREG_COMPONENT(mNewTrackBar);
@@ -114,5 +148,8 @@ void ncs4TouchUninitialize(void)
     MGNCS_UNREG_COMPONENT(mImgNavBar);
     MGNCS_UNREG_COMPONENT(mExList);
     MGNCS_UNREG_COMPONENT(mItemBar);
+
+    MGNCS_UNREG_COMPONENT(mIconFlow);
+    MGNCS_UNREG_COMPONENT(mContainerCtrl);
 }
 

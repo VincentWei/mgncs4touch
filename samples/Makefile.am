@@ -9,8 +9,8 @@ AM_CPPFLAGS = -I$(TOP_DIR) -I$(TOP_DIR)/include -I.
 COMMON_LADD = ../src/libmgncs4touch.la
 
 noinst_PROGRAMS = switchbutton picker newtrackbar commdraw datepicker \
-				  timepicker exlist btnnavbar imgnavbar name2value itembar \
-				  balloontip
+    timepicker exlist btnnavbar imgnavbar name2value itembar balloontip \
+    hscrollview
 
 switchbutton_SOURCES = switchbutton.c
 switchbutton_LDADD = $(COMMON_LADD) @APP_LIBS@
@@ -47,6 +47,9 @@ itembar_LDADD = $(COMMON_LADD) @APP_LIBS@
 
 balloontip_SOURCES = balloontip.c
 balloontip_LDADD = ${COMMON_LADD} @APP_LIBS@
+
+hscrollview_SOURCES = hscrollview.c
+hscrollview_LDADD = ${COMMON_LADD} @APP_LIBS@
 
 EXTRA_DIST =
 
