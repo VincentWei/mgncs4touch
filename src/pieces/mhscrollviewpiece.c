@@ -57,7 +57,7 @@
 #define PRESS_TIMEOUT (10)
 #define R (80)
 #define MIN_SPEED (0.01f)
-#define MAX_CROSS_BORDER (70)
+#define MAX_CROSS_BORDER (100)
 #define CLICK_TIMEOUT (8)
 #define CLICK_MICRO_MOVEMENT (8)
 
@@ -167,7 +167,7 @@ static int s_onCalc(MGEFF_ANIMATION anim, cpSpace *space, void *_self) {
 
         board = (self->m_movingStatus < 0 ? ctx->board1 : ctx->board2);
         spring = board->spring;
-        if (spring->a->p.y != spring->b->p.y) {
+        if (spring->a->p.x != spring->b->p.x) {
             cpBodySleep(block->body);
             if (self->m_movingStatus < 0) {
                 cpBodySetPos(block->body, cpv(0, block->body->p.y));
@@ -213,10 +213,11 @@ static void s_onDraw(MGEFF_ANIMATION anim, cpSpace *space, void *_self) {
     assert(cpPolyShapeGetNumVerts(block) == 4);
     p = cpvadd(cpPolyShapeGetVert(block, 0), block->body->p);
 
-    _c(self)->moveViewport(self, p.y, p.x-R);
+    _c(self)->moveViewport(self, p.x, p.y-R);
     PanelPiece_update(_c(child)->getPiece(child), FALSE);
 }
 
+/* VW: horizontal scrolloing */
 static cpSpace *s_setupSpace(mHScrollViewPiece *self, float v_x, float v_y) {
     cpSpace *space;
     cpShape *shape;
@@ -248,13 +249,13 @@ static cpSpace *s_setupSpace(mHScrollViewPiece *self, float v_x, float v_y) {
     shape = create_block(space, x, y_baseline, x+w, y_baseline+R, 10);
     shape->u = 3.0f;
     ctx->movingBlock = shape;
-    cpBodySetVel(shape->body, cpv(-v_y, 0));
+    cpBodySetVel(shape->body, cpv(-v_x, 0));
 
     ctx->board1 = create_baffle_board(space, y_baseline, R, 2*MAX_CROSS_BORDER, MIN(0, shape->body->p.x), -2*MAX_CROSS_BORDER, 2000, 5);
     ctx->board2 = create_baffle_board(space, y_baseline, R, 2*MAX_CROSS_BORDER, MAX(W, rc.right), W+2*MAX_CROSS_BORDER, 2000, 5);
-    if (rc.top < 0) {
+    if (rc.left < 0) {
         self->m_movingStatus = -1;
-    }else if (rc.bottom > W) {
+    }else if (rc.right > W) {
         self->m_movingStatus = 1;
     }else{
         self->m_movingStatus = 0;
@@ -314,7 +315,6 @@ static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LP
         }
 
         space = s_setupSpace(self, v_x, v_y);
-        assert(self->m_animation == NULL);
         self->m_animation = phyanim_create(space, self, s_onCalc, s_onDraw); 
         mGEffAnimationSetContext(self->m_animation, self);
         mGEffAnimationSetFinishedCb(self->m_animation, s_finish_cb);
@@ -491,8 +491,8 @@ static void mHScrollViewPiece_construct(mHScrollViewPiece *self, DWORD addData) 
 
     cpInitChipmunk(); /* TODO */
 
-    self->m_ratioX = 0.0f;
-    self->m_ratioY = 1.0f;
+    self->m_ratioX = 1.0f;
+    self->m_ratioY = 0.0f;
     self->m_bNeedScrollBar = TRUE;
     self->m_bScrollbarAutoHided = TRUE;
     self->m_bPressed = FALSE;
@@ -766,7 +766,7 @@ static void mHScrollViewPiece_paint(mHScrollViewPiece *self, HDC hdc, mObject * 
         if (self->m_content) {
             _c(self->m_content->piece)->getRect(self->m_content->piece, &contentRc);
             if (RECTW(viewRc) >= RECTW(contentRc) && self->m_content->x != 0) {
-                _c(self)->movePiece(self, self->m_content->piece, self->m_content->x, 0);
+                _c(self)->movePiece(self, self->m_content->piece, 0, self->m_content->y);
             }
             OffsetRect(&contentRc, self->m_content->x, self->m_content->y);
             n = SubtractRect(visible, &viewRc, &contentRc);

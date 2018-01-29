@@ -62,20 +62,24 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
     mContainerCtrl *ctnr;
     mPanelPiece *content;
     mHScrollViewPiece *view;
+    mHotPiece* backPiece;
+    int i;
     RECT rc;
-    mHotPiece *ct1;
-    mHotPiece *ct2;
-    mHotPiece *back;
-    mHotPiece *ct4;
-    mHotPiece *ct5;
-    mHotPiece *ct6;
     static BITMAP bmp[3];
+    static char* label[3];
+
+    LoadBitmap(HDC_SCREEN, &bmp[0], "res/news.png");
+    label [0] = "news";
+    LoadBitmap(HDC_SCREEN, &bmp[1], "res/file.png");
+    label [1] = "file";
+    LoadBitmap(HDC_SCREEN, &bmp[2], "res/internet.png");
+    label [2] = "internet";
 
     GetClientRect(self->hwnd, &rc);
     ctnr = (mContainerCtrl*)ncsCreateWindow(NCSCTRL_CONTAINERCTRL,
             "ContainerCtrl",
             WS_VISIBLE, 0, 0,
-            (RECTW(rc) - 300)/2, rc.top+10, 300, RECTH(rc)-10*2,
+            0, 10, RECTW(rc), RECTH(rc)-10*2,
             self->hwnd,
             NULL, NULL, NULL, 0);
 
@@ -91,57 +95,36 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
 
     _c(ctnr)->setBody(ctnr, (mHotPiece*)view);
 
-    ct1 = (mHotPiece*)NEWPIECE(mLabelPiece);
-    ct2 = (mHotPiece*)NEWPIECE(mLabelPiece);
-    back = (mHotPiece*)NEWPIECE(mRectPiece);
-    ct4 = (mHotPiece*)NEWPIECE(mImagePiece);
-    ct5 = (mHotPiece*)NEWPIECE(mImagePiece);
-    ct6 = (mHotPiece*)NEWPIECE(mImagePiece);
-    
-    rc.right = 100;
-    rc.bottom = 20;
-    _c(ct1)->setRect (ct1, &rc);
-    rc.right = 100;
-    rc.bottom = 20;
-    _c(ct2)->setRect (ct2, &rc);
-
-    /* add rect piece as background.*/
+    /* add a rect piece as background.*/
+    backPiece = (mHotPiece*)NEWPIECE(mRectPiece);
     GetClientRect(ctnr->hwnd, &rc);
-    rc.bottom += 10 * RECTH(rc);
+    rc.right = rc.left + (bmp[0].bmWidth + 15) * 18;
     _c(content)->setRect(content, &rc);
-    _c(back)->setRect (back, &rc);
-    _c(back)->setProperty (back, NCSP_RECTPIECE_FILLCOLOR, MakeRGBA(0x00, 0xff, 0x00, 0xff));
-    _c(back)->setProperty (back, NCSP_RECTPIECE_YRADIUS, 5);
-    _c(back)->setProperty (back, NCSP_RECTPIECE_BORDERSIZE, 5);
-    _c(back)->setProperty (back, NCSP_RECTPIECE_XRADIUS, 5);
+    _c(backPiece)->setRect (backPiece, &rc);
+    _c(backPiece)->setProperty (backPiece, NCSP_RECTPIECE_FILLCOLOR, MakeRGBA(0xff, 0xff, 0xff, 0xff));
 
-    /* add image.*/
-    //LoadResource(HDC_SCREEN, RES_TYPE_IMAGE, "new2.jpg");
-    LoadBitmap(HDC_SCREEN, &bmp[0], "res/news.png");
-    LoadBitmap(HDC_SCREEN, &bmp[1], "res/file.png");
-    LoadBitmap(HDC_SCREEN, &bmp[2], "res/internet.png");
-    rc.right  = bmp[0].bmWidth;
-    rc.bottom = bmp[0].bmHeight;
-    _c(ct4)->setRect (ct4, &rc);
-    _c(ct4)->setProperty (ct4, NCSP_IMAGEPIECE_IMAGE, (DWORD)&bmp[0]);
-    rc.right  = bmp[1].bmWidth;
-    rc.bottom = bmp[1].bmHeight;
-    _c(ct5)->setRect (ct5, &rc);
-    _c(ct5)->setProperty (ct5, NCSP_IMAGEPIECE_IMAGE, (DWORD)&bmp[1]);
-    rc.right  = bmp[2].bmWidth;
-    rc.bottom = bmp[2].bmHeight;
-    _c(ct6)->setRect (ct6, &rc);
-    _c(ct6)->setProperty (ct6, NCSP_IMAGEPIECE_IMAGE, (DWORD)&bmp[2]);
+    _c(content)->addContent (content, backPiece, 0, 0);
 
-    _c(ct1)->setProperty (ct1, NCSP_LABELPIECE_LABEL, (DWORD)"hello");
-    _c(ct2)->setProperty (ct2, NCSP_LABELPIECE_LABEL, (DWORD)"world");
-    
-    _c(content)->addContent(content, back, 5, 5);
-    _c(content)->addContent(content, ct1, 10, 20);
-    _c(content)->addContent(content, ct2, 120, 20);
-    _c(content)->addContent(content, ct4, 105, 105);
-    _c(content)->addContent(content, ct5, 165, 105);
-    _c(content)->addContent(content, ct6, 235, 105);
+    /* add 18 imagePiece */
+    rc.left = rc.top = 0;
+    for (i = 0; i < 18; i++) {
+        mHotPiece *imagePiece = (mHotPiece*)NEWPIECE(mImagePiece);
+        mHotPiece *labelPiece = (mHotPiece*)NEWPIECE(mLabelPiece);
+
+        rc.right  = bmp[i % 3].bmWidth;
+        rc.bottom = bmp[i % 3].bmHeight;
+        _c(imagePiece)->setRect (imagePiece, &rc);
+        _c(imagePiece)->setProperty (imagePiece, NCSP_IMAGEPIECE_IMAGE, (DWORD)&bmp[i % 3]);
+
+        _c(content)->addContent (content, imagePiece, 10 + i * bmp[i % 3].bmWidth, 10);
+
+
+        rc.bottom = 10;
+        rc.right = bmp[i % 3].bmWidth;
+        _c(labelPiece)->setRect (labelPiece, &rc);
+        _c(labelPiece)->setProperty (labelPiece, NCSP_LABELPIECE_LABEL, (DWORD)label[i % 3]);
+        _c(content)->addContent (content, labelPiece, 10 + i * bmp[i % 3].bmWidth, bmp[i % 3].bmHeight + 15);
+    }
 
     ncsSetComponentHandlers((mComponent *)ctnr, g_handles, -1);
 
@@ -178,7 +161,7 @@ int MiniGUIMain(int argc, const char *argv[]) {
             WS_CAPTION | WS_BORDER | WS_VISIBLE,
             WS_EX_AUTOSECONDARYDC,
             1,
-            0, 0, g_rcScr.right/2,g_rcScr.bottom,
+            0, 0, 600, 150,
             HWND_DESKTOP,
             0, 0,
             NULL,
