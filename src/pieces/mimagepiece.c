@@ -47,16 +47,7 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include "mgncsconfig.h"
-#include "mcommon.h"
-#include "mobject.h"
-#include "mcomponent.h"
-#include "mwidget.h"
-#include "mrdr.h"
-
-#include "mhotpiece.h"
-#include "mstaticpiece.h"
-#include "mimagepiece.h"
+#include <mgncs/mgncs.h>
 
 static void mImagePiece_construct(mImagePiece *self, DWORD add_data)
 {

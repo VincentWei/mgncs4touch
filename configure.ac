@@ -163,8 +163,10 @@ AC_OUTPUT([
     mgncs4touch.pc
     include/Makefile
     include/pieces/Makefile
+    include/physics-animation/Makefile
     src/Makefile
     src/pieces/Makefile
+    src/physics-animation/Makefile
     etc/Makefile
     samples/Makefile
     samples/res/Makefile
