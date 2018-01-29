@@ -12,9 +12,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
 
-#include "mlistitemiterator.h"
+#include "mgncs4touch.h"
 
 #define ITEM_HEAD(ptr) list_entry(ptr, mPieceItem, list)
 

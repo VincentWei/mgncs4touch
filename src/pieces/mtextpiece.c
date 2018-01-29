@@ -7,8 +7,9 @@
 #include <minigui/window.h>
 
 #include <mgncs/mgncs.h>
+#include <mgeff/mgeff.h>
 
-#include "mtextpiece.h"
+#include "mgncs4touch.h"
 
 static void mTextPiece_construct(mTextPiece *self, DWORD add_data)
 {

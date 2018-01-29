@@ -9,19 +9,13 @@
 #include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
 
-#include "mabstractitemmanager.h"
-#include "mlistitemmanager.h"
-#include "mitemiterator.h"
-#include "mlistitemiterator.h"
-#include "mpanelpiece.h"
-#include "mtextpiece.h"
-#include "mitempiece.h"
+#include "mgncs4touch.h"
 
 #define TITLEFONT_SIZE        18
 #define TITLEFONT_COLOR       0xFF192952
 #define TITLE_WIDTH           300
 #define TITLE_HEIGHT          24
-#define TITLE_MAXLEN          /*180*/(ACTIVITY_W>>1)
+#define TITLE_MAXLEN          180
 
 #define SUBTITLEFONT_SIZE     12
 #define SUBTITLEFONT_COLOR    0xFF0000FF
@@ -34,7 +28,7 @@
 #define DETAIL_WIDTH          300
 #define DETAIL_HEIGHT         24
 
-#define SUBSTANCE_WIDTH       /*280*/(ACTIVITY_W - 80)
+#define SUBSTANCE_WIDTH       280
 
 #define INDICATOR_WIDTH    24
 #define INDICATOR_HEIGHT   24

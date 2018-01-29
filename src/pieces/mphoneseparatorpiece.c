@@ -6,10 +6,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include <mgncs/mgncs.h>
 #include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
 
-#include "mphoneseparatorpiece.h"
+#include "mgncs4touch.h"
     
 static void mPhoneSeparatorPiece_construct(mPhoneSeparatorPiece *self, DWORD add_data)
 {

@@ -13,11 +13,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
 
-#include "mgroupitemmanager.h"
-#include "mgroupitemiterator.h"
-#include "mgrouppieceitem.h"
+#include "mgncs4touch.h"
 
 #define ITEM_HEAD(ptr, list) list_entry(ptr, mGroupPieceItem, list)
 

@@ -13,8 +13,9 @@
 #include <minigui/window.h>
 
 #include <mgncs/mgncs.h>
+#include <mgeff/mgeff.h>
 
-#include "mabstractitemmanager.h"
+#include "mgncs4touch.h"
 
 static void mAbstractItemManager_construct(mAbstractItemManager *self, DWORD add_data)
 {

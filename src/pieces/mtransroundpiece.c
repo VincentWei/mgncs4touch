@@ -7,9 +7,9 @@
 #include <minigui/window.h>
 
 #include <mgncs/mgncs.h>
+#include <mgeff/mgeff.h>
 
-#include "mtransroundpiece.h"
-#include "mfillboxex.h"
+#include "mgncs4touch.h"
 
 static void mShapeTransRoundPiece_construct(mShapeTransRoundPiece *self, DWORD add_data)
 {

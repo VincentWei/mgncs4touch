@@ -7,8 +7,9 @@
 #include <minigui/window.h>
 
 #include <mgncs/mgncs.h>
+#include <mgeff/mgeff.h>
 
-#include "mwrappaintpiece.h"
+#include "mgncs4touch.h"
 
 static void mWrapPaintPiece_construct(mWrapPaintPiece *self, DWORD add_data)
 {

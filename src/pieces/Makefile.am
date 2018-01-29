@@ -6,6 +6,7 @@ COMMON_SRCS = \
     mshapeboxpiece.c \
     mshapepushbuttonpiece.c \
     mimagepiece.c \
+    msimagepiece.c \
     mnsdrawpiece.c \
     mcolorablelabelpiece.c \
     m3dbuttonpiece.c \
@@ -20,12 +21,11 @@ COMMON_SRCS = \
     mindexlocatepiece.c \
     mindicatorbuttonpiece.c \
     mindicatorpiece.c \
+    mitempiece.c \
     mitemiterator.c \
     mlistitemiterator.c \
     mlistitemmanager.c \
     mpanelpiece.c \
-    mphoneseparatorpiece.c \
-    mphonestaticrdrpiece.c \
     mpieceitem.c \
     mradiopiece.c \
     mrotateswitchpiece.c \
@@ -37,10 +37,11 @@ COMMON_SRCS = \
     mtransroundpiece.c \
     mwrappaintpiece.c
 
-#    mitempiece.c
 #    mnavigationbarpiece.c
 #    mnavigationitem.c
 #    mnavigationpanelpiece.c
+#    mphoneseparatorpiece.c
+#    mphonestaticrdrpiece.c
 #    mwidgethostpiece.c
 
 libpieces_la_SOURCES = $(COMMON_SRCS)

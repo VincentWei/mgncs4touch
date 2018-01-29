@@ -6,10 +6,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include <mgncs/mgncs.h>
 #include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
 
-#include "mindicatorpiece.h"
+#include "mgncs4touch.h"
 
 static void mIndicatorPiece_construct(mIndicatorPiece *self, DWORD add_data)
 {

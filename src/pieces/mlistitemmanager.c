@@ -12,10 +12,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
 
-#include "mlistitemiterator.h"
-#include "mlistitemmanager.h"
+#include "mgncs4touch.h"
 
 static void mListItemManager_construct(mListItemManager *self, DWORD add_data)
 {

@@ -6,11 +6,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include <mgncs/mgncs.h>
-#include <mgeff/mgeff.h>
 #include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
 
-#include "manimationeditpiece.h"
+#include "mgncs4touch.h"
 
 #define ANINATIOM_DURATION 200 /*200ms*/
 #define TEXT_BUFFER_LENGTH 15

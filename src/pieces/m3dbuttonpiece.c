@@ -7,11 +7,9 @@
 #include <minigui/window.h>
 
 #include <mgncs/mgncs.h>
+#include <mgeff/mgeff.h>
 
-#include "mtextpiece.h"
-#include "mpanelpiece.h"
-#include "mbuttonpanelpiece.h"
-#include "m3dbuttonpiece.h"
+#include "mgncs4touch.h"
 
 #define TXTFONT_SIZE 12
 #define TXTFONT_COLOR 0xFF000000

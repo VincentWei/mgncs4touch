@@ -13,8 +13,9 @@
 #include <minigui/window.h>
 
 #include <mgncs/mgncs.h>
+#include <mgeff/mgeff.h>
 
-#include "mpieceitem.h"
+#include "mgncs4touch.h"
 
 static void mPieceItem_construct(mPieceItem *self, DWORD add_data)
 {

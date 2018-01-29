@@ -49,7 +49,6 @@
 #include "pieces/mnsdrawpiece.h"
 #include "pieces/mshapepushbuttonpiece.h"
 #include "pieces/mshapeboxpiece.h"
-#include "pieces/msimagepiece.h"
 #include "pieces/mcolorablelabelpiece.h"
 #include "pieces/mpieceitem.h"
 #include "pieces/mitemiterator.h"
@@ -57,12 +56,12 @@
 #include "pieces/mabstractitemmanager.h"
 #include "pieces/mlistitemmanager.h"
 #include "pieces/mgroupitemmanager.h"
+#include "pieces/mgroupitemiterator.h"
 #include "pieces/mtransroundpiece.h"
 #include "pieces/mrotateswitchpiece.h"
 #include "pieces/mpanelpiece.h"
 #include "pieces/mwrappaintpiece.h"
 #include "pieces/mtextpiece.h"
-#include "pieces/mitempiece.h"
 #include "pieces/mslideswitchpiece.h"
 #include "pieces/mcheckmarkpiece.h"
 #include "pieces/mradiopiece.h"
@@ -74,11 +73,16 @@
 #include "pieces/mbuttonpanelpiece.h"
 #include "pieces/manimationeditpiece.h"
 #include "pieces/mexseparatorpiece.h"
+#include "pieces/m3dbuttonpiece.h"
+#include "pieces/msimagepiece.h"
+#include "pieces/mitempiece.h"
+
+#if 0
 #include "pieces/mnavigationitem.h"
 #include "pieces/mnavigationbarpiece.h"
 #include "pieces/mnavigationpanelpiece.h"
-#include "pieces/m3dbuttonpiece.h"
 #include "pieces/mwidgethostpiece.h"
+#endif
 
 #include "physics-animation/chipmunk-utils.h"
 #include "physics-animation/mspeedmeter.h"
@@ -99,6 +103,7 @@
 #include "mcenterhbox.h"
 #include "mlinevbox.h"
 #include "miconflow.h"
+#include "mfillboxex.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -12,9 +12,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
 
-#include "mitemiterator.h"
+#include "mgncs4touch.h"
 
 static void mItemIterator_construct(mItemIterator *self, DWORD add_data)
 {

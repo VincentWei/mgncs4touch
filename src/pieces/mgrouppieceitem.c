@@ -5,10 +5,11 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
 
-#include "mpieceitem.h"
-#include "mgrouppieceitem.h"
+#include "mgncs4touch.h"
 
 static void mGroupPieceItem_construct(mGroupPieceItem *self, DWORD add_data)
 {
