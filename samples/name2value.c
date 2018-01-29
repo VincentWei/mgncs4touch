@@ -205,9 +205,9 @@ int main(int argc, const char* argv[])
 			for (i = 0; i < sizeof(name_values) / sizeof(char*[2]); i++) {
 				if (strcasecmp(name_values[i][0], argv[j]) == 0) {
 					if (strncmp(name_values[i][0], "NCSS", 4) == 0) {
-						LOGE("%s=0x%X\n", name_values[i][0], (int) name_values[i][1]);
+						LOGE("%s=%p\n", name_values[i][0], name_values[i][1]);
                     } else {
-						LOGE("%s=%d\n", name_values[i][0], (int) name_values[i][1]);
+						LOGE("%s=%p\n", name_values[i][0], name_values[i][1]);
                     }
 					break;
 				}
@@ -218,9 +218,9 @@ int main(int argc, const char* argv[])
 
 	for (i = 0; i < sizeof(name_values) / sizeof(char*[2]); i++) {
 			if (strncmp(name_values[i][0], "NCSS", 4) == 0) {
-				LOGE("%s=0x%X\n", name_values[i][0], (int) name_values[i][1]);
+				LOGE("%s=%p\n", name_values[i][0], name_values[i][1]);
 			} else {
-				LOGE("%s=%d\n", name_values[i][0], (int) name_values[i][1]);
+				LOGE("%s=%p\n", name_values[i][0], name_values[i][1]);
 			}
 	}
 

@@ -17,11 +17,13 @@ SUBDIRS = pieces
 
 libmgncs4touchincludedir = $(includedir)/mgncs4touch
 
-libmgncs4touchinclude_HEADERS = ../mgncs4touchconfig.h mtouchdebug.h mgncs4touch.h mtouchcomm.h     \
-							 mtouchrdr.h manimation.h mswitchbutton.h mnewtrackbar.h \
-							 mpicker.h mcombopicker.h mtimepicker.h mdatepicker.h  \
-							 mbtnnavbar.h mimgnavbar.h mexlist.h mitembar.h        \
-							 balloon_tip_maker.h
+libmgncs4touchinclude_HEADERS = ../mgncs4touchconfig.h \
+    mtouchdebug.h mgncs4touch.h mtouchcomm.h \
+    mtouchrdr.h manimation.h mswitchbutton.h mnewtrackbar.h \
+    mpicker.h mcombopicker.h mtimepicker.h mdatepicker.h \
+    mbtnnavbar.h mimgnavbar.h mexlist.h mitembar.h balloon_tip_maker.h \
+    mcenterhbox.h mlayout_manager.h mlinevbox.h \
+    mcontainerctrl.h miconflow.h 
 
 EXTRA_DIST =
 
