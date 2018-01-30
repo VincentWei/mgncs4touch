@@ -11,7 +11,7 @@
 			</panel>
             <panel class="ToolboxPanel" caption="Touch">
 				<param name="ctrllist">uieditor/mgncs4touch.cfg</param>
-                <lib src="mgeff" init="mGEffInit"/>
+                <lib src="mgeff_msd" init="mGEffInit"/>
                 <lib src="mgncs4touch_msd" init="ncs4TouchInitialize"/>
 			</panel>
         </page> 
