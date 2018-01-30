@@ -24,6 +24,8 @@ DataFiles = switchbutton.xml \
 			combopicker.xml  \
 			timepicker.xml   \
 			datepicker.xml   \
+			iconflow.xml   \
+			containerctrl.xml   \
 			itembar.xml
 
 install-data-local:
