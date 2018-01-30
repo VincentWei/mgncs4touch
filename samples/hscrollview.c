@@ -98,7 +98,7 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
     /* add a rect piece as background.*/
     backPiece = (mHotPiece*)NEWPIECE(mRectPiece);
     GetClientRect(ctnr->hwnd, &rc);
-    rc.right = rc.left + (bmp[0].bmWidth + 15) * 18;
+    rc.right = rc.left + (bmp[0].bmWidth + 15) * 18 + 15;
     _c(content)->setRect(content, &rc);
     _c(backPiece)->setRect (backPiece, &rc);
     _c(backPiece)->setProperty (backPiece, NCSP_RECTPIECE_FILLCOLOR, MakeRGBA(0xff, 0xff, 0xff, 0xff));
@@ -116,14 +116,14 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
         _c(imagePiece)->setRect (imagePiece, &rc);
         _c(imagePiece)->setProperty (imagePiece, NCSP_IMAGEPIECE_IMAGE, (DWORD)&bmp[i % 3]);
 
-        _c(content)->addContent (content, imagePiece, 10 + i * bmp[i % 3].bmWidth, 10);
+        _c(content)->addContent (content, imagePiece, 15 + (bmp[i % 3].bmWidth + 15) * i, 10);
 
 
         rc.bottom = 10;
         rc.right = bmp[i % 3].bmWidth;
         _c(labelPiece)->setRect (labelPiece, &rc);
         _c(labelPiece)->setProperty (labelPiece, NCSP_LABELPIECE_LABEL, (DWORD)label[i % 3]);
-        _c(content)->addContent (content, labelPiece, 10 + i * bmp[i % 3].bmWidth, bmp[i % 3].bmHeight + 15);
+        _c(content)->addContent (content, labelPiece, 15 + (bmp[i % 3].bmWidth + 15) * i, bmp[i % 3].bmHeight + 15);
     }
 
     ncsSetComponentHandlers((mComponent *)ctnr, g_handles, -1);

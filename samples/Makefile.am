@@ -10,7 +10,7 @@ COMMON_LADD = ../src/libmgncs4touch.la
 
 noinst_PROGRAMS = switchbutton picker newtrackbar commdraw datepicker \
     timepicker exlist btnnavbar imgnavbar name2value itembar balloontip \
-    hscrollview
+    hscrollview iconflow
 
 switchbutton_SOURCES = switchbutton.c
 switchbutton_LDADD = $(COMMON_LADD) @APP_LIBS@
@@ -50,6 +50,9 @@ balloontip_LDADD = ${COMMON_LADD} @APP_LIBS@
 
 hscrollview_SOURCES = hscrollview.c
 hscrollview_LDADD = ${COMMON_LADD} @APP_LIBS@
+
+iconflow_SOURCES = iconflow.c
+iconflow_LDADD = ${COMMON_LADD} @APP_LIBS@
 
 EXTRA_DIST =
 

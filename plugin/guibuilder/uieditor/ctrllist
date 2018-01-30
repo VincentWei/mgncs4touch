@@ -61,3 +61,5 @@ uieditor/defines/combopicker.xml
 uieditor/defines/timepicker.xml
 uieditor/defines/datepicker.xml
 uieditor/defines/itembar.xml
+uieditor/defines/iconflow.xml
+uieditor/defines/container.xml
