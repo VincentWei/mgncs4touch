@@ -5,11 +5,6 @@
 extern "C" {
 #endif
 
-#include "mabstractitemmanager.h"
-#include "mgrouppieceitem.h"
-#include "mitemiterator.h"
-
-
 typedef int (*ITEM_CMP)(const char* s1, const char* s2);
 typedef struct _mGroupItemManagerClass mGroupItemManagerClass;
 typedef struct _mGroupItemManager mGroupItemManager;

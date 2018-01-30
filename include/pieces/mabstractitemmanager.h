@@ -9,9 +9,6 @@
 #ifndef  MABSTRACTITEMMANAGER_INC
 #define  MABSTRACTITEMMANAGER_INC
 
-#include "mitemiterator.h"
-#include "mpieceitem.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

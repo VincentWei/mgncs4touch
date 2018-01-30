@@ -1,13 +1,9 @@
 #ifndef  MGROUPITEMITERATOR_INC
 #define  MGROUPITEMITERATOR_INC
 
-#include "mitemiterator.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "mlistitemiterator.h"
 
 typedef struct _mGroupItemIteratorClass mGroupItemIteratorClass;
 typedef struct _mGroupItemIterator mGroupItemIterator;

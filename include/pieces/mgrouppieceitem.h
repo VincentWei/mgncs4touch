@@ -5,8 +5,6 @@
 extern "C" {
 #endif
 
-//#include "mpieceitem.h"
-
 typedef struct _mGroupPieceItemClass mGroupPieceItemClass;
 typedef struct _mGroupPieceItem mGroupPieceItem;
 

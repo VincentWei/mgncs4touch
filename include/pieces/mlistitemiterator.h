@@ -9,8 +9,6 @@
 #ifndef  MLISTITEMITERATOR_INC
 #define  MLISTITEMITERATOR_INC
 
-#include "mitemiterator.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

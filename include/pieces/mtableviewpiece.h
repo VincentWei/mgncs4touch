@@ -5,12 +5,6 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include "mpieceitem.h"
-#include "mpanelpiece.h"
-#include "mtableviewitempiece.h"
-#include "mscrollviewpiece.h"
-#include "mindexlocatepiece.h"
-
 typedef struct _mTableViewPiece mTableViewPiece;
 typedef struct _mTableViewPieceClass mTableViewPieceClass;
 
