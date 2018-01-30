@@ -22,11 +22,9 @@ COMMON_SRCS = \
     mindicatorbuttonpiece.c \
     mindicatorpiece.c \
     mitempiece.c \
-    mitemiterator.c \
     mlistitemiterator.c \
     mlistitemmanager.c \
     mpanelpiece.c \
-    mpieceitem.c \
     mradiopiece.c \
     mrotateswitchpiece.c \
     mslideswitchpiece.c \

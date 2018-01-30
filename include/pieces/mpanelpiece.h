@@ -8,12 +8,6 @@ extern "C" {
 #include <mgplus/mgplus.h>
 #include <mgeff/mgeff.h>
 
-#include "mpieceitem.h"
-#include "mitemiterator.h"
-#include "mabstractitemmanager.h"
-#include "mlayout_manager.h"
-#include "mtransroundpiece.h"
-
 //delete object
 #define HOTPIECE_RELEASE(self) \
     if (self) { \

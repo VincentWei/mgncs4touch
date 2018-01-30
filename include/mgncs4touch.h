@@ -46,12 +46,17 @@
 #include "mtouchrdr.h"
 #include "manimation.h"
 
+#include "mpieceitem.h"
+#include "mitemiterator.h"
+#include "mlayout_manager.h"
+#include "mcenterhbox.h"
+#include "mlinevbox.h"
+#include "mfillboxex.h"
+
 #include "pieces/mnsdrawpiece.h"
 #include "pieces/mshapepushbuttonpiece.h"
 #include "pieces/mshapeboxpiece.h"
 #include "pieces/mcolorablelabelpiece.h"
-#include "pieces/mpieceitem.h"
-#include "pieces/mitemiterator.h"
 #include "pieces/mlistitemiterator.h"
 #include "pieces/mabstractitemmanager.h"
 #include "pieces/mlistitemmanager.h"
@@ -101,10 +106,6 @@
 #include "mexlist.h"
 #include "mitembar.h"
 
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "mlinevbox.h"
-#include "mfillboxex.h"
 #include "miconflow.h"
 #include "mcontainerctrl.h"
 

@@ -8,6 +8,7 @@ COMMON_SRCS = mgncs4touch.c mtouchcomm.c lf_touch.c mtouchrdr.c touch_pieces.c \
     touch_widget_rdr.c manimation.c mswitchbutton.c mpicker.c  \
     mnewtrackbar.c mcombopicker.c mtimepicker.c mdatepicker.c \
     mexlist.c mbtnnavbar.c mimgnavbar.c mitembar.c balloon_tip_maker.c \
+    mpieceitem.c mitemiterator.c \
     mcenterhbox.c mfillboxex.c mlayout_manager.c mlinevbox.c \
     miconflow.c mcontainerctrl.c
 

@@ -18,7 +18,6 @@ HEAD_FILES = \
     mindexlocatepiece.h \
     mindicatorbuttonpiece.h \
     mindicatorpiece.h \
-    mitemiterator.h \
     mitempiece.h \
     mlistitemiterator.h \
     mlistitemmanager.h \
@@ -28,7 +27,6 @@ HEAD_FILES = \
     mpanelpiece.h \
     mphoneseparatorpiece.h \
     mphonestaticrdrpiece.h \
-    mpieceitem.h \
     mradiopiece.h \
     mrotateswitchpiece.h \
     mslideswitchpiece.h \

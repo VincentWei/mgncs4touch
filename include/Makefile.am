@@ -13,7 +13,7 @@
 #                                                                    #
 ######################################################################
 
-SUBDIRS = pieces
+SUBDIRS = pieces physics-animation
 
 libmgncs4touchincludedir = $(includedir)/mgncs4touch
 
@@ -22,10 +22,8 @@ libmgncs4touchinclude_HEADERS = ../mgncs4touchconfig.h \
     mtouchrdr.h manimation.h mswitchbutton.h mnewtrackbar.h \
     mpicker.h mcombopicker.h mtimepicker.h mdatepicker.h \
     mbtnnavbar.h mimgnavbar.h mexlist.h mitembar.h balloon_tip_maker.h \
-    mcenterhbox.h mlayout_manager.h mlinevbox.h \
-    mcontainerctrl.h miconflow.h 
+    mpieceitem.h mitemiterator.h mcenterhbox.h mlayout_manager.h mlinevbox.h \
+    mcontainerctrl.h miconflow.h mfillboxex.h
 
 EXTRA_DIST =
-
-TOP_DIR = ..
 
