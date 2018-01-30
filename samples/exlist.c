@@ -167,7 +167,6 @@ int MiniGUIMain(int argc, const char* argv[])
                                 (&mymain_templ, HWND_DESKTOP);
     initListData (mydlg, NULL);
 	_c(mydlg)->doModal(mydlg, TRUE);
-	MainWindowThreadCleanup(mydlg->hwnd);
 
 	ncs4TouchUninitialize();
 	ncsUninitialize();

@@ -188,8 +188,6 @@ int MiniGUIMain(int argc, const char* argv[])
 
 	ncs4TouchUninitialize();
 	ncsUninitialize();
-
-	MainWindowThreadCleanup(mydlg->hwnd);
 	return 0;
 }
 

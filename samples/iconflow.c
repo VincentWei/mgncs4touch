@@ -221,7 +221,6 @@ int MiniGUIMain(int argc, const char* argv[])
     mGEffInit ();
 
 	_c(mydlg)->doModal(mydlg, TRUE);
-	MainWindowThreadCleanup(mydlg->hwnd);
 
     mGEffDeinit ();
 
