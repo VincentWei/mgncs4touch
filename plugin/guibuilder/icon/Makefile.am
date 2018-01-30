@@ -17,7 +17,7 @@ ETCDIR = $(prefix)/etc/guibuilder/icon
 
 DataFiles = cursor.png switchbtn.png newtrackbar.png picker.png       \
 		    timepicker.png datepicker.png btnnavbar.png imgnavbar.png \
-		    itembar.png
+		    itembar.png iconflow.png container.png
 
 install-data-local:
 	if [ ! -d $(ETCDIR) ]; then $(INSTALL) -d $(ETCDIR); fi

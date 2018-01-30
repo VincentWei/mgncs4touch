@@ -207,6 +207,12 @@ int MiniGUIMain(int argc, const char* argv[])
 	ncsInitialize();
 	ncs4TouchInitialize();
 
+    printf ("NCSP_ICONFLOW_DEFICONHEIGHT: %d\n", NCSP_ICONFLOW_DEFICONHEIGHT);
+    printf ("NCSP_ICONFLOW_DEFICONWIDTH: %d\n", NCSP_ICONFLOW_DEFICONWIDTH);
+    printf ("NCSN_ICONFLOW_ENTER: %d\n", NCSN_ICONFLOW_ENTER);
+    printf ("NCSN_ICONFLOW_CLICKED: %d\n", NCSN_ICONFLOW_CLICKED);
+    printf ("NCSN_ICONFLOW_SELCHANGED: %d\n", NCSN_ICONFLOW_SELCHANGED);
+
 	mDialogBox* mydlg = (mDialogBox *)ncsCreateMainWindowIndirect 
                                 (&mainwnd_tmpl, HWND_DESKTOP);
 

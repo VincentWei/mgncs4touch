@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window class="IconFlow" extends="ItemView">
+	<set-property name="Class" value="iconflow"/>
+
+	<property name="Icon Height"    id="18"  type="int"  default="100"/>
+	<property name="Icon Width"     id="21"  type="int"  default="100"/>
+	<property name="Visible Count"  id="23"  type="int"  default="0"/>
+	<property name="Icon Frame"     id="24"  type="image"/>
+	<property name="Span"           id="25"  type="int"  default="120"/>
+	<property name="Icon Border"    id="26"  type="int"  default="2"/>
+   
+	<event id="9">
+		<handler>void onIconFlowEnter(mIconFlow* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_ICONFLOW_ENTER)</code>
+	</event>
+
+	<event id="1">
+		<handler>void onIconFlowClicked(mIconFlow* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_ICONFLOW_CLICKED)</code>
+	</event>
+
+	<event id="8">
+		<handler>void onIconFlowSelChanged(mIconFlow* self, int id, int nc, DWORD addData)</handler>
+		<code>NCS_NOTIFY_CODE(NCSN_ICONFLOW_SELCHANGED)</code>
+	</event>
+</window>
+
