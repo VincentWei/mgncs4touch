@@ -56,7 +56,7 @@
 
 #define ENABLE_CACHE_BY_DEFAULT 1
 #define SCROLLBAR_TIMEOUT_MS (500)
-#define PRESS_TIMEOUT (10)
+#define PRESS_TIMEOUT (20)
 #define R (80)
 #define MIN_SPEED (0.01f)
 #define MAX_CROSS_BORDER (100)
@@ -178,7 +178,6 @@ static int s_onCalc(MGEFF_ANIMATION anim, cpSpace *space, void *_self) {
             }
             self->m_movingStatus = 0;
             needStop = 1;
-            // printf("recover\n");
         }
     }
 
@@ -310,13 +309,12 @@ static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LP
     if (s_canScroll(self)) {
         QueryMouseMoveVelocity(&v_x, &v_y);
         if (v_y > 10000.0f) {
-            printf("v_y=%.2f, set to 10000 forcely\n", v_y);
+            _MG_PRINTF ("mGNCS4Touch>mScrollViewPiece: v_y=%.2f, set to 10000 forcely\n", v_y);
             v_y = 10000.0f;
         }else if (v_y < -10000.0f) {
-            printf("v_y=%.2f, set to -10000 forcely\n", v_y);
+            _MG_PRINTF ("mGNCS4Touch>mScrollViewPiece: v_y=%.2f, set to -10000 forcely\n", v_y);
             v_y = -10000.0f;
         }
-        // printf("v_y=%.2f\n", v_y);
 
         space = s_setupSpace(self, v_x, v_y);
         assert(self->m_animation == NULL);
@@ -357,7 +355,6 @@ static void s_checkTimeout(mScrollViewPiece *self, mObject *owner) {
             RECT viewPort;
             LPARAM lParam;
 
-            // printf("timeout\n");
             _c(self)->getViewport(self, &viewPort);
             lParam = MAKELONG(self->m_pressMousePos.x + viewPort.left, self->m_pressMousePos.y + viewPort.top);
             _c(piece)->processMessage(piece, MSG_LBUTTONDOWN, 0, lParam, owner);
@@ -368,7 +365,6 @@ static void s_checkTimeout(mScrollViewPiece *self, mObject *owner) {
 
 static BOOL s_onTimer(HWND _self, LINT id, DWORD tickCount) {
     mScrollViewPiece *self = (mScrollViewPiece *)_self;
-    // printf("Timer=%u\n", tickCount);
     s_checkTimeout(self, (mObject *)_c(self)->getOwner(self));
     return TRUE;
 }
@@ -384,13 +380,11 @@ static int s_onMousePress(mHotPiece *_self, int message, WPARAM wParam, LPARAM l
     self->m_pressMousePos = self->m_oldMousePos;
 
     if (self->m_animation) {
-        // printf("Cancel animation\n");
         mGEffAnimationStop(self->m_animation);
         self->m_animation = NULL;
         self->m_mouseFlag |= 0x02;
     }else{
         KillTimer((HWND)self, (LINT)self);
-        // printf("Pressed=%u\n", self->m_timePressed);
         SetTimerEx((HWND)self, (LINT)self, PRESS_TIMEOUT, s_onTimer);
     }
     return 0;
@@ -430,12 +424,13 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
             flag = 0;
         }else{
             if (GetTickCount() < self->m_timePressed + CLICK_TIMEOUT
-                    && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y) < CLICK_MICRO_MOVEMENT)) {
+                    && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x) 
+                        + ABS(HISWORD(lParam) - self->m_pressMousePos.y) < CLICK_MICRO_MOVEMENT)) {
                 flag = 0;
             }else{
                 flag = 1;
             }
-            printf("***** release-press=%lu, movement=%d\n",
+            _MG_PRINTF ("mGNCS4Touch>mScrollViewPiece: ***** release-press=%lu, movement=%d\n",
                     GetTickCount() - self->m_timePressed, 
                     ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y));
         }
@@ -467,7 +462,6 @@ static int s_onMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lP
 
     if (self->m_mouseFlag == 0) {
         self->m_mouseFlag |= 0x01;
-        // printf("Moved=%u\n", GetTickCount());
         s_checkTimeout(self, owner);
     }
 
@@ -656,11 +650,6 @@ static void s_drawScrollBar(mScrollViewPiece *self, HDC hdc, mObject *owner, DWO
     sbRc.top = viewRc.top + space + total*offset/l_content;
     sbRc.bottom = sbRc.top + h;
 
-    /*
-    printf("offset=%d, l_view=%d, l_content=%d\n", offset, l_view, l_content);
-    printf("sbRc=(%d,%d,%d,%d)\n", sbRc.left, sbRc.top, RECTW(sbRc), RECTH(sbRc));
-    */
-
 #if 1
     _c(self->m_scrollbar->piece)->setRect(self->m_scrollbar->piece, &sbRc);
     _c(self->m_scrollbar->piece)->paint(self->m_scrollbar->piece, hdc, owner, add_data);
@@ -675,7 +664,6 @@ static void mScrollViewPiece_showScrollBar(mScrollViewPiece *self, BOOL show) {
 }
 
 static void s_setChildClipRect(mPieceItem *item, const RECT *rc) {
-    // printf("child clip rect = (%d,%d,%d,%d)\n", rc->left, rc->top, RECTWP(rc), RECTHP(rc));
     _c(item->piece)->setProperty(item->piece, NCSP_PANEL_CLIPRECT, (DWORD)rc);
 }
 
@@ -776,7 +764,6 @@ static void s_drawContentWithCache(mScrollViewPiece *self, HDC hdc, mObject * ow
                 hdc, v_visible.left, v_visible.top, -1);
         LOG_TIME("    ");
     }else{
-        // printf("c_visible = NULL\n");
     }
 }
 

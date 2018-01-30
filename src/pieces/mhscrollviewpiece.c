@@ -37,8 +37,6 @@
  \endverbatim
 */
 
-#define PRINT_RECT(s, rc) _MG_PRINTF ("[%s]: %d %d %d %d\n", s, (rc)->left, (rc)->top, (rc)->right, (rc)->bottom)
-
 #include <string.h>
 #include <assert.h>
 
@@ -52,9 +50,12 @@
 
 #include "mgncs4touch.h"
 
+#define PRINT_RECT(s, rc) _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: [%s]: %d %d %d %d\n", \
+            s, (rc)->left, (rc)->top, (rc)->right, (rc)->bottom)
+
 #define ENABLE_CACHE_BY_DEFAULT 1
 #define SCROLLBAR_TIMEOUT_MS (500)
-#define PRESS_TIMEOUT (10)
+#define PRESS_TIMEOUT (20)
 #define R (80)
 #define MIN_SPEED (0.01f)
 #define MAX_CROSS_BORDER (100)
@@ -176,7 +177,6 @@ static int s_onCalc(MGEFF_ANIMATION anim, cpSpace *space, void *_self) {
             }
             self->m_movingStatus = 0;
             needStop = 1;
-            // printf("recover\n");
         }
     }
 
@@ -307,10 +307,10 @@ static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LP
     if (s_canScroll(self)) {
         QueryMouseMoveVelocity(&v_x, &v_y);
         if (v_x > 10000.0f) {
-            printf("v_x=%.2f, set to 10000 forcely\n", v_x);
+            _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: v_x=%.2f, set to 10000 forcely\n", v_x);
             v_x = 10000.0f;
         }else if (v_x < -10000.0f) {
-            printf("v_x=%.2f, set to -10000 forcely\n", v_x);
+            _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: v_x=%.2f, set to -10000 forcely\n", v_x);
             v_x = -10000.0f;
         }
 
@@ -344,15 +344,14 @@ static int s_viewOnMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARA
 }
 
 static void s_checkTimeout(mHScrollViewPiece *self, mObject *owner) {
-    if (! self->m_bTimedout) {
-        self->m_bTimedout = (GetTickCount() - self->m_timePressed >= PRESS_TIMEOUT);
+    if (!self->m_bTimedout) {
+        self->m_bTimedout = ((GetTickCount() - self->m_timePressed) >= PRESS_TIMEOUT);
         if (self->m_bTimedout) {
             mPieceItem* child = s_getContent(self);
             mHotPiece* piece = _c(child)->getPiece(child);
             RECT viewPort;
             LPARAM lParam;
 
-            // printf("timeout\n");
             _c(self)->getViewport(self, &viewPort);
             lParam = MAKELONG(self->m_pressMousePos.x + viewPort.left, self->m_pressMousePos.y + viewPort.top);
             _c(piece)->processMessage(piece, MSG_LBUTTONDOWN, 0, lParam, owner);
@@ -396,7 +395,7 @@ static BOOL s_onMouseMoveLeft(mHScrollViewPiece *self, mObject *owner) {
     LPARAM lParam;
     self->m_bMouseMoved = FALSE;
     QueryMouseMoveVelocity(&v_x, &v_y);
-    if ((v_x < 0) && (-v_x > 10*abs(v_y))) {
+    if ((v_x < 0) && (-v_x > 10*abs(v_x))) {
         child = s_getContent(self);
         piece = _c(child)->getPiece(child);
 
@@ -406,6 +405,8 @@ static BOOL s_onMouseMoveLeft(mHScrollViewPiece *self, mObject *owner) {
 
         return TRUE;
     }
+
+    _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: not handled MouseMoveLeft.\n");
     return FALSE;
 }
 
@@ -422,12 +423,14 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
             flag = 0;
         }else{
             if (GetTickCount() < self->m_timePressed + CLICK_TIMEOUT
-                    && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y) < CLICK_MICRO_MOVEMENT)) {
+                    && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x) 
+                        + ABS(HISWORD(lParam) - self->m_pressMousePos.y) < CLICK_MICRO_MOVEMENT)) {
                 flag = 0;
             }else{
                 flag = 1;
             }
-            printf("***** release-press=%lu, movement=%d\n",
+
+            _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: ***** release-press=%lu, movement=%d\n",
                     GetTickCount() - self->m_timePressed, 
                     ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y));
         }
@@ -452,6 +455,7 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
 static int s_onMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
     if (! self->m_bPressed) {
+        _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: mouse move without pressed.\n");
         return 0; /* Drop it */
     }
 
@@ -463,6 +467,7 @@ static int s_onMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lP
     }
 
     if (self->m_bTimedout) {
+        _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: Mouse move timed out, pass to child.\n");
         return -1; /* Pass to the child */
     }else{
         return s_viewOnMouseMove(_self, MSG_MOUSEMOVE, wParam, lParam, owner);
@@ -748,7 +753,6 @@ static void s_drawContentWithCache(mHScrollViewPiece *self, HDC hdc, mObject * o
         BitBlt(self->m_cache, v_visible.left, v_visible.top, RECTW(v_visible), RECTH(v_visible),
                 hdc, v_visible.left, v_visible.top, -1);
     }else{
-        // printf("c_visible = NULL\n");
     }
 }
 

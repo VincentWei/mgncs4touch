@@ -24,25 +24,25 @@ MGNCS_EXPORT extern mHScrollViewPieceClass g_stmHScrollViewPieceCls;
 
 #define mHScrollViewPieceHeader(clss) \
     mPanelPieceHeader(clss) \
-    unsigned int m_timePressed; \
-    int m_bScrollbarAutoHided; \
+    DWORD m_timePressed; \
+    BOOL m_bScrollbarAutoHided; \
     BOOL m_bNeedScrollBar; \
     BOOL m_bPressed; \
     BOOL m_bMouseMoved; \
+    int m_movingStatus; /* -1, 0, 1 */ \
     unsigned int m_mouseFlag; /* 1: move, 2: cancel animation */ \
     BOOL m_bTimedout; \
+    BOOL m_cachable; \
+    HDC m_cache; \
     POINT m_pressMousePos; \
     POINT m_oldMousePos; \
     float m_ratioX; \
     float m_ratioY; \
-    HDC m_cache; \
-    BOOL m_cachable; \
     RECT m_contentDirtyRect; \
     RECT m_cachedViewport; \
     mPieceItem *m_content; \
     mPieceItem *m_scrollbar; \
     MGEFF_ANIMATION m_animation; \
-    int m_movingStatus; /* -1, 0, 1 */ \
     void *m_phy_ctx;
 
 struct _mHScrollViewPiece
