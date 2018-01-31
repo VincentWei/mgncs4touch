@@ -13,35 +13,12 @@
 
 #include <mgncs4touch/mgncs4touch.h>
 
-/*
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mscrollviewpiece.h"
-#include "mtransroundpiece.h"
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "manimationeditpiece.h"
-#include "mbuttonpanelpiece.h"
-#include "mtextpiece.h"
-#include "register.h"
-
-#include "SettingService.hh"
-
-#include "museritem.h"
-#include "SettingActivity.hh"
-#include "SettingMainWinPiece.hh"
-#include "SettingSubWinPiece.hh"
-#include "mnavigationpanelpiece.h"
-#include "mspeedmeter.h"
-*/
-
 #include "settingtableview.h"
 #include "settingmainwinpiece.h"
 #include "settingsubwinpiece.h"
 
 #define BTN_W 80
 #define BTN_H 30
-//#define ITEM_W 300
 #define ITEM_W ACTIVITY_W
 #define ITEM_H 50
 
@@ -74,8 +51,6 @@ mHotPiece *m_barBack;
 
 PLOGFONT m_btnFont;
 PLOGFONT m_itemTextFont;
-//StringArray m_settingData;
-
 
 char* m_settingData[] = {
    "Clock",
@@ -93,44 +68,10 @@ char* m_settingData[] = {
    "Photo",
 };
 
-/*
-char* m_settingData[] = {
-   {"Clock"},
-   {"Anykey answer"},
-   {"Automatic redial"},
-   {"Shock"},
-   {"Network selection"},
-   {"Phone line in use"},
-   {"Language"},
-   {"Airplane mode"},
-   {"WLAN"},
-   {"Bluetooth"},
-   {"Silent mode"},
-   {"Screen timeout"},
-   {"Photo"},
-};
-*/
-
-//{"Clock", "Anykey answer", "Automatic redial", "Shock", "Network selection",
-//"Phone line in use", "Language", "Airplane mode",
-//  "WLAN", "Bluetooth", "Silent mode", "Screen timeout", "Photo"}
-
-
-/*
-mHotPiece *SettingActivity::m_settingMainWinPiece = NULL;
-mHotPiece *SettingActivity::m_settingSubWinPiece = NULL;
-StringArray SettingActivity::m_settingData;
-mNavigationPanelPiece *SettingActivity::m_nav = NULL;
-mNavigationItem *SettingActivity::m_navItems[TYPE_WIN_MAX_NUM] = {NULL};
-
-REGISTER_ACTIVITY(SettingActivity);
-*/
 
 ARGB title_gradient_color[] = {0xffd0d571, 0xffb5c363,
     0xff9eb23a,0xff7f9e2c,0xff597311,0xff597311};
 float title_gradient_pos[] = {0.0, 0.49,0.50,0.96,0.97,1.0};
-
-
 
 static mNavigationPanelPiece *getControllerHandle()
 {
@@ -356,17 +297,6 @@ static BOOL main_onCreate(mMainWnd* self, DWORD dwAddData )
             self->hwnd,
             NULL, NULL, NULL, 0);
 
-    /*
-    SettingActivity* act = 
-        (SettingActivity*)Activity::getActivityFromHWND (self->hwnd);
-
-    settingInitData(&SettingActivity::m_settingData);
-
-    act->createUIMainWin(self->hwnd);
-    act->createNavigatorBtns(act->getNavItem(TYPE_MAIN_WIN_UI));
-    act->createCtnrBody(ctnr,act->getNavItem(TYPE_MAIN_WIN_UI));
-    */
-
     settingInitData(NULL);
     createUIMainWin(self->hwnd);
     createNavigatorBtns(getNavItem(TYPE_MAIN_WIN_UI));
@@ -423,6 +353,10 @@ static void main_onDestroy(mWidget* self, int message)
     DestroyNavigationItem(activity->getNavItem(TYPE_SUB_WIN_UI));
     DestroyNavigationItem(activity->getNavItem(TYPE_CLOCK_WIN_UI));
     */
+
+    DestroyNavigationItem(getNavItem(TYPE_MAIN_WIN_UI));
+    DestroyNavigationItem(getNavItem(TYPE_SUB_WIN_UI));
+    //DestroyNavigationItem(getNavItem(TYPE_CLOCK_WIN_UI));
 
     return ;
 }
@@ -483,35 +417,6 @@ static NCS_MNWND_TEMPLATE mymain_templ = {
         0, 0,
 };
 
-/*
-SettingActivity::SettingActivity() :
-    NCSActivity( &mymain_templ)
-{ 
-    int i;
-    MGNCS_INIT_CLASS(mShapeTransRoundPiece);
-    MGNCS_INIT_CLASS(mLayoutManager);
-    MGNCS_INIT_CLASS(mCenterHBox);
-    MGNCS_INIT_CLASS(mButtonPanelPiece);
-    MGNCS_INIT_CLASS(mTextPiece);
-    MGNCS_INIT_CLASS(mSettingMainWinPiece);
-    MGNCS_INIT_CLASS(mSettingSubWinPiece);
-    MGNCS_INIT_CLASS(mNavigationPanelPiece);
-    initResource();
-
-    m_settingMainWinPiece = NULL;
-    m_settingSubWinPiece = NULL;
-    m_nav = NULL;
-    for (i=TYPE_MAIN_WIN_UI;i<TYPE_WIN_MAX_NUM;i++)
-    {
-        m_navItems[i] = NULL;
-    }
-}
-
-SettingActivity::~SettingActivity(void)
-{
-    releaseResource();
-}
-*/
 void initSetting() {
 
     int i;
@@ -520,8 +425,6 @@ void initSetting() {
     MGNCS_INIT_CLASS(mNavigationBarPiece);
     MGNCS_INIT_CLASS(mNavigationItem);
     MGNCS_INIT_CLASS(mNavigationPanelPiece);
-    //MGNCS_INIT_CLASS(mLayoutManager);
-    //MGNCS_INIT_CLASS(mCenterHBox);
     MGNCS_INIT_CLASS(mButtonPanelPiece);
     MGNCS_INIT_CLASS(mTextPiece);
     MGNCS_INIT_CLASS(mSettingMainWinPiece);

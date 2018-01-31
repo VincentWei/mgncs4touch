@@ -48,24 +48,6 @@ int s_dataType [] = {
     TYPE_INDICATOR,
 };
 
-/*
-char* s_dataValue [] = {
-    {"00:25"},
-    {"on"},
-    {"on"},
-    {"on"},
-    {"Automatic"},
-    {"Line1"},
-    {"English"},
-    {"on"},
-    {"on"},
-    {"on"},
-    {"off"},
-    {"1 minute"},
-    {"1.png"},
-};
-*/
-
 extern mHotPiece *m_settingMainWinPiece;
 extern mHotPiece *m_settingSubWinPiece;
 
@@ -77,6 +59,7 @@ extern mHotPiece *m_barBack;
 extern char* m_settingData[];
 
 extern HWND m_hWnd;
+int m_DataLen = 13;
 
 
 ////muser itme////
@@ -97,20 +80,6 @@ static int init_flag = 0;
 static mIndicatorButtonPieceImages indicator_bmps;
 BITMAP indicator_bmp0;
 BITMAP indicator_bmp1;
-
-int m_DataLen = 0;
-
-
-static mNavigationPanelPiece *getControllerHandle()
-{
-    return m_nav;
-}
-static mNavigationItem *getNavItem(setting_win_type type)
-{
-    if (type >= TYPE_MAIN_WIN_UI && type < TYPE_WIN_MAX_NUM)
-        return m_navItems[type];
-    return NULL;
-}
 
 
 
@@ -296,6 +265,17 @@ mItemPiece *CreateDetailBtnItemEx (const char *title,
 //////
 
 
+static mNavigationPanelPiece *getControllerHandle()
+{
+    return m_nav;
+}
+static mNavigationItem *getNavItem(setting_win_type type)
+{
+    if (type >= TYPE_MAIN_WIN_UI && type < TYPE_WIN_MAX_NUM)
+        return m_navItems[type];
+    return NULL;
+}
+
 /*
 static BOOL updateClockValue(void* target, TimeService *ts, int eventId, DWORD param)
 {
@@ -307,27 +287,6 @@ static BOOL updateClockValue(void* target, TimeService *ts, int eventId, DWORD p
 
 static const char *getStringFromRow(mSettingMainWinPiece *self,int row)
 {
-/*
-    std::vector<std::string>::iterator it;
-    for(it = self->data->begin();it != self->data->end();it ++,row --)
-    {
-        if (row == 0)
-            break;
-    }
-    if (it != self->data->end())
-    {
-        return (*it).c_str();
-    }
-    else
-    {
-        assert(0);
-        return NULL;
-    }
-    */
-    //return "Network selection"
-
-
-
     return self->data[row];
 }
 
@@ -338,8 +297,6 @@ static void mSettingMainWinPiece_construct(mSettingMainWinPiece *self, DWORD add
     //self->data = &(SettingActivity::m_settingData);
     self->act = NULL;
     self->data = m_settingData;
-    //m_DataLen = TABLESIZE(self->data);
-    m_DataLen = 13;
 
     int len = m_DataLen;
     self->cur_data = (char (*)[SETTING_STR_MAX_LEN])malloc(len * SETTING_STR_MAX_LEN);
@@ -356,7 +313,6 @@ static int mSettingMainWinPiece_numberOfSections(mSettingMainWinPiece* self)
 }
 static int mSettingMainWinPiece_numberOfRowsInSection(mSettingMainWinPiece* self, int section)
 {
-    //return self->data->size();
     return m_DataLen;
 }
 
@@ -373,6 +329,7 @@ static BOOL tableitem_event_cb(mWidget *_self, mHotPiece *piece,
     rowdata = getStringFromRow(self,row);
 
     /*
+    ExtraType extra_type;
     extra_type = GET_SETTINGSERVICE()->getItemType(rowdata);
     if (extra_type == TYPE_TEXT)
     {
@@ -408,14 +365,12 @@ static mItemPiece *settingCreateUserPiece(mSettingMainWinPiece* self,const mInde
     unsigned int row = (unsigned)indexpath->row;
     mItemPiece *setitem = NULL;
     
-    //ExtraType extra_type;
     int extra_type;
 
     const char* rowdata;
 
     assert(row < self->data->size());
     rowdata = getStringFromRow(self,row);
-    //extra_type = GET_SETTINGSERVICE()->getItemType(rowdata);
 
     extra_type = getPieceItemType(row);
 
@@ -427,13 +382,11 @@ static mItemPiece *settingCreateUserPiece(mSettingMainWinPiece* self,const mInde
     {
         int event_ids[] = {NCSN_ITEMPIECE_CHECKBOX_ON ,NCSN_ITEMPIECE_CHECKBOX_OFF , 0};
 
-        /*
-        if (GET_SETTINGSERVICE()->getCurrent(rowdata) == "on")
+        if (strcmp(s_dataValue[row], "on") == 0)
         {
             setitem = CreateSwitchCtrlItemEx(rowdata,NULL, 1,row);
         }
         else
-        */
         {
             setitem = CreateSwitchCtrlItemEx(rowdata,NULL, 0,row);
         }
@@ -486,14 +439,12 @@ static void mSettingMainWinPiece_rowDidSelectAtIndexPath(
 {
     unsigned int row = (unsigned)indexpath->row;
     
-    //ExtraType extra_type;
     int extra_type;
     const char* rowdata;
 
     assert(row < m_DataLen);
     rowdata = getStringFromRow(self,row);
     
-    //extra_type = GET_SETTINGSERVICE()->getItemType(rowdata);
     extra_type = TYPE_INDICATOR;
     
     if (extra_type == TYPE_INDICATOR)
@@ -510,8 +461,6 @@ static void mSettingMainWinPiece_rowDidSelectAtIndexPath(
         assert(subpiece);
         subpiece->itemname = rowdata; 
         //subpiece->candidacy = GET_SETTINGSERVICE()->getCandidacy(rowdata);
-        //char* subdata [] = {"Line1", "Line2"};
-        //subpiece->candidacy = {"Line1", "Line2"};
         subpiece->candidacy[0] = "Line1";
         subpiece->candidacy[1] = "Line2";
 
@@ -539,18 +488,15 @@ static BOOL mSettingMainWinPiece_willSelectRowAtIndexPath(
         mSettingMainWinPiece* self, const mIndexPath* indexpath)
 {
     unsigned int row = (unsigned)indexpath->row;
-    //ExtraType extra_type;
     const char* rowdata;
 
     assert(row < m_DataLen);
     rowdata = getStringFromRow(self,row);
-    /*
-    extra_type = GET_SETTINGSERVICE()->getItemType(rowdata);
+    int extra_type = getPieceItemType(row);
     if (extra_type == TYPE_CHECKBOX)
     {
         return FALSE;
     }
-    */
     return TRUE;
 }
 
@@ -562,18 +508,12 @@ static void mSettingMainWinPiece_myreloadData(mSettingMainWinPiece *self,MY_RELO
         memset(self->cur_data[i],0x00,SETTING_STR_MAX_LEN);
         if (i == 0)
         {
-            //TIMESERVICE->format(self->cur_data[i], SETTING_STR_MAX_LEN, "%H:%M");
             strncpy(self->cur_data[i], "14:10", SETTING_STR_MAX_LEN -1 );
             if (type == TYPE_CLOCK)
                 break;
         }
         else
         {
-        /*
-            const char *rowdata = getStringFromRow(self,i);
-            strncpy(self->cur_data[i],
-                GET_SETTINGSERVICE()->getCurrent(rowdata).c_str(),SETTING_STR_MAX_LEN - 1);
-                */
             strncpy(self->cur_data[i], s_dataValue[i], SETTING_STR_MAX_LEN - 1);
         }
     }
@@ -581,16 +521,8 @@ static void mSettingMainWinPiece_myreloadData(mSettingMainWinPiece *self,MY_RELO
     return;
 }
 
-/*
-char* getCurData(int i ) {
-
-    return s_dataValue[i];
-}
-*/
-
 static void mSettingMainWinPiece_destroy(mSettingMainWinPiece *self)
 {
-    //TIMESERVICE->removeEventListener((void*)self);
     Class(mTableViewPiece).destroy((mTableViewPiece*)self);
     free(self->cur_data);
 }

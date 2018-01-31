@@ -70,37 +70,8 @@ enum ExtraType {
 
 #define SETTING_STR_MAX_LEN 32
 
-/*
-class SettingActivity : public NCSActivity {
-    public:
-        SettingActivity();
-        ~SettingActivity();
-
-    private:
-        mHotPiece *createMainWinView(void);
-        mHotPiece *createSubWinView(const char *name);
-        mHotPiece *createClockView(HWND hwnd);
-    public:
-        static StringArray m_settingData;
-        static mHotPiece *m_settingMainWinPiece;
-        static mHotPiece *m_settingSubWinPiece;
-
-protected:
-    int onBack();
-
-    private:
-        static mNavigationPanelPiece *m_nav;
-        static mNavigationItem *m_navItems[TYPE_WIN_MAX_NUM];    
-        mHotPiece *m_okBtn;
-        mHotPiece *m_barBack;
-        PLOGFONT m_btnFont;
-        PLOGFONT m_itemTextFont;
-};
-*/
-
 static mNavigationPanelPiece *getControllerHandle();
 static mNavigationItem *getNavItem(setting_win_type type);
-
 
 
 #endif/*end*/

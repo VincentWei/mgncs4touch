@@ -13,37 +13,26 @@
 #include <mgncs/mgncs.h>
 #include <mgncs4touch/mgncs4touch.h>
 
-/*
-#include "register.h"
-
-#include "SettingActivity.hh"
-#include "museritem.h"
-#include "mnavigationpanelpiece.h"
-#include "SettingMainWinPiece.hh"
-#include "SettingSubWinPiece.hh"
-*/
 
 #include "settingtableview.h"
 #include "settingmainwinpiece.h"
 #include "settingsubwinpiece.h"
 
 #define MSG_SETTING_SUB_WIN 1234
-
-
-extern mNavigationPanelPiece *m_nav ;
-
-
-static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row);
-static int getCurItemPieceRow(char* candidacy,char* s2);
-
 #define TITLEFONT_COLOR       0xFF192952
 #define SUBTITLEFONT_COLOR    0xFF868686
 #define DETAILFONT_COLOR      0xFF1882bd
 #define CONTENTFONT_COLOR     0xFF192952
 #define BACKGRAND_COLOR       0x7F5CCC5C
 
+extern mNavigationPanelPiece *m_nav ;
+
 static int ITEMPIECE_MARGIN    = 3;
 static int ITEMPIECE_CLEARANCE = 5;
+
+
+static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row);
+static int getCurItemPieceRow(char* candidacy,char* s2);
 
 static mNavigationPanelPiece *getControllerHandle()
 {
@@ -117,15 +106,15 @@ static void mSettingSubWinPiece_construct(mSettingSubWinPiece *self, DWORD add_d
     Class(mTableViewPiece).construct((mTableViewPiece *)self, NCS_TABLEVIEW_INDEX_STYLE);
 
     self->itemname = (char *)add_data;
-    //self->candidacy = GET_SETTINGSERVICE()->getCandidacy(self->itemname);
     self->candidacy[0] = "test 1";
-    self->candidacy[1] = "test 1";
+    self->candidacy[1] = "test 2";
+    self->candidacy[2] = "test 3";
+    self->candidacy[3] = "test 4";
 }
 
 static int mSettingSubWinPiece_numberOfRowsInSection(mSettingSubWinPiece *self, int section)
 {
-    //return self->candidacy.size();
-    return 2;
+    return 4;
 }
 
 static mTableViewItemPiece *mSettingSubWinPiece_createItemForRow(mSettingSubWinPiece *self, const mIndexPath *indexpath){
@@ -200,9 +189,6 @@ static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row){
     mItemPiece *item;
     int defaultvalue = 0;
 
-    //std::string cur = GET_SETTINGSERVICE()->getCurrent(self->itemname);
-    //assert(self->candidacy.size() > 0);
-
     if(getCurItemPieceRow(self->candidacy, NULL) == row)
         defaultvalue = 1;
 
@@ -214,13 +200,6 @@ static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row){
 static int getCurItemPieceRow(char* candidacy, char* s2){
     unsigned int i;
 
-/*
-    for (i=0;i<candidacy.size();i++)
-    {
-        if (candidacy[i] == cur)
-            return i;
-    }
-    */
     return 0;
 }
 
