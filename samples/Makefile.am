@@ -10,7 +10,7 @@ COMMON_LADD = ../src/libmgncs4touch.la
 
 noinst_PROGRAMS = switchbutton picker newtrackbar commdraw datepicker \
     timepicker exlist btnnavbar imgnavbar name2value itembar balloontip \
-    hscrollview iconflow tableview
+    hscrollview iconflow tableview settingtableview
 
 switchbutton_SOURCES = switchbutton.c
 switchbutton_LDADD = $(COMMON_LADD) @APP_LIBS@
@@ -56,6 +56,10 @@ iconflow_LDADD = ${COMMON_LADD} @APP_LIBS@
 
 tableview_SOURCES = tableview.c msimpletableviewpiece.h
 tableview_LDADD = ${COMMON_LADD} @APP_LIBS@
+
+settingtableview_SOURCES = settingtableview.c settingtableview.h settingmainwinpiece.h \
+	settingsubwinpiece.h settingmainwinpiece.c settingsubwinpiece.c
+settingtableview_LDADD = ${COMMON_LADD} @APP_LIBS@
 
 EXTRA_DIST =
 

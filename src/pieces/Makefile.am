@@ -34,11 +34,10 @@ COMMON_SRCS = \
     mtransroundpiece.c \
     mwrappaintpiece.c \
     mscrollviewpiece.c \
-    mhscrollviewpiece.c
-
-#    mnavigationbarpiece.c
-#    mnavigationitem.c
-#    mnavigationpanelpiece.c
+    mhscrollviewpiece.c \
+    mnavigationbarpiece.c \
+    mnavigationitem.c \
+    mnavigationpanelpiece.c 
 #    mphoneseparatorpiece.c
 #    mphonestaticrdrpiece.c
 #    mwidgethostpiece.c

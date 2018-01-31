@@ -5,19 +5,14 @@
 extern "C" {
 #endif
 
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mbuttonpanelpiece.h"
-#include "mtextpiece.h"
-
-
 typedef struct _mNavigationBarPieceClass mNavigationBarPieceClass;
 typedef struct _mNavigationBarPiece mNavigationBarPiece;
 
 
 /* navigation bar default configure */
-#define NAVIGATIONBAR_W                           SCREEN_W
-#define NAVIGATIONBAR_H                           38 
+//#define NAVIGATIONBAR_W                           SCREEN_W
+#define NAVIGATIONBAR_W                           800
+#define NAVIGATIONBAR_H                           38
 #define NAVIGATIONBAR_DEFAULT_BUTTON_H            27
 #define NAVIGATIONBAR_HORIZONAL_W                 8 
 #define NAVIGATIONBAR_BUTTON_DX                   10 
