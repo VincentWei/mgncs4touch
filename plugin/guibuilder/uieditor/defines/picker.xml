@@ -35,15 +35,15 @@
     </property>
 
 	<event id="4100">
-		<handler>void onSelChanged(mPicker* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onSelChanged(mPicker* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_PCK_SELCHANGED)</code>
 	</event>
 	<event id="4101">
-		<handler>void onReachMax(mPicker* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onReachMax(mPicker* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_PCK_REACHMAX)</code>
 	</event>
 	<event id="4102">
-		<handler>void onReachMin(mPicker* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onReachMin(mPicker* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_PCK_REACHMIN)</code>
 	</event>
 </window>

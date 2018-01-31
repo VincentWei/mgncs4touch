@@ -14,7 +14,7 @@
 	<property name="AmPmStings" id="14"  type="text" default="Am\nPm"/>
    
 	<event id="4100">
-		<handler>void onTimeChanged(mTimePicker* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onTimeChanged(mTimePicker* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_TPCK_TIMECHANGED)</code>
 	</event>
 </window>

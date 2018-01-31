@@ -10,17 +10,17 @@
 	<property name="Icon Border"    id="26"  type="int"  default="2"/>
    
 	<event id="9">
-		<handler>void onIconFlowEnter(mIconFlow* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onIconFlowEnter(mIconFlow* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_ICONFLOW_ENTER)</code>
 	</event>
 
 	<event id="1">
-		<handler>void onIconFlowClicked(mIconFlow* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onIconFlowClicked(mIconFlow* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_ICONFLOW_CLICKED)</code>
 	</event>
 
 	<event id="8">
-		<handler>void onIconFlowSelChanged(mIconFlow* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onIconFlowSelChanged(mIconFlow* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_ICONFLOW_SELCHANGED)</code>
 	</event>
 </window>

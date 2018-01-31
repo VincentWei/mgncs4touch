@@ -16,7 +16,7 @@
 	</property>
 
 	<event id="4100">
-		<handler>void onStatusChanged(mSwitchButton* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onStatusChanged(mSwitchButton* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_SWB_STATUSCHANGED)</code>
 	</event>
 </window>

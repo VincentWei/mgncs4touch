@@ -31,7 +31,7 @@
     <property name="ButtonHeight"       id="13" type="int"  default="30"/>
 
 	<event id="4100">
-		<handler>void onBtnClicked(mBtnNavBar* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onBtnClicked(mBtnNavBar* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_BNB_BTNCLICK)</code>
 	</event>
 </window>

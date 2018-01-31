@@ -17,7 +17,7 @@
     <property name="ImageDrawMode"      id="14" type="enum DrawMode" default="Scaled"/>
 
 	<event id="4100">
-		<handler>void onImgClicked(mImgNavBar* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onImgClicked(mImgNavBar* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_TC_IMGCLICK)</code>
 	</event>
 </window>

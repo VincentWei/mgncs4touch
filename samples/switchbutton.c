@@ -98,7 +98,7 @@ static void mymain_onClose(mWidget* self, int message)
 
 static void btn_notify(mWidget *self, int id, int nc, DWORD add_data)
 {
-    LOGE("switch button notify : %s\n", add_data == 0 ? "OFF" : "ON");
+    printf ("switch button (%d, %d) notify : %s\n", id, nc, add_data == 0 ? "OFF" : "ON");
 }
 
 static NCS_EVENT_HANDLER btn_handlers [] = {

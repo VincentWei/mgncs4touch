@@ -16,7 +16,7 @@
     <property name="Day"    id="14"  type="int"  default="1"/>
     
     <event id="4100">
-		<handler>void onDateChanged(mDatePicker* self, int id, int nc, DWORD addData)</handler>
+		<handler>void onDateChanged(mDatePicker* self, LINT id, int nc, DWORD addData)</handler>
 		<code>NCS_NOTIFY_CODE(NCSN_DPCK_DATECHANGED)</code>
 	</event>
 </window>
