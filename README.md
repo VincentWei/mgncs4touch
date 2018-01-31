@@ -7,10 +7,10 @@ This is the mainline release of mGNCS4Touch for MiniGUI V3.2.x and mGNCS V1.2.x.
 
 ## Prerequisites
 
-    * MiniGUI: v3.2.0 or later
-    * mGPlus: v1.4.0 or later
-    * mGEff: v1.2.0 or later
-    * mGNCS: V1.2.0 or later
+  * MiniGUI: v3.2.0 or later
+  * mGPlus: v1.4.0 or later
+  * mGEff: v1.2.0 or later
+  * mGNCS: V1.2.0 or later
 
 ## Building
 
