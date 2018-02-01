@@ -32,12 +32,12 @@ void createUISubWin(const char *name);
 void initClockWin(HWND hwnd);
 void releaseClockView(HWND hwnd);
 
-int onStop();
+int onStop(void);
 void initResource(void);
 void releaseResource(void);
 
-void initSetting();
-void unInitSetting();
+void initSetting(void);
+void unInitSetting(void);
 
 
 HWND m_hWnd;
@@ -73,10 +73,13 @@ ARGB title_gradient_color[] = {0xffd0d571, 0xffb5c363,
     0xff9eb23a,0xff7f9e2c,0xff597311,0xff597311};
 float title_gradient_pos[] = {0.0, 0.49,0.50,0.96,0.97,1.0};
 
-static mNavigationPanelPiece *getControllerHandle()
+#if 0
+static mNavigationPanelPiece *getControllerHandle(void)
 {
     return m_nav;
 }
+#endif
+
 static mNavigationItem *getNavItem(setting_win_type type)
 {
     if (type >= TYPE_MAIN_WIN_UI && type < TYPE_WIN_MAX_NUM)
@@ -105,7 +108,7 @@ static BOOL settingInitData(char* settingdata[])
     return TRUE;
 }
 
-mHotPiece * createMainWinView()
+mHotPiece * createMainWinView(void)
 {
     return (mHotPiece *)NEWPIECEEX(mSettingMainWinPiece, NULL);
 }
@@ -115,7 +118,7 @@ mHotPiece * createSubWinView(const char* name)
     return (mHotPiece *)NEWPIECEEX(mSettingSubWinPiece,(DWORD)name);
 }
 
-int onBack()
+int onBack(void)
 {
     if (_c(m_nav)->currentIsRoot(m_nav))
         return 0;
@@ -271,9 +274,9 @@ void releaseResource()
 static BOOL on_timer(
         mObject *listener, mObject *sender, int id, DWORD total_count)
 {
-    mMainWnd* self = (mMainWnd *)listener;
     mTimer *timer = (mTimer *)sender;
     /*
+    mMainWnd* self = (mMainWnd *)listener;
     SettingActivity* act = 
         (SettingActivity*)Activity::getActivityFromHWND (self->hwnd);
     act->createUIClockWin(self->hwnd);
@@ -287,8 +290,8 @@ static BOOL main_onCreate(mMainWnd* self, DWORD dwAddData )
 {
     mTimer *timer;
     //mContainerCtrl *ctnr = (mContainerCtrl *)ncsGetChildObj(self->hwnd, SETTING_IDC_CTNR);
+    //RECT rc = {0, 0, ITEM_W, ITEM_H * TABLEVIEW_ITEMNUM};
 
-    RECT rc = {0, 0, ITEM_W, ITEM_H * TABLEVIEW_ITEMNUM};
     /* table */
     mContainerCtrl* ctnr = (mContainerCtrl*)ncsCreateWindow(NCSCTRL_CONTAINERCTRL,
             "ContainerCtrl",
@@ -375,10 +378,12 @@ static NCS_EVENT_HANDLER main_handlers [] = {
     {0, NULL}
 };
 
+#if 0
 static NCS_PROP_ENTRY timer_props[] = {
     {NCSP_TIMER_INTERVAL, 50},//unit:10ms
     {0, 0},
 };
+
 static NCS_WND_TEMPLATE _ctrl_templ[] = {
     {
         NCSCTRL_CONTAINERCTRL,
@@ -401,6 +406,7 @@ static NCS_WND_TEMPLATE _ctrl_templ[] = {
         timer_props, NULL, NULL, NULL, 0, 0, 
     },
 };
+
 static NCS_MNWND_TEMPLATE mymain_templ = {
         NCSCTRL_DIALOGBOX, 
         1,
@@ -416,6 +422,7 @@ static NCS_MNWND_TEMPLATE mymain_templ = {
         0,
         0, 0,
 };
+#endif
 
 void initSetting() {
 

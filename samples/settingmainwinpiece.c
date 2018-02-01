@@ -70,9 +70,6 @@ int m_DataLen = 13;
 #define CONTENTFONT_COLOR     0xFF192952
 #define BACKGRAND_COLOR       0x7F5CCC5C
 
-static int ICON_WIDTH  = 45;
-static int ICON_HEIGHT = 45;
-
 static int ITEMPIECE_MARGIN    = 3;
 static int ITEMPIECE_CLEARANCE = 5;
 
@@ -265,7 +262,7 @@ mItemPiece *CreateDetailBtnItemEx (const char *title,
 //////
 
 
-static mNavigationPanelPiece *getControllerHandle()
+static mNavigationPanelPiece *getControllerHandle(void)
 {
     return m_nav;
 }
@@ -323,10 +320,10 @@ static BOOL tableitem_event_cb(mWidget *_self, mHotPiece *piece,
     mSettingMainWinPiece *self = (mSettingMainWinPiece *)_self;
 
     //ExtraType extra_type;
-    const char *rowdata;
+    //const char *rowdata;
 
     assert(row < m_DataLen);
-    rowdata = getStringFromRow(self,row);
+    /*rowdata = */getStringFromRow(self,row);
 
     /*
     ExtraType extra_type;
@@ -369,7 +366,6 @@ static mItemPiece *settingCreateUserPiece(mSettingMainWinPiece* self,const mInde
 
     const char* rowdata;
 
-    assert(row < self->data->size());
     rowdata = getStringFromRow(self,row);
 
     extra_type = getPieceItemType(row);
@@ -434,6 +430,8 @@ static mTableViewItemPiece* mSettingMainWinPiece_createItemForRow(
     return item;
 }
 
+void createUISubWin(const char *name);
+
 static void mSettingMainWinPiece_rowDidSelectAtIndexPath(
         mSettingMainWinPiece* self, const mIndexPath* indexpath)
 {
@@ -456,7 +454,7 @@ static void mSettingMainWinPiece_rowDidSelectAtIndexPath(
         //self->act->createUISubWin(rowdata);
         //subpiece = (mSettingSubWinPiece *)self->act->m_settingSubWinPiece;
         createUISubWin(rowdata);
-        subpiece = m_settingSubWinPiece;
+        subpiece = (mSettingSubWinPiece *)m_settingSubWinPiece;
 
         assert(subpiece);
         subpiece->itemname = rowdata; 
@@ -488,10 +486,8 @@ static BOOL mSettingMainWinPiece_willSelectRowAtIndexPath(
         mSettingMainWinPiece* self, const mIndexPath* indexpath)
 {
     unsigned int row = (unsigned)indexpath->row;
-    const char* rowdata;
 
     assert(row < m_DataLen);
-    rowdata = getStringFromRow(self,row);
     int extra_type = getPieceItemType(row);
     if (extra_type == TYPE_CHECKBOX)
     {

@@ -70,8 +70,7 @@ enum ExtraType {
 
 #define SETTING_STR_MAX_LEN 32
 
-static mNavigationPanelPiece *getControllerHandle();
-static mNavigationItem *getNavItem(setting_win_type type);
-
+//static mNavigationPanelPiece *getControllerHandle(void);
+//static mNavigationItem *getNavItem(setting_win_type type);
 
 #endif/*end*/

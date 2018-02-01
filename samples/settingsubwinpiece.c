@@ -32,9 +32,9 @@ static int ITEMPIECE_CLEARANCE = 5;
 
 
 static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row);
-static int getCurItemPieceRow(char* candidacy,char* s2);
+static int getCurItemPieceRow(char* candidacy, char* s2);
 
-static mNavigationPanelPiece *getControllerHandle()
+static mNavigationPanelPiece *getControllerHandle(void)
 {
     return m_nav;
 }
@@ -133,12 +133,10 @@ static mTableViewItemPiece *mSettingSubWinPiece_createItemForRow(mSettingSubWinP
 
 static void onClickReloadData(mWidget* _self, int message, WPARAM wParam, LPARAM lParam) 
 {
-    mSettingSubWinPiece *self = (mSettingSubWinPiece *)wParam;
-    int row = (int)lParam;
-
     assert(message == MSG_SETTING_SUB_WIN);
 
 /*
+    mSettingSubWinPiece *self = (mSettingSubWinPiece *)wParam;
     mSettingMainWinPiece *mainpiece = 
         (mSettingMainWinPiece *)SettingActivity::m_settingMainWinPiece;
 
@@ -159,7 +157,7 @@ static void mSettingSubWinPiece_rowDidSelectAtIndexPath(mSettingSubWinPiece *sel
     //assert(self->candidacy.size() > 0);
     //std::string cur = GET_SETTINGSERVICE()->getCurrent(self->itemname);
 
-    if(getCurItemPieceRow(self->candidacy, NULL) != row)
+    if(getCurItemPieceRow(self->candidacy[0], NULL) != row)
     {
         mWidget* _w = _c(self)->getOwner(self);
 
@@ -189,7 +187,7 @@ static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row){
     mItemPiece *item;
     int defaultvalue = 0;
 
-    if(getCurItemPieceRow(self->candidacy, NULL) == row)
+    if(getCurItemPieceRow(self->candidacy[0], NULL) == row)
         defaultvalue = 1;
 
     item = CreateRadioItemEx(self->candidacy[row], NULL,
@@ -198,8 +196,6 @@ static mItemPiece *subWinCreateItemPiece(mSettingSubWinPiece *self, int row){
 }
 
 static int getCurItemPieceRow(char* candidacy, char* s2){
-    unsigned int i;
-
     return 0;
 }
 
