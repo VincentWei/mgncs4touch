@@ -115,9 +115,9 @@ BOOL ncs4TouchInitialize(void)
     MGNCS_INIT_CLASS(mTableViewItemPiece);
     MGNCS_INIT_CLASS(mTableViewPiece);
     MGNCS_INIT_CLASS(mIndexLocatePiece);
-    //MGNCS_INIT_CLASS(mNavigationItem);
-    //MGNCS_INIT_CLASS(mNavigationBarPiece);
-    //MGNCS_INIT_CLASS(mNavigationPanelPiece);
+    MGNCS_INIT_CLASS(mNavigationItem);
+    MGNCS_INIT_CLASS(mNavigationBarPiece);
+    MGNCS_INIT_CLASS(mNavigationPanelPiece);
     //MGNCS_INIT_CLASS(mWidgetHostPiece);
     MGNCS_INIT_CLASS(m3DButtonPiece);
     MGNCS_REGISTER_COMPONENT(mContainerCtrl);

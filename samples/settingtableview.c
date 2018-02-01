@@ -428,14 +428,6 @@ void initSetting() {
 
     int i;
 
-    MGNCS_INIT_CLASS(mShapeTransRoundPiece);
-    MGNCS_INIT_CLASS(mNavigationBarPiece);
-    MGNCS_INIT_CLASS(mNavigationItem);
-    MGNCS_INIT_CLASS(mNavigationPanelPiece);
-    MGNCS_INIT_CLASS(mButtonPanelPiece);
-    MGNCS_INIT_CLASS(mTextPiece);
-    MGNCS_INIT_CLASS(mSettingMainWinPiece);
-    MGNCS_INIT_CLASS(mSettingSubWinPiece);
     initResource();
 
     m_settingMainWinPiece = NULL;
