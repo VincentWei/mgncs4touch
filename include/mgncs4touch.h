@@ -88,7 +88,6 @@
 #include "pieces/mnavigationitem.h"
 #include "pieces/mnavigationbarpiece.h"
 #include "pieces/mnavigationpanelpiece.h"
-#include "pieces/mwidgethostpiece.h"
 
 #include "physics-animation/chipmunk-utils.h"
 #include "physics-animation/mspeedmeter.h"
