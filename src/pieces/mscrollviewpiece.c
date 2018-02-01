@@ -50,6 +50,7 @@
 
 #include "mgncs4touch.h"
 
+
 #define dbg() /* NULL */
 #define PRINT_RECT(s, rc) /* NULL */
 #define LOG_TIME(prefix) /* NULL */

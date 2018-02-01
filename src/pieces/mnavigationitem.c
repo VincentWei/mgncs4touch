@@ -10,8 +10,7 @@
 #include <mgplus/mgplus.h>
 #include <mgeff/mgeff.h>
 
-#include "mnavigationitem.h"
-#include "mnavigationbarpiece.h"
+#include "mgncs4touch.h"
 
 
 #define ITEMPIECE_ADDREF(piece)     \

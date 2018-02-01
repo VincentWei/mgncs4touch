@@ -10,13 +10,7 @@
 #include <mgplus/mgplus.h>
 #include <mgeff/mgeff.h>
 
-#include "global.h"
-#include "mnavigationpanelpiece.h"
-#include "mnavigationbarpiece.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mbuttonpanelpiece.h"
-
+#include "mgncs4touch.h"
 
 #define NAVIGATIONPANELPIECE_OPAQUE                      255
 #define NAVIGATIONPANELPIECE_TRANSPARENT                 128

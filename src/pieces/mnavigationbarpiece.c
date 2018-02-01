@@ -10,9 +10,7 @@
 #include <mgplus/mgplus.h>
 #include <mgeff/mgeff.h>
 
-#include "mnavigationbarpiece.h"
-
-
+#include "mgncs4touch.h"
 
 static void mNavigationBarPiece_construct (mNavigationBarPiece *self, DWORD param)
 {

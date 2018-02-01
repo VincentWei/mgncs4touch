@@ -85,12 +85,10 @@
 #include "pieces/mgroupitemmanager.h"
 #include "pieces/mgroupitemiterator.h"
 
-#if 0
 #include "pieces/mnavigationitem.h"
 #include "pieces/mnavigationbarpiece.h"
 #include "pieces/mnavigationpanelpiece.h"
 #include "pieces/mwidgethostpiece.h"
-#endif
 
 #include "physics-animation/chipmunk-utils.h"
 #include "physics-animation/mspeedmeter.h"
