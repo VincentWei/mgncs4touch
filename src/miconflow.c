@@ -473,7 +473,7 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
     if (self->bkgndPiece) {
         _c(self->bkgndPiece)->paint(self->bkgndPiece, hdc, (mObject*)self, 0);
     } else {
-        SetBrushColor (hdc, RGB2Pixel(hdc, 0, 0, 0));
+        SetBrushColor (hdc, GetWindowBkColor (self->hwnd));
         FillBox (hdc, 0, 0, GetGDCapability(hdc, GDCAP_MAXX) + 1, GetGDCapability(hdc, GDCAP_MAXY) + 1);
     }
 
