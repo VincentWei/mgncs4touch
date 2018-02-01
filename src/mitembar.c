@@ -267,7 +267,7 @@ static void mItemBar_onPaint(mItemBar* self, HDC hdc, const PCLIPRGN pClip)
 }
 
 
-static int mItemBar_wndProc(mItemBar* self, int msg, WPARAM w, LPARAM l)
+static LRESULT mItemBar_wndProc(mItemBar* self, UINT msg, WPARAM w, LPARAM l)
 {
     DWORD dwStyle;
     mNSDrawPiece* drawTick  = NULL;

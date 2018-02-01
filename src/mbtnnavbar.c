@@ -435,7 +435,7 @@ static BOOL mBtnNavBar_onEraseBkgnd(mBtnNavBar* self, HDC hdc, const RECT* pinv)
 }
 
 
-static int mBtnNavBar_wndProc(mBtnNavBar* self,  int msg, WPARAM w, LPARAM l)
+static LRESULT mBtnNavBar_wndProc(mBtnNavBar* self,  UINT msg, WPARAM w, LPARAM l)
 {
     if (msg == MSG_SETTEXT) {
         SetWindowCaption(self->hwnd, (const char*)l);

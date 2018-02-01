@@ -94,7 +94,7 @@ static BOOL mContainerCtrl_onEraseBkgnd(mContainerCtrl *self, HDC hdc, const REC
     return TRUE;
 }
 
-static int mContainerCtrl_wndProc(mWidget* self,  int message, WPARAM wParam, LPARAM lParam)
+static LRESULT mContainerCtrl_wndProc(mWidget* self,  UINT message, WPARAM wParam, LPARAM lParam)
 {
     if (message == MSG_PAINT) {
         mPanelPiece* topPanel = (mPanelPiece*)self->body;

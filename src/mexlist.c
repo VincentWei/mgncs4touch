@@ -214,7 +214,7 @@ static void mExList_backUpList(mExList* self, mNode* selNode)
 }
 
 
-static int mExList_wndProc(mExList* self, int msg, WPARAM w, LPARAM l)
+static LRESULT mExList_wndProc(mExList* self, UINT msg, WPARAM w, LPARAM l)
 {
     static unsigned int lbuttondown = 0;
     int _x = 0, _y = 0;

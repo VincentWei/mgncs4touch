@@ -390,7 +390,7 @@ static int mPicker_onKeyDown(mPicker* self, int scancode, int state)
 }
 
 
-static int mPicker_wndProc(mPicker* self, int msg, WPARAM w, LPARAM l)
+static LRESULT mPicker_wndProc(mPicker* self, UINT msg, WPARAM w, LPARAM l)
 {
     int count, width;
     static unsigned int lbuttondown = 0;

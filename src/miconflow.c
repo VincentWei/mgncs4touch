@@ -548,8 +548,7 @@ mIconFlow_onCreate (mIconFlow *self, LPARAM lParam)
 static int lbuttondown = 0;
 static unsigned mouse_down_and_move = 0;
 
-static int
-mIconFlow_wndProc (mIconFlow *self, int message, WPARAM wParam, LPARAM lParam)
+static LRESULT mIconFlow_wndProc (mIconFlow *self, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message) {
         case MSG_LBUTTONDOWN:
