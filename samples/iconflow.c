@@ -83,9 +83,9 @@ static BOOL iconv_init(mDialogBox* self)
     _c(iconvObj)->setCurSel(iconvObj, 0); 
 // END_OF_ADDITEMS
 
-    _c(iconvObj)->setIconSize(iconvObj,200, 120);
+    _c(iconvObj)->setIconSize(iconvObj, 200, 120);
 
-    _c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_SPAN, (DWORD)(120));
+    _c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_SPAN, (DWORD)(300));
 
 #if 0
     LoadBitmap (HDC_SCREEN, &bkicon_demo, bkiconfile);
@@ -100,7 +100,7 @@ static BOOL iconv_init(mDialogBox* self)
     _c(bk)->setProperty(bk, NCSP_TRANROUND_FILLMODE, (DWORD)NCSP_TRANROUND_GRADIENT_FILL);
     _c(bk)->setGradientFillColors(bk, COLORS_ICONFLOW_BK, TABLESIZE(COLORS_ICONFLOW_BK));
 
-    _c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_BKGNDPIECE, (DWORD)bk);
+    //_c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_BKGNDPIECE, (DWORD)bk);
 
     return TRUE;
 }
@@ -173,8 +173,8 @@ static NCS_WND_TEMPLATE _ctrl_tmpl[] = {
 	{
 		NCSCTRL_ICONFLOW, 
 		IDC_ICONFLOW,
-        0, 0, 240, 320,
-        WS_BORDER | WS_CHILD | WS_VISIBLE | NCSS_NOTIFY | NCSS_ICONFLOW_LOOP | NCSS_ICONFLOW_VERTICAL,
+        0, 40, 800, 400,
+        WS_BORDER | WS_CHILD | WS_VISIBLE | NCSS_NOTIFY | NCSS_ICONFLOW_LOOP,
 		WS_EX_NONE,
 		"",
 		NULL,
@@ -189,7 +189,7 @@ static NCS_WND_TEMPLATE _ctrl_tmpl[] = {
 static NCS_MNWND_TEMPLATE mainwnd_tmpl = {
 	NCSCTRL_DIALOGBOX, 
 	1,
-	0, 0, 240, 320,
+	0, 0, 800, 480,
     WS_VISIBLE,
 	WS_EX_NONE,
     "IconView Demo",

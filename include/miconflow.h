@@ -120,9 +120,10 @@ typedef struct _ICONFLOW_POINT3D {
 #define NCSS_ICONFLOW_LOOP      NCSS_ITEMV_LOOP
 
 #define mIconFlowHeader(className)  \
-    mItemViewHeader(className)     \
+    mItemViewHeader(className)      \
     mHotPiece *bkgndPiece;          \
     HDC iconFrameDC;                \
+    HDC drawBuffDC;                 \
     float key;                      \
     int visItemCount;               \
     int prevIndex;                  \

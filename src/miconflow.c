@@ -28,17 +28,6 @@
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
-/* 
- ** $Id: miconflow.c 620 2009-12-21 03:00:13Z ZhaolinHu $
- **
- ** The implementation of mIconFlow class.
- **
- ** Copyright (C) 2009 Feynman Software.
- **
- ** All rights reserved by Feynman Software.
- */
-
-#define dbg()  fprintf(stderr, "%s %s %d\n", __FILE__, __FUNCTION__, __LINE__)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,7 +77,7 @@ static void mIconFlow_drawItem (mIconFlow *self, HITEM hItem, HDC hdc, RECT *rcD
     h = RECTHP(rcDraw);
     z = (float)w / (float)self->defItemWidth;
 
-    hdc_bmp = CreateCompatibleDCEx (hdc, W , H);
+    hdc_bmp = CreateCompatibleDCEx (hdc, W, H);
     hdc_icon = CreateCompatibleDCEx (hdc, W, H);
 
     if (self->iconUseZoom)
@@ -135,6 +124,9 @@ static void mIconFlow_drawItem (mIconFlow *self, HITEM hItem, HDC hdc, RECT *rcD
 
 static void mIconFlow_destroy (mIconFlow *self)
 {
+    if (self->drawBuffDC != HDC_INVALID)
+        DeleteCompatibleDC (self->drawBuffDC);
+
     if (self->iconFrameDC != HDC_INVALID && self->iconFrameDC != HDC_SCREEN)
         DeleteCompatibleDC (self->iconFrameDC);
 
@@ -245,6 +237,27 @@ mIconFlow_onKeyDown (mIconFlow* self, int scancode, int state)
 static int
 mIconFlow_onSizeChanged (mIconFlow* self, RECT *rcClient)
 {
+    /* re-create draw buffer */
+    if (self->drawBuffDC != HDC_INVALID) {
+        HDC dc;
+        RECT rc;
+
+        DeleteCompatibleDC (self->drawBuffDC);
+
+        dc = GetClientDC (self->hwnd);
+
+        self->drawBuffDC = CreateCompatibleDC (dc);
+        if (self->drawBuffDC == HDC_INVALID) {
+            _ERR_PRINTF ("mGNCS4Touch>IconFlow: failed to create draw buffer on size changed.\n");
+        }
+
+        SetBrushColor (self->drawBuffDC, GetWindowBkColor (self->hwnd));
+        GetClientRect (self->hwnd, &rc);
+        FillBox (self->drawBuffDC, 0, 0, RECTW(rc), RECTH(rc));
+
+        ReleaseDC (dc);
+    }
+
     Class(mScrollWidget).onSizeChanged((mScrollWidget*)self, rcClient);
     return 0;
 }
@@ -305,7 +318,7 @@ mIconFlow_setIconSize(mIconFlow *self, int width, int height)
     _c(self)->setVisItemCenter (self,
             self->visItemCount, self->defItemWidth, self->defItemHeight);
 
-    InvalidateRect(self->hwnd, NULL, TRUE);
+    InvalidateRect(self->hwnd, NULL, FALSE);
 }
 
 static void
@@ -320,7 +333,7 @@ mIconFlow_setVisItemCount (mIconFlow *self, int count)
     _c(self)->setVisItemCenter (self,
             self->visItemCount, self->defItemWidth, self->defItemHeight);
 
-    InvalidateRect(self->hwnd, NULL, TRUE);
+    InvalidateRect(self->hwnd, NULL, FALSE);
 }
 
 static void
@@ -334,7 +347,7 @@ mIconFlow_setSpan (mIconFlow *self, int span)
     _c(self)->setVisItemCenter (self,
             self->visItemCount, self->defItemWidth, self->defItemHeight);
 
-    InvalidateRect(self->hwnd, NULL, TRUE);
+    InvalidateRect(self->hwnd, NULL, FALSE);
 }
 
 static void
@@ -374,7 +387,7 @@ static int g_finalFrame = 0;
 static BOOL
 mIconFlow_onEraseBkgnd(mIconFlow *self, HDC hdc, const RECT *pinv)
 {
-    return TRUE;
+    return FALSE;
 }
 
 static void
@@ -459,7 +472,7 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
         rcDraw[i].top     = 0;
         rcDraw[i].right   = rcDraw[i].left + self->defItemWidth / 2;
         rcDraw[i].bottom  = rcDraw[i].top + self->defItemHeight / 2;
-#endif   
+#endif
         m = i;
         for (j = i - 1; j >= 0 && RECTH(rcDraw[i]) > RECTH(rcDraw[sortLine[j]]); --j)
             --m;
@@ -468,13 +481,28 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
         sortLine[m] = i;
     }
 
-    hdc = CreateCompatibleDC (real_hdc);
+    hdc = self->drawBuffDC;
 
     if (self->bkgndPiece) {
         _c(self->bkgndPiece)->paint(self->bkgndPiece, hdc, (mObject*)self, 0);
     } else {
+        RECT rcErase;
+
+        if (GetWindowStyle(self->hwnd) & NCSS_ICONFLOW_VERTICAL) {
+            rcErase.left = (GetGDCapability (hdc, GDCAP_MAXX) - self->defItemWidth) / 2;
+            rcErase.right = rcErase.left +  self->defItemWidth;
+            rcErase.top = 0;
+            rcErase.bottom = GetGDCapability (hdc, GDCAP_MAXY);
+        }
+        else {
+            rcErase.left = 0;
+            rcErase.right = GetGDCapability (hdc, GDCAP_MAXX);
+            rcErase.top = (GetGDCapability (hdc, GDCAP_MAXY) - self->defItemHeight) / 2;
+            rcErase.bottom = rcErase.top +  self->defItemHeight;
+        }
+
         SetBrushColor (hdc, GetWindowBkColor (self->hwnd));
-        FillBox (hdc, 0, 0, GetGDCapability(hdc, GDCAP_MAXX) + 1, GetGDCapability(hdc, GDCAP_MAXY) + 1);
+        FillBox (hdc, rcErase.left, rcErase.top, rcErase.right, rcErase.bottom);
     }
 
     for (i = visItemCountP1 - 1; i >= 0; --i) {
@@ -483,7 +511,6 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
     }
 
     BitBlt (hdc, 0, 0, 0, 0, real_hdc, 0, 0, -1);
-    DeleteMemDC (hdc);
 
     free (hItem);
     free (rcDraw);
@@ -503,7 +530,7 @@ _finished_cb (MGEFF_ANIMATION animation)
 
 static void call_draw (MGEFF_ANIMATION anim, void *target, intptr_t id, void *value)
 {
-    UpdateWindow ((HWND)target, TRUE);
+    UpdateWindow ((HWND)target, FALSE);
 }
 
 static void
@@ -549,6 +576,7 @@ mIconFlow_construct (mIconFlow *self, DWORD add_data)
     self->visItemCount = DEF_VISITEMCOUNT;
     self->direction = ICONFLOW_DIR_NONE;
     self->iconFrameDC = HDC_INVALID;
+    self->drawBuffDC = HDC_INVALID;
     self->isVertical = FALSE;
     self->iconBorder = 0;
     self->span = DEF_ICON_WIDTH * 1.6;
@@ -558,9 +586,10 @@ mIconFlow_construct (mIconFlow *self, DWORD add_data)
 static BOOL
 mIconFlow_onCreate (mIconFlow *self, LPARAM lParam)
 {
-//    if (_c(self)->getItemCount (self) > 0) {
-        _c(self)->hilight (self, _c(self)->getItem (self, self->prevIndex));
-//    }
+    HDC dc;
+    RECT rc;
+
+    _c(self)->hilight (self, _c(self)->getItem (self, self->prevIndex));
 
     if (GetWindowStyle(self->hwnd) & NCSS_ICONFLOW_VERTICAL) {
         self->isVertical = TRUE;
@@ -570,6 +599,19 @@ mIconFlow_onCreate (mIconFlow *self, LPARAM lParam)
     _c(self)->setIconSize (self, self->visWidth / 4, self->visHeight / 4);
 
     Class (mScrollWidget).setProperty ((mScrollWidget *)self, NCSP_SWGT_DRAWMODE, NCSID_SWGT_NEVER);
+
+    dc = GetClientDC (self->hwnd);
+    self->drawBuffDC = CreateCompatibleDC (dc);
+    ReleaseDC (dc);
+
+    if (self->drawBuffDC == HDC_INVALID) {
+        _ERR_PRINTF ("mGNCS4Touch>IconFlow: failed to create draw buffer onCreate.\n");
+        return FALSE;
+    }
+
+    SetBrushColor (self->drawBuffDC, GetWindowBkColor (self->hwnd));
+    GetClientRect (self->hwnd, &rc);
+    FillBox (self->drawBuffDC, 0, 0, RECTW(rc), RECTH(rc));
 
     return TRUE;
 }
@@ -614,7 +656,7 @@ static LRESULT mIconFlow_wndProc (mIconFlow *self, UINT message, WPARAM wParam, 
                 self->mouse.x = LOSWORD (lParam);
                 self->mouse.y = HISWORD (lParam);
                 g_finalFrame = 1;
-                InvalidateRect(self->hwnd, NULL, TRUE);
+                InvalidateRect(self->hwnd, NULL, FALSE);
 
                 if (!mouse_down_and_move)
                     mouse_down_and_move = 1;
