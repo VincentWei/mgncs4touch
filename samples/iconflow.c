@@ -85,7 +85,7 @@ static BOOL iconv_init(mDialogBox* self)
 
     _c(iconvObj)->setIconSize(iconvObj, 200, 120);
 
-    _c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_SPAN, (DWORD)(300));
+    _c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_SPAN, (DWORD)(400));
 
 #if 0
     LoadBitmap (HDC_SCREEN, &bkicon_demo, bkiconfile);
@@ -100,7 +100,7 @@ static BOOL iconv_init(mDialogBox* self)
     _c(bk)->setProperty(bk, NCSP_TRANROUND_FILLMODE, (DWORD)NCSP_TRANROUND_GRADIENT_FILL);
     _c(bk)->setGradientFillColors(bk, COLORS_ICONFLOW_BK, TABLESIZE(COLORS_ICONFLOW_BK));
 
-    //_c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_BKGNDPIECE, (DWORD)bk);
+    _c(iconvObj)->setProperty (iconvObj, NCSP_ICONFLOW_BKGNDPIECE, (DWORD)bk);
 
     return TRUE;
 }

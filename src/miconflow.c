@@ -245,17 +245,21 @@ mIconFlow_onSizeChanged (mIconFlow* self, RECT *rcClient)
         DeleteCompatibleDC (self->drawBuffDC);
 
         dc = GetClientDC (self->hwnd);
-
         self->drawBuffDC = CreateCompatibleDC (dc);
+        ReleaseDC (dc);
+
         if (self->drawBuffDC == HDC_INVALID) {
             _ERR_PRINTF ("mGNCS4Touch>IconFlow: failed to create draw buffer on size changed.\n");
         }
 
-        SetBrushColor (self->drawBuffDC, GetWindowBkColor (self->hwnd));
-        GetClientRect (self->hwnd, &rc);
-        FillBox (self->drawBuffDC, 0, 0, RECTW(rc), RECTH(rc));
-
-        ReleaseDC (dc);
+        if (self->bkgndPiece) {
+            _c(self->bkgndPiece)->paint(self->bkgndPiece, self->drawBuffDC, (mObject*)self, 0);
+        }
+        else {
+            SetBrushColor (self->drawBuffDC, GetWindowBkColor (self->hwnd));
+            GetClientRect (self->hwnd, &rc);
+            FillBox (self->drawBuffDC, 0, 0, RECTW(rc), RECTH(rc));
+        }
     }
 
     Class(mScrollWidget).onSizeChanged((mScrollWidget*)self, rcClient);
@@ -609,9 +613,14 @@ mIconFlow_onCreate (mIconFlow *self, LPARAM lParam)
         return FALSE;
     }
 
-    SetBrushColor (self->drawBuffDC, GetWindowBkColor (self->hwnd));
-    GetClientRect (self->hwnd, &rc);
-    FillBox (self->drawBuffDC, 0, 0, RECTW(rc), RECTH(rc));
+    if (self->bkgndPiece) {
+        _c(self->bkgndPiece)->paint(self->bkgndPiece, self->drawBuffDC, (mObject*)self, 0);
+    }
+    else {
+        SetBrushColor (self->drawBuffDC, GetWindowBkColor (self->hwnd));
+        GetClientRect (self->hwnd, &rc);
+        FillBox (self->drawBuffDC, 0, 0, RECTW(rc), RECTH(rc));
+    }
 
     return TRUE;
 }
