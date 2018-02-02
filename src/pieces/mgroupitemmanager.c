@@ -28,13 +28,6 @@
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
-/*! ============================================================================
- * @file mlistitemmanager.c 
- * @Synopsis mGroupItemManager 
- * @author DongKai
- * @version 1.0
- *  Company: Beijing Feynman Software Technology Co., Ltd.
- */
 
 #include <string.h>
 

@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
-    Room 902, Floor 9, Taixing, No.11, Huayuan East Road, Haidian
-    District, Beijing, P. R. CHINA 100191.
-    All rights reserved.
-
-    This software is the confidential and proprietary information of
-    Feynman Software Technology Co., Ltd. ("Confidential Information").
-    You shall not disclose such Confidential Information and shall use
-    it only in accordance you entered into with Feynman Software.
-
-                http://www.minigui.com
--->
-
 <renderer class="Fashion.ImgNavBar" extends="renderer::Fashion.Widget">
     <set-property name="Class"               value="imgnavbar"/>
     <set-property name="ColorFgWindow"       value="0xFF000000"/>
