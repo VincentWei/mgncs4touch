@@ -93,6 +93,11 @@ AC_ARG_ENABLE(develmode,
 [  --enable-develmode       developer mode <default=no>],
 devel_mode=$enableval)
 
+detail_debug="no"
+AC_ARG_ENABLE(detail_debug,
+[  --enable-detaildebug     detailed debug information <default=no>],
+detail_debug=$enableval)
+
 AC_ARG_WITH(libsuffix,
   [  --with-libsuffix=ARG   configure the suffix of the library name.])
 
@@ -149,7 +154,11 @@ AC_SUBST(PC_CFLAGS)
 
 CFLAGS="$CFLAGS -D__MGNCS4TOUCH_LIB__"
 if test "x$devel_mode" = "xyes"; then
-    CPPFLAGS="$CPPFLAGS -DDEBUG -D_DEBUG"
+    CPPFLAGS="$CPPFLAGS -D_DEBUG"
+    if test "x$detail_debug" = "xyes"; then
+        CPPFLAGS="$CPPFLAGS -DDEBUG"
+    fi
+
     if test "$ac_cv_prog_gcc" = "yes"; then
         CPPFLAGS="$CPPFLAGS -Wall -Werror"
     fi
