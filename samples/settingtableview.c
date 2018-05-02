@@ -428,6 +428,9 @@ void initSetting() {
 
     int i;
 
+    MGNCS_INIT_CLASS (mSettingMainWinPiece);
+    MGNCS_INIT_CLASS (mSettingSubWinPiece);
+
     initResource();
 
     m_settingMainWinPiece = NULL;
