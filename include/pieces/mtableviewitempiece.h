@@ -47,6 +47,15 @@ extern "C" {
 typedef struct _mTableViewItemPiece mTableViewItemPiece;
 typedef struct _mTableViewItemPieceClass mTableViewItemPieceClass;
 
+enum mTableViewItemPieceProp
+{
+    NCSP_BACKGROUND_COLOR = USER_PIECE_PROP_BEGIN + 1,
+    NCSP_HIGHTLIGHT_COLOR,
+};
+
+#define NCS_TABLEVIEWITEM_BKCOLOR_VALUE     0xFFFFFFFF
+#define NCS_TABLEVIEWITEM_HIGHLIGHT_VALUE   0xFF0000FF
+
 enum mTableViewItemPieceMode {
     NCS_TABLEVIEWITEMPIECE_NORMAL = 0,
     NCS_TABLEVIEWITEMPIECE_EDIT, 
@@ -57,8 +66,6 @@ enum mTableViewItemPieceEvent {
     NCSN_TABLEVIEWITEMPIECE_DELBTNCLICKED,
     NCSN_TABLEVIEWITEMPIECE_CONTENTCLICKED,
 };
-#define NCS_TABLEVIEWITEM_BKCOLOR_VALUE     0xFFFFFFFF
-#define NCS_TABLEVIEWITEM_HIGHLIGHT_VALUE   0xFF0000FF
 
 #define mTableViewItemPieceHeader(clss) \
 	mPanelPieceHeader(clss) \
@@ -75,10 +82,12 @@ enum mTableViewItemPieceEvent {
     const char* picture;\
     const char* text; \
     mHotPiece* accessory; \
-    BOOL highlight;\
-    BOOL pushDown;\
-    MGEFF_ANIMATION modeChangeAnimation;\
-    MGEFF_ANIMATION switchStateChangeAnimation;
+    BOOL highlight; \
+    BOOL pushDown; \
+    MGEFF_ANIMATION modeChangeAnimation; \
+    MGEFF_ANIMATION switchStateChangeAnimation; \
+    DWORD bkgnd_color; \
+    DWORD hilite_color;
 
 struct _mTableViewItemPiece
 {

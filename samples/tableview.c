@@ -372,7 +372,7 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
         _c(table)->setSeparatorStyle(table, NCS_TABLEVIEW_SEPARATORSTYLE_NONE);
         _c(table)->setRect(table, &rc);
         _c(table)->reloadData(table);
-#if 0
+#if 1
         _c(ctnr)->setBody(ctnr, (mHotPiece*)table);
 #else
         {
