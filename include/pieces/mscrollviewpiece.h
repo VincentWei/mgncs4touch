@@ -40,12 +40,26 @@
 #ifndef __MGUI_NCSCTRL_SCROLLVIEWPIECE_H
 #define __MGUI_NCSCTRL_SCROLLVIEWPIECE_H
 
-typedef struct _mScrollViewPieceClass mScrollViewPieceClass;
-typedef struct _mScrollViewPiece mScrollViewPiece;
-
 #ifdef __cplusplus
 extern "C" {
 #endif  /* __cplusplus */
+
+typedef enum _ScrollViewBkMode {
+    SCROLLVIEW_BKMODE_SOLID_COLOR,
+    SCROLLVIEW_BKMODE_IMAGE_CENTER,
+    SCROLLVIEW_BKMODE_IMAGE_SCALED,
+    SCROLLVIEW_BKMODE_IMAGE_TILED,
+    SCROLLVIEW_BKMODE_PATTERN,
+} SCROLLVIEWBKMODE;
+
+enum mScrollViewPieceProp
+{
+    NCSP_BACKGROUND_MODE = USER_PIECE_PROP_BEGIN + 1,
+    NCSP_BACKGROUND_DATA,
+};
+
+typedef struct _mScrollViewPieceClass mScrollViewPieceClass;
+typedef struct _mScrollViewPiece mScrollViewPiece;
 
 #define mScrollViewPieceClassHeader(clss, superCls) \
     mPanelPieceClassHeader(clss, superCls) \
@@ -82,7 +96,9 @@ MGNCS_EXPORT extern mScrollViewPieceClass g_stmScrollViewPieceCls;
     mPieceItem *m_content; \
     mPieceItem *m_scrollbar; \
     MGEFF_ANIMATION m_animation; \
-    void *m_phy_ctx;
+    void *m_phy_ctx; \
+    int bkgnd_mode; \
+    DWORD bkgnd_data;
 
 struct _mScrollViewPiece
 {
