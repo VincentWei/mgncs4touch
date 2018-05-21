@@ -471,7 +471,7 @@ static void mTableViewPiece_rectForSection(mTableViewPiece* self, int section, R
     RECT rc;
     int i = 0;
     mPieceItem* item;
-    mPieceItem* groupItem;
+    mPieceItem* groupItem = NULL;
     mItemIterator *iter = _c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
     
     while((item = _c(iter)->next(iter))){
@@ -484,10 +484,13 @@ static void mTableViewPiece_rectForSection(mTableViewPiece* self, int section, R
         }
     }
     
-    rect->left   = _c(groupItem)->getX(groupItem);
-    rect->top    = _c(groupItem)->getY(groupItem);
-    rect->right  = rect->left + RECTW(rc);
-    rect->bottom = rect->top  + RECTH(rc);
+    if (groupItem) {
+        rect->left   = _c(groupItem)->getX(groupItem);
+        rect->top    = _c(groupItem)->getY(groupItem);
+        rect->right  = rect->left + RECTW(rc);
+        rect->bottom = rect->top  + RECTH(rc);
+    }
+
     DELETE(iter);
 }
 
