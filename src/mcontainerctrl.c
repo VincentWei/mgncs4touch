@@ -119,10 +119,12 @@ static void mContainerCtrl_onPaint(mContainerCtrl *self, HDC hdc, const PCLIPRGN
     }
 }
 
+/*
 static BOOL mContainerCtrl_onEraseBkgnd(mContainerCtrl *self, HDC hdc, const RECT *pinv)
 {
     return TRUE;
 }
+*/
 
 static LRESULT mContainerCtrl_wndProc(mWidget* self,  UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -146,5 +148,4 @@ BEGIN_CMPT_CLASS(mContainerCtrl, mWidget)
     CLASS_METHOD_MAP(mContainerCtrl, setBody)
     CLASS_METHOD_MAP(mContainerCtrl, wndProc)
     CLASS_METHOD_MAP(mContainerCtrl, onPaint)
-    CLASS_METHOD_MAP(mContainerCtrl, onEraseBkgnd)
 END_CMPT_CLASS
