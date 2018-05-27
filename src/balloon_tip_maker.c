@@ -91,14 +91,14 @@ static int balloon_draw_edge (HWND hWnd, unsigned short triangle_offset, TRIANGL
 
     win_dc = GetDC (hWnd);
     if (win_dc == HDC_INVALID) {
-        fprintf (stderr, "create dc error\n");
+        _ERR_PRINTF ("mGNCS4Touch>balloon_draw_edge: Failed to get dc.\n");
         return -1;
     }
 
     memset (&bmp_triangle, 0, sizeof(bmp_triangle));
     ret = LoadBitmapFromFile (win_dc, &bmp_triangle, TRIANGLE_PNG);
     if (ret != 0) {
-        fprintf (stderr, "Load triangle bmp error!\n");
+        _ERR_PRINTF ("mGNCS4Touch>balloon_draw_edge: Failed to load triangle bmp!\n");
         goto error2;
     }
 
@@ -116,7 +116,7 @@ static int balloon_draw_edge (HWND hWnd, unsigned short triangle_offset, TRIANGL
     memset (&bmp_corner, 0, sizeof(bmp_corner));
     ret = LoadBitmapFromFile (win_dc, &bmp_corner, CORNER_PNG);
     if (ret != 0) {
-        fprintf (stderr, "Load corner bmp error!\n");
+        _ERR_PRINTF ("mGNCS4Touch>balloon_draw_edge: Failed to load corner bmp!\n");
         goto error1;
     }
 
@@ -207,7 +207,7 @@ static int set_new_update_behavior(HWND hWnd, unsigned short tri_offset, TRIANGL
     return -1;
 }
 
-int SetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRECTION triangle_direction)
+int ncsSetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRECTION triangle_direction)
 {
     int win_height, win_width, ret;
     MYBITMAP mybmp_mask;
@@ -233,7 +233,7 @@ int SetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRE
 #define MASK_DC_BPP 8
     mask_hdc = CreateMemDC (win_width, win_height, MASK_DC_BPP, MEMDC_FLAG_SWSURFACE, 0, 0, 0, 0);
     if (mask_hdc == HDC_INVALID) {
-        fprintf (stderr, "create dc error\n");
+        _ERR_PRINTF ("mGNCS4Touch>ncsSetBalloonTipStyle: Failed to create mem dc!\n");
         return -1;
     }
     SetColorfulPalette (mask_hdc);
@@ -244,7 +244,7 @@ int SetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRE
     memset (&bmp_corner, 0, sizeof(bmp_corner));
     ret = LoadBitmapFromFile (mask_hdc, &bmp_corner, MASK_CORNER_BMP);
     if (ret != 0) {
-        fprintf (stderr, "Load mask_triangle pic error!\n");
+        _ERR_PRINTF ("mGNCS4Touch>ncsSetBalloonTipStyle: Failed to load MASK_CORNER_BMP!\n");
         goto error2;
     }
 
@@ -253,7 +253,7 @@ int SetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRE
     memset (&bmp_triangle, 0, sizeof(bmp_triangle));
     ret = LoadBitmapFromFile (mask_hdc, &bmp_triangle, MASK_TRIANGLE_BMP);
     if (ret != 0) {
-        fprintf (stderr, "Load mask_triangle pic error!\n");
+        _ERR_PRINTF ("mGNCS4Touch>ncsSetBalloonTipStyle: Failed to load MASK_TRIANGLE_BMP!\n");
         goto error1;
     }
     triangle_height = bmp_triangle.bmHeight;

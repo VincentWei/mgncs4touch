@@ -133,7 +133,6 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
             dAngle -= ROTATE_90;
         else
             dAngle += ROTATE_90;
-//        printf ("dAngnle = %lf\n", dAngle);
 
         getRectFromDC(src_dc, &rc);
         w = RECTW(rc);
@@ -142,7 +141,7 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
         pTransAffine = Init3DSenceTransAffine();
 
         if (!pTransAffine) {
-            printf("[3D Sence]Init: can not malloc enough memory!");
+            _ERR_PRINTF ("mGNCS4Touch>rotate: [3D Sence] can not malloc enough memory!");
             return;
         }
 
@@ -207,8 +206,6 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
                         Points[1].xf, Points[1].yf,
                         Points[2].xf, Points[2].yf,
                         Points[3].xf, Points[3].yf);
-            } else {
-            //    printf("out of line\n");
             }
 #endif
         } else if (mv->y) {
@@ -264,7 +261,7 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
                 Points[1].xf = Points[2].xf;
             }
 
-#if 0
+#ifdef DEBUG
             printf ("%f %f\n", Points[1].xf, Points[1].yf);
             printf ("%f %f\n", Points[2].xf, Points[2].yf);
             printf ("%f %f\n", Points[3].xf, Points[3].yf);
@@ -279,14 +276,14 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
                         Points[2].xf, Points[2].yf,
                         Points[3].xf, Points[3].yf,
                         Points[0].xf, Points[0].yf);
-            } else {
-                //            printf("out of line\n");
             }
 #if 0
+        }
         else if (mv->z)
             Roll3DSence(pTransAffine, dAngle);
 #endif
-        } else {
+        }
+        else {
             assert(0);
         }
     }
@@ -302,7 +299,6 @@ static void set_transroundpiece_paintmode(mPieceItem *item, TRANROUND_PAINTMODE 
 
     if(INSTANCEOF(piece, mPanelPiece)) {
 
-        //printf("/t%s mPanelPiece %p\n", __FUNCTION__, piece);
         mPanelPiece *panel = (mPanelPiece*)piece;
         mPieceItem *itemChild = NULL;
         mItemIterator *iter = _c(panel->itemManager)->createItemIterator(panel->itemManager);
@@ -316,7 +312,6 @@ static void set_transroundpiece_paintmode(mPieceItem *item, TRANROUND_PAINTMODE 
         DELETE(iter);
     } else if (INSTANCEOF(piece, mShapeTransRoundPiece)) {
 
-        //printf("/t%s mShapeTransRoundPiece %p\n", __FUNCTION__, piece);
         _c(piece)->setProperty(piece, NCSP_TRANROUND_PAINTMODE, mode);
     }
 
@@ -410,9 +405,6 @@ static mPieceItem *mPanelPiece_createItemNode(mPanelPiece *self, mHotPiece *piec
 
     if (INSTANCEOF(piece, mPanelPiece)) {
         ((mPanelPiece*)piece)->isTopPanel = FALSE;
-//        printf("addContent %p at %d,%d (mPanelPiece)\n", piece, x, y);
-    } else {
-//        printf("addContent %p at %d,%d\n", piece, x, y);
     }
 
     item->x = x;
@@ -549,8 +541,8 @@ static void mPanelPiece_enableChildCache(mPanelPiece *self, mHotPiece* child, BO
     if (item == NULL || item->isEnableCache == enable) 
         return;
 
-    fprintf(stderr, "%s:%d enable panel child:%p, cache: %d.\n", 
-            __FUNCTION__, __LINE__, child, enable);
+    _DBG_PRINTF ("%s:%d enable panel child:%p, cache: %d.\n", __FUNCTION__, __LINE__, child, enable);
+
     item->isEnableCache = enable;
 }
 
@@ -566,8 +558,7 @@ static BOOL mPanelPiece_updateChildCache(mPanelPiece *self, mHotPiece* child)
     else
         itempiece = (mPanelPiece*)item->piece;
 
-    fprintf(stderr, "%s:%d update panel child:%p, cache: %p.\n", 
-            __FUNCTION__, __LINE__, child, item->cacheDC);
+    _DBG_PRINTF ("%s:%d update panel child:%p, cache: %p.\n", __FUNCTION__, __LINE__, child, item->cacheDC);
 
     set_transroundpiece_paintmode(item, TRANROUND_PAINTMODE_GRAPHICSAVE);
     paintmode_should_be_reset(item->piece);
@@ -613,23 +604,19 @@ static void mPanelPiece_paint(mPanelPiece* self, HDC hdc, mObject* owner, DWORD 
     if (RECTW(self->invalidRect) 
             && RECTH(self->invalidRect)) {
         IntersectRect(&clipRect, &clipRect, &self->invalidRect);
-        /*
-        fprintf(stderr, "piece is %p, clipRect is (%d,%d,%d,%d).\n",
+        _DBG_PRINTF ("piece is %p, clipRect is (%d,%d,%d,%d).\n",
                 self, clipRect.left, clipRect.top, clipRect.right, clipRect.bottom);
-                */
     }
+
     /* set clip rect of hdc */
-#if 1
     ClipRectIntersect(hdc, &clipRect);
-    //SelectClipRect(hdc, &containerRc);
-#endif
 
     /* draw background.*/
-    if (self->bkgndPiece){
+    if (self->bkgndPiece) {
         _c(self->bkgndPiece)->paint(self->bkgndPiece, hdc, owner, add_data);
     }
+
     if (self->isTopPanel) {
-        //self->clipRect = containerRc;
         self->clipRect = clipRect;
     }
 
@@ -674,7 +661,7 @@ static void mPanelPiece_paint(mPanelPiece* self, HDC hdc, mObject* owner, DWORD 
                 int h = GetGDCapability(hdc, GDCAP_MAXY) + 1;
                 if (RECTW(rc) > 0 && RECTH(rc) > 0 
                         && !(top >= h || left >= w)) {
-                    fprintf(stderr, "Error: subDC INVALID :%d %d %d %d\n",
+                    _ERR_PRINTF ("Error: subDC INVALID :%d %d %d %d\n",
                             left, top, RECTW(rc), RECTH(rc));
                 }
                 continue;
@@ -871,7 +858,6 @@ static MGEFF_ANIMATION mPanelPiece_movePieceWithAnimation(mPanelPiece *self, mHo
         anim = mGEffAnimationCreate(child, _piece_anim_cb, ANIM_MOVE, MGEFF_POINT);
         assert(anim);
 
-        //printf("panelpiece ==> s:(%d,%d), e:(%d,%d)\n", pt_s.x, pt_s.y, pt_e.x, pt_e.y);
         mGEffAnimationSetStartValue(anim, &pt_s);
         mGEffAnimationSetEndValue(anim, &pt_e);
         mGEffAnimationSetDuration(anim, duration);
@@ -1173,8 +1159,6 @@ static void _update_callback(MGEFF_ANIMATION handle, void *target, intptr_t id, 
     mPanelPiece *self = (mPanelPiece*)target;
     assert (self && self->owner);
 
-    //printf("_update_callback: %x\n", handle);
-
     if (self->update_flag) {
         self->update_flag = FALSE;
         PanelPiece_update((mHotPiece*)self, TRUE);
@@ -1211,9 +1195,7 @@ static mWidget *mPanelPiece_getOwner(mPanelPiece *self) {
     }
 
     if (parent == (mPanelPiece*)-1) {
-    #ifdef DBG_REF/*DBG_REF defined in mpanelpiece.h*/
-        fprintf(stderr, "%p piece is delContent from parent!!!\n", self);
-    #endif
+        _DBG_PRINTF ("%p piece is delContent from parent!!!\n", self);
         return NULL;
     }
     if (parent)
@@ -1366,8 +1348,7 @@ static void mPanelPiece_invalidatePiece(mPanelPiece *self, mHotPiece *piece, con
 
     parent = (mPanelPiece *)self->parent;
     if (parent == (mPanelPiece *)-1) {
-        fprintf(stderr, "%p piece is delContent from parent!!!\n", self);
-        // assert(0);
+        _MG_PRINTF ("%p piece is delContent from parent!!!\n", self);
     }else if (parent) {
         _c(parent)->invalidatePiece(parent, (mHotPiece *)self, &dirtyRect, reserveCache);
     }else{
@@ -1432,10 +1413,7 @@ void PanelPiece_invalidatePiece(mHotPiece *piece, const RECT *rc) {
 
     parent = (mPanelPiece *)piece->parent;
     if (parent == (mPanelPiece *)-1) {
-        fprintf(stderr, "%p piece is delContent from parent!!!\n", piece);
-    #if 0
-        assert(0);
-    #endif
+        _MG_PRINTF ("%p piece is delContent from parent!!!\n", piece);
     }else if (parent) {
         _c(parent)->invalidatePiece(parent, piece, rc, FALSE);
     }else{
@@ -1471,7 +1449,7 @@ mPanelPiece *PanelPiece_getTopPanel(mHotPiece *piece)
     while (parent) {
         piece = parent;
         if (parent == (mHotPiece*)-1) {
-            fprintf(stderr, "%p piece is delContent from parent!!!\n", p);
+            _MG_PRINTF ("%p piece is delContent from parent!!!\n", p);
             return NULL;
         }
         parent = piece->parent;

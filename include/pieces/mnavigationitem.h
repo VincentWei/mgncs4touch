@@ -79,9 +79,10 @@ typedef enum {
 	DWORD(*getProperty)(clss*, int); 
     
 /* static interface */
-MGNCS_EXPORT extern mNavigationItem* CreateNavigationItem (mHotPiece *content, const char *title, unsigned int style);
-MGNCS_EXPORT extern void DestroyNavigationItem (mNavigationItem* item);
-MGNCS_EXPORT extern void AdjustNavigationItemRectWithTitle (mHotPiece *content, const char *title, PLOGFONT font);
+MGNCS_EXPORT extern mNavigationItem* ncsCreateNavigationItem (mHotPiece *content,
+                            const char *title, unsigned int style);
+MGNCS_EXPORT extern void ncsDestroyNavigationItem (mNavigationItem* item);
+MGNCS_EXPORT extern void ncsAdjustNavigationItemRectWithTitle (mHotPiece *content, const char *title, PLOGFONT font);
 
 struct _mNavigationItemClass
 {   

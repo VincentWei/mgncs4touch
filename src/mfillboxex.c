@@ -37,7 +37,7 @@
 #define GET_INTERPOLATION(a1, a2, r) TOLOW(TOHIGH(a1) + (r) * ((a2) - (a1)))
 #define GETPOS(x1, x2, x) TOHIGH((x) - (x1)) / ((x2) - (x1));
 
-void fillspan_gradient(HDC hdc, void *context, const RECT *rc) {
+void ncs_cb_fillspan_gradient(HDC hdc, void *context, const RECT *rc) {
     int y;
     struct gradient_context *gra = (struct gradient_context *)context;
     unsigned int pos;
@@ -57,7 +57,7 @@ void fillspan_gradient(HDC hdc, void *context, const RECT *rc) {
     }
 }
 
-void fillspan_multigradient(HDC hdc, void *context, const RECT *rc) {
+void ncs_cb_fillspan_multigradient(HDC hdc, void *context, const RECT *rc) {
     int y;
     struct multigradient_context *gra = (struct multigradient_context *)context;
     unsigned int pos, pos_inner;
@@ -66,7 +66,7 @@ void fillspan_multigradient(HDC hdc, void *context, const RECT *rc) {
 
     assert(gra->colortable[0][0] == 0 && gra->colortable[gra->n-1][0] == 100);
     if (gra->_private_current_index < 0 || gra->_private_current_index >= gra->n) {
-        fprintf(stderr, "FATAL: Please memset(&context, 0, sizeof(context))\n");
+        _ERR_PRINTF ("mGNCS4Touch>fillspan_multigradient: Please call memset (&context, 0, sizeof(context)) first.\n");
     }
     assert(gra->_private_current_index >= 0 && gra->_private_current_index < gra->n);
 
@@ -97,26 +97,17 @@ void fillspan_multigradient(HDC hdc, void *context, const RECT *rc) {
     }
 }
 
-void fillspan_simple(HDC hdc, void *context, const RECT *rc) {
+void ncs_cb_fillspan_simple(HDC hdc, void *context, const RECT *rc) {
     unsigned int rgba = (unsigned int)(intptr_t)context;
 
     SetBrushColor(hdc, RGBA2Pixel(hdc, GetRValue(rgba), GetGValue(rgba), GetBValue(rgba), GetAValue(rgba)));
     FillBox(hdc, rc->left, rc->top, RECTWP(rc), RECTHP(rc));
 }
 
-void mFillRegion(HDC hdc, PCLIPRGN prgn, cb_fill_span_t cb, void *context) {
+void ncsFillRegion(HDC hdc, PCLIPRGN prgn, cb_fill_span_t cb, void *context) {
     PCLIPRECT cell;
 
-    /*
-    printf("Region:\n");
-    printf("  type: %d\n", prgn->type);
-    printf("  bound: (%d,%d,%d,%d)\n", prgn->rcBound.left, prgn->rcBound.top, prgn->rcBound.right, prgn->rcBound.bottom);
-    */
-
     for (cell=prgn->head; cell; cell = cell->next) {
-        /*
-        printf("  cell: (%d,%d,%d,%d)\n", cell->rc.left, cell->rc.top, cell->rc.right, cell->rc.bottom);
-        */
         cb(hdc, context, &cell->rc);
     }
 }

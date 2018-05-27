@@ -78,14 +78,14 @@ static int s_onMouseEvent(mHotPiece *self, int message, WPARAM wParam, LPARAM lP
     }
     else if (message == MSG_MOUSEMOVEIN) {
         if (!(BOOL)wParam) {
-//            fprintf(stderr, "MOVEOUT from piece %p\n", self);
             if (state == NCS_BPP_PUSHED)
                 changeState((mButtonPanelPiece*)self, NCS_BPP_NORMAL, owner);
         }
+#ifdef DEBUG
         else {
-//            fprintf(stderr, "MOVEIN to piece %p\n", self);
-            ;
+            _MG_PRINTF ("mGNCS4Touc>s_onMouseEvent: MOVEIN to piece %p\n", self);
         }
+#endif
     }
     else {
         return -1;

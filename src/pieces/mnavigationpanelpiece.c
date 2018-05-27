@@ -304,14 +304,9 @@ static BOOL bar_left_button_clicked_handler (mHotPiece *self,
          mHotPiece *sender, int event_id, DWORD param)
 {
     mNavigationPanelPiece* panel = (mNavigationPanelPiece*)self;
-    
-    printf("navigation ==> pop item\n");
-
     _c(panel)->pop(panel);
-
     return TRUE;
 }
-
 
 static mButtonPanelPiece* create_default_left_button (mNavigationPanelPiece* self, 
         mNavigationItem* item, const char* title)
@@ -323,7 +318,7 @@ static mButtonPanelPiece* create_default_left_button (mNavigationPanelPiece* sel
         return NULL;
 
     /* set the left button style */
-    AdjustNavigationItemRectWithTitle((mHotPiece*)button_piece, title, item->default_button_font);
+    ncsAdjustNavigationItemRectWithTitle((mHotPiece*)button_piece, title, item->default_button_font);
     bk_piece = _c(button_piece)->getBkgndPiece(button_piece);
     _c(bk_piece)->setProperty(bk_piece, NCSP_TRANROUND_SHARPFLAG, TRANROUND_SHARPFLAG_LEFT);
 
@@ -346,7 +341,7 @@ static mTextPiece* create_default_title_button (mNavigationPanelPiece* self, con
     /* set property */
     SetRect(&rect, 0, 0, 10, NAVIGATIONBAR_DEFAULT_BUTTON_H);
     _c(text_piece)->setRect(text_piece, &rect);
-    AdjustNavigationItemRectWithTitle((mHotPiece*)text_piece, title, self->default_title_font);
+    ncsAdjustNavigationItemRectWithTitle((mHotPiece*)text_piece, title, self->default_title_font);
     _c(text_piece)->setProperty(text_piece, NCSP_TEXTPIECE_LOGFONT, (DWORD)self->default_title_font);
     _c(text_piece)->setProperty(text_piece, NCSP_LABELPIECE_LABEL, (DWORD)title);
     _c(text_piece)->setProperty(text_piece, NCSP_TEXTPIECE_TEXTCOLOR,(DWORD)NAVIGATIONBAR_DEFAULT_FONT_COLOR);
@@ -426,7 +421,7 @@ static void enter_update_navigation (mNavigationPanelPiece* self,
     }
     else {
         _c(title_button)->setProperty(title_button, NCSP_LABELPIECE_LABEL, (DWORD)title);
-        AdjustNavigationItemRectWithTitle((mHotPiece*)title_button, title, self->default_title_font);
+        ncsAdjustNavigationItemRectWithTitle((mHotPiece*)title_button, title, self->default_title_font);
     }
 
     _c(title_button)->getRect(title_button, &rect); 
@@ -451,7 +446,7 @@ static void enter_update_navigation (mNavigationPanelPiece* self,
         prev_title = (char*)_c(prev_item)->getProperty(prev_item, NCSP_NAVIGATIONITEM_TITLE);
         text_piece = ((m3DButtonPiece*)left_button)->txtPiece;
         _c(text_piece)->setProperty(text_piece, NCSP_LABELPIECE_LABEL, (DWORD)prev_title);
-        AdjustNavigationItemRectWithTitle((mHotPiece*)left_button, prev_title, current_item->default_button_font);
+        ncsAdjustNavigationItemRectWithTitle((mHotPiece*)left_button, prev_title, current_item->default_button_font);
     }
 
     if ( NULL != left_button ) {
@@ -554,7 +549,7 @@ static void leave_update_navigation (mNavigationPanelPiece* self, mNavigationIte
 
 
 /* create a navigation with root item */
-mNavigationPanelPiece* CreateNavigationPanelPieceWithRootView (mNavigationItem *rootItem)
+mNavigationPanelPiece* ncsCreateNavigationPanelPieceWithRootView (mNavigationItem *rootItem)
 {
     item_list_t* item = NULL;
     mNavigationPanelPiece* navigation_panel_piece = NULL;

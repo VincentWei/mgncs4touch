@@ -58,7 +58,7 @@ typedef struct _BALLOONTIP_SHAPE {
 extern "C" {
 #endif
 
-int SetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRECTION triangle_direction);
+int ncsSetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_DIRECTION triangle_direction);
 
 #ifdef __cplusplus
 }

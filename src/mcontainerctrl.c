@@ -126,6 +126,7 @@ static BOOL mContainerCtrl_onEraseBkgnd(mContainerCtrl *self, HDC hdc, const REC
 }
 */
 
+#ifdef DEBUG
 static LRESULT mContainerCtrl_wndProc(mWidget* self,  UINT message, WPARAM wParam, LPARAM lParam)
 {
     if (message == MSG_PAINT) {
@@ -133,19 +134,19 @@ static LRESULT mContainerCtrl_wndProc(mWidget* self,  UINT message, WPARAM wPara
         if ( NULL != topPanel) {
             RECT* invalidRect = &topPanel->invalidRect;
             GetUpdateRect(self->hwnd, invalidRect);
-            /*
-            fprintf(stderr, "piece is %p, invalidRect is (%d,%d,%d,%d).\n", topPanel, invalidRect->left, 
+            _MG_PRINTF ("piece is %p, invalidRect is (%d,%d,%d,%d).\n", topPanel, invalidRect->left, 
                     invalidRect->top, invalidRect->right, invalidRect->bottom);
-                    */
         }
     }
 
     return Class(mWidget).wndProc((mWidget*)self, message, wParam, lParam);
 }
-
+#endif
 
 BEGIN_CMPT_CLASS(mContainerCtrl, mWidget)
     CLASS_METHOD_MAP(mContainerCtrl, setBody)
+#ifdef DEBUG
     CLASS_METHOD_MAP(mContainerCtrl, wndProc)
+#endif
     CLASS_METHOD_MAP(mContainerCtrl, onPaint)
 END_CMPT_CLASS

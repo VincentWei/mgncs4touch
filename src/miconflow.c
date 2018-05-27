@@ -166,7 +166,6 @@ static int mIconFlow_inItem (mIconFlow *self, int mouseX, int mouseY,
                         index += count;
                 }
                 hItem = _c(self)->getItem (self, index);
-                printf ("index = %d\n", index);
 
                 break;
             }
@@ -299,11 +298,12 @@ mIconFlow_setVisItemCenter (mIconFlow *self, int count, int width, int height)
             }
         }
     }
-    /*
+
+#ifdef DBUG
     for (i = 0; i < visItemCountP2; ++i)
         printf ("%d ", self->point3d[i].y);
     printf ("\n");
-    */
+#endif
 }
 
 static void
@@ -726,8 +726,7 @@ mIconFlow_setProperty(mIconFlow* self, int id, DWORD value)
             {
                 PBITMAP bmp = (PBITMAP)value;
                 if (bmp == NULL) {
-                    printf ("Err: background icon file not found\n");
-                    assert (0);
+                    _ERR_PRINTF ("mGNCS4Touch: background icon file not found\n");
                     return FALSE;
                 }
                 if (self->iconFrameDC != HDC_INVALID && self->iconFrameDC != HDC_SCREEN)
@@ -735,8 +734,11 @@ mIconFlow_setProperty(mIconFlow* self, int id, DWORD value)
                 self->iconFrameDC = CreateCompatibleDCEx (HDC_SCREEN, self->defItemWidth, self->defItemHeight);
                 FillBoxWithBitmap (self->iconFrameDC, 0, 0, self->defItemWidth, self->defItemHeight, bmp);
             }
-#endif
             return TRUE;
+#else
+            _ERR_PRINTF ("mGNCS4Touch>mIconFlow_setProperty: NCSP_ICONFLOW_ICONFRAME not implemented.\n");
+            return FALSE;
+#endif
         case NCSP_ICONFLOW_SPAN:
             _c(self)->setSpan (self, (int)value);
             return TRUE;

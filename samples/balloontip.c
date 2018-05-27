@@ -66,7 +66,7 @@ static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
             /* 
              * you can only use this method to make a balloon tip 
              * */
-            SetBalloonTipStyle (hWnd, 200, direction);
+            ncsSetBalloonTipStyle (hWnd, 200, direction);
             break;
 
         case MSG_PAINT:

@@ -72,7 +72,7 @@ enum {
     BOOL (*currentIsRoot)(clss*);
 
 /* static interface*/
-MGNCS_EXPORT extern mNavigationPanelPiece* CreateNavigationPanelPieceWithRootView (mNavigationItem *rootItem);
+MGNCS_EXPORT extern mNavigationPanelPiece* ncsCreateNavigationPanelPieceWithRootView (mNavigationItem *rootItem);
 
 struct _mNavigationPanelPieceClass
 {   

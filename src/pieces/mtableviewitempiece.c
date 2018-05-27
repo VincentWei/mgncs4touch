@@ -507,7 +507,11 @@ static void s_setGradientColor(mTableViewItemPiece* self, mShapeTransRoundPiece 
 static void s_setSolidFillColor(mTableViewItemPiece* self, mShapeTransRoundPiece *piece)
 {
     _c(piece)->setProperty (piece, NCSP_TRANROUND_FILLMODE, NCSP_TRANROUND_SINGLE_FILL);
+
+    /* VW:
+     * BUGFIX: do not rset BKCOLOR here
     _c(piece)->setProperty(piece, NCSP_TRANROUND_BKCOLOR, NCS_TABLEVIEWITEM_BKCOLOR_VALUE);
+     */
     PanelPiece_invalidatePiece((mHotPiece*)self, NULL);
 }
 
@@ -559,17 +563,14 @@ static int mTableViewItemPiece_processMessage(mTableViewItemPiece *self, int mes
             }
             _c(self)->setHighlight(self, FALSE);
             self->pushDown = FALSE;
-            //fprintf(stderr, "%p:setHighlight FALSE.\n", self);
         }
         else if (message == MSG_LBUTTONDOWN && self->highlight){
             _c(self)->setHighlight(self, TRUE);
             self->pushDown = TRUE;
-            //fprintf(stderr, "%p:setHighlight TRUE.\n", self);
         }
         else if (message == MSG_MOUSEMOVE) {
             _c(self)->setHighlight(self, FALSE);
             self->pushDown = FALSE;
-            //fprintf(stderr, "%p:setHighlight FALSE.\n", self);
         }
 
         if (hotPiece == self->userPiece && self->userPieceIsLocked)

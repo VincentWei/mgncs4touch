@@ -96,11 +96,6 @@ static int s_onContentMousePress(mHotPiece *_self, int message, WPARAM wParam, L
         int y = HISWORD(lParam);
         mPanelPiece* hotGroup = (mPanelPiece*)_c(self->tablePanel)->childAt(self->tablePanel, 
                 x, y);
-        /*
-        fprintf(stderr, "current(%d,%d), item x=%d,y=%d.\n", 
-                LOSWORD(lParam), HISWORD(lParam),
-                _c(tableItem)->getX(tableItem),_c(tableItem)->getY(tableItem));
-        */
 
         if (hotGroup) {
             mPieceItem* groupItem = _c(self->tablePanel)->searchItem(self->tablePanel, (mHotPiece*)hotGroup);
@@ -114,7 +109,8 @@ static int s_onContentMousePress(mHotPiece *_self, int message, WPARAM wParam, L
                 _c(self)->itemToIndexPath(self, piece, &indexpath);
                 piece->highlight =_c(self)->willSelectRowAtIndexPath(self, &indexpath);
                 clickPiece = piece;
-                fprintf(stderr, "click down At item indexpath(%d,%d), hightlight=%d, piece=%p, (x,y)=(%d,%d)\n", 
+
+                _DBG_PRINTF ("click down At item indexpath(%d,%d), hightlight=%d, piece=%p, (x,y)=(%d,%d)\n", 
                         indexpath.section, indexpath.row,
                         piece->highlight, piece,
                         item->x, item->y);
@@ -178,9 +174,9 @@ static int deleteItem(mWidget* self, int message, WPARAM wParam, LPARAM lParam)
                         //_c(table)->removeItem(table, (char*)item, TRUE);
                         _c(table)->itemToIndexPath(table, piece, &indexpath);
                         _c(table)->onCommitDeleteRowAtIndexPath(table, &indexpath);
-                        fprintf(stderr, "%s:delete piece is %p, indexpath(%d,%d)\n", __FUNCTION__, 
+                        _DBG_PRINTF ("%s:delete piece is %p, indexpath(%d,%d)\n", __FUNCTION__, 
                                 piece, indexpath.section, indexpath.row);
-                        printf("table %p -- NCSN_TABLEVIEWITEMPIECE_DELETECLICKED\n", table);
+                        _DBG_PRINTF ("table %p -- NCSN_TABLEVIEWITEMPIECE_DELETECLICKED\n", table);
                         break;
                     }
                 }
@@ -227,7 +223,6 @@ static BOOL onContentPieceClicked(mTableViewPiece *self, mHotPiece* sender, int 
                     _c(self)->itemToIndexPath(self, piece, &indexpath);
                     _c(self)->rowDidSelectAtIndexPath(self, &indexpath);
                     PanelPiece_update((mHotPiece*)self, TRUE);
-                    printf("self %p -- NCSN_TABLEVIEWITEMPIECE_CONTENTCLICKED\n", self);
                 }
             }
         }
@@ -284,7 +279,6 @@ static int mTableViewPiece_processMessage(mTableViewPiece *self, int message, WP
                 x -= self->indexPos.x;
                 y -= self->indexPos.y;
                 lParam = MAKELONG(x, y);
-                //fprintf(stderr, "self->indexLocate get message:%d, x=%d,y=%d.\n", message, LOSWORD(lParam), HISWORD(lParam));
                 if (message == MSG_LBUTTONDOWN) {
                     indexFocus = TRUE;
                 } else if (message == MSG_MOUSEMOVEIN || message == MSG_LBUTTONUP){
@@ -450,8 +444,6 @@ static void mTableViewPiece_rectForRowAtIndexPath(mTableViewPiece* self, const m
     
     piece = (mHotPiece*) _c(self)->indexPathToItem(self, indexpath);
 
-    printf("onIndexLocatePieceTouched piece: %p\n", piece);
-
     if (!piece)
         return;
     
@@ -498,8 +490,6 @@ static void mTableViewPiece_rectForSection(mTableViewPiece* self, int section, R
 static void mTableViewPiece_getDefaultRowRect(mTableViewPiece* self, RECT* rect)
 {
     _c(self)->getRect(self, rect);
-    //fprintf(stderr, "%s:rect(%d,%d,%d,%d).\n", __FUNCTION__, rect->left, rect->top, 
-    //        rect->right, rect->bottom);
     rect->left = rect->top = 0;
     rect->bottom = NCS_TABLEVIEW_ROWHEIGHT;
 }
@@ -794,7 +784,6 @@ static void mTableViewPiece_deleteRowAtIndexPath(
     MGEFF_ANIMATION  anim = mGEffAnimationCreate(wrap, _piece_anim_cb, 0, MGEFF_POINT);
     assert(anim);
 
-    printf("mTableViewPiece_deleteRowAtIndexPath\n");
     _c(item)->setPiece(item, (mHotPiece*)wrap);
     _c(piece)->getRect(piece, &rc);
     _c(wrap)->setRect(wrap, &rc);
@@ -807,7 +796,6 @@ static void mTableViewPiece_deleteRowAtIndexPath(
     mGEffAnimationSetCurve(anim, InCubic);
 
     _c(self)->animationSyncRunAndDelete(self, anim);
-    fprintf(stderr, "%s:after animation.\n", __FUNCTION__);
     _c(item)->setPiece(item, piece);
 
     /* delete separator */
@@ -816,7 +804,6 @@ static void mTableViewPiece_deleteRowAtIndexPath(
             _c(group->itemManager)->createItemIterator(group->itemManager);
         mPieceItem* next = nextItem(self, row_iter, piece);
         if (next && _c(next)->getType(next) == NCS_TABLEVIEW_SEPARATORTYPE) {
-            printf("delete separator\n");
             _c(group)->delContent(group, _c(next)->getPiece(next));
         }
         DELETE(row_iter);
@@ -844,8 +831,6 @@ static void mTableViewPiece_paint(mTableViewPiece* self, HDC hdc, mObject * owne
     _c(self)->getRect(self, &containerRc);
     SelectClipRect(hdc, &containerRc);
     self->clipRect = containerRc;
-    //fprintf(stderr, "clip rc(%d,%d,%d,%d).\n", containerRc.left, containerRc.top, 
-    //        containerRc.right, containerRc.bottom);
 
     Class(mScrollViewPiece).paint((mScrollViewPiece*)self, hdc, owner, add_data);
 
@@ -893,7 +878,7 @@ static void mTableViewPiece_onCommitDeleteRowAtIndexPath(mTableViewPiece* self, 
 
 static mTableViewItemPiece* mTableViewPiece_createItemForRow(mTableViewPiece* self, const mIndexPath* indexpath)
 {
-    fprintf(stderr, "you need implement me %s.\n", __FUNCTION__);
+    _MG_PRINTF ("you need implement me %s.\n", __FUNCTION__);
     return NULL;
 }
 
@@ -904,7 +889,7 @@ static int mTableViewPiece_numberOfSections(mTableViewPiece* self)
 
 static int mTableViewPiece_numberOfRowsInSection(mTableViewPiece* self, int section)
 {
-    fprintf(stderr, "you need implement me %s.\n", __FUNCTION__);
+    _MG_PRINTF ("you need implement me %s.\n", __FUNCTION__);
     return 0;
 }
 

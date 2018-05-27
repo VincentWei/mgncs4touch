@@ -53,7 +53,6 @@ static void mLineVBox_reLayout(mLineVBox *self, mItemIterator* iter, int w, int 
         mHotPiece* piece = _c(item)->getPiece(item);
         _c(item)->setY(item, y);
         _c(piece)->getRect(piece, &rc);
-        //fprintf(stderr, "item is %p, y is %d.\n", item, y);
         y += (RECTH(rc) + self->gap);
     }
 

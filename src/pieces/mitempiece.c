@@ -861,16 +861,12 @@ static void resetRectOfText(mItemPiece *self, mTextPiece *txt, PLOGFONT font)
                 }
 
                 _c(self)->setRect (self, &rc);
-
-                //printf ("rc.bottom : %d size.cy : %d\n", rc.bottom, size.cy);
             }
             if (!self->subTitlePiece)
                 size.cy += self->margin;
         } else if (txt == self->subTitlePiece){
             size.cy += self->margin;
         }
-
-        //printf ("size %d %d\n", size.cx, size.cy);
 
         SetRect (&rc, 0, 0, size.cx, size.cy);
 

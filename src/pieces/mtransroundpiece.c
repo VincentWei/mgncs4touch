@@ -392,7 +392,7 @@ static void mShapeTransRoundPiece_FillWithPlus(mShapeTransRoundPiece *self, HDC 
         HDC hgs_dc = MGPlusGetGraphicDC (self->hgs);
 
         if (hgs_dc == HDC_INVALID) {
-            printf ("get self->hgs dc error!\n");
+            _ERR_PRINTF ("mShapeTransRoundPiece_FillWithPlus: get self->hgs dc error!\n");
             return;
         }
 
@@ -586,7 +586,7 @@ static void mShapeTransRoundPiece_mFillRegion(mShapeTransRoundPiece *self, HDC h
         int color;
         color = (fillborder) ? (self->border_color) : (self->bk_color);
         if (MPGetAValue(color) != 0){
-            mFillRegion(hdc, prgn, fillspan_simple,
+            ncsFillRegion(hdc, prgn, ncs_cb_fillspan_simple,
                     (void*)(DWORD)MakeRGBA(
                         MPGetRValue(color),
                         MPGetGValue(color),
@@ -622,7 +622,7 @@ static void mShapeTransRoundPiece_mFillRegion(mShapeTransRoundPiece *self, HDC h
                     MPGetAValue(argb[i]));
         }
 
-        mFillRegion(hdc, prgn, fillspan_multigradient, &context);
+        ncsFillRegion(hdc, prgn, ncs_cb_fillspan_multigradient, &context);
 
         free(argb);
         free(position);

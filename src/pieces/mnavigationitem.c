@@ -62,7 +62,7 @@
 }
 
 
-mNavigationItem* CreateNavigationItem (mHotPiece* content, const char* title, unsigned int style)
+mNavigationItem* ncsCreateNavigationItem (mHotPiece* content, const char* title, unsigned int style)
 {
     /* create NavigationItem */
     mNavigationItem* navigation_item = (mNavigationItem*)NEW(mNavigationItem);
@@ -80,7 +80,7 @@ mNavigationItem* CreateNavigationItem (mHotPiece* content, const char* title, un
 }
 
 
-void DestroyNavigationItem (mNavigationItem* item)
+void ncsDestroyNavigationItem (mNavigationItem* item)
 {
     if ( NULL == item )
         return;
@@ -88,7 +88,7 @@ void DestroyNavigationItem (mNavigationItem* item)
 }
 
 
-void AdjustNavigationItemRectWithTitle (mHotPiece* piece, const char* title, PLOGFONT font)
+void ncsAdjustNavigationItemRectWithTitle (mHotPiece* piece, const char* title, PLOGFONT font)
 {
     int w;
     HDC hdc;
@@ -108,7 +108,6 @@ void AdjustNavigationItemRectWithTitle (mHotPiece* piece, const char* title, PLO
 
     _c(piece)->getRect(piece, &piece_rc);
     w = NAVIGATIONBAR_W/3;
-    printf("navigation item adjust: %d -- %d\n", size.cx, w);
     w = size.cx > NAVIGATIONBAR_W ? w : size.cx;
 
     SetRect(&rect, 0, 0, w, RECTH(piece_rc));
