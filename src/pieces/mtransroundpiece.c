@@ -578,20 +578,20 @@ static PCLIPRGN mCreateFillRegionClipRgn(mShapeTransRoundPiece *self, RECT *prc)
 static void mShapeTransRoundPiece_mFillRegion(mShapeTransRoundPiece *self, HDC hdc, PCLIPRGN prgn, RECT *prc, BOOL fillborder)
 {
 #if 1
+#   define MakeARGB(r, g, b, a)    (((DWORD32)((BYTE)(b))) | ((DWORD32)((BYTE)(g)) << 8) \
+                | ((DWORD32)((BYTE)(r)) << 16) | ((DWORD32)((BYTE)(a)) << 24))
 #   define MPGetBValue(argb)      ((BYTE)(argb))
 #   define MPGetGValue(argb)      ((BYTE)(((DWORD)(argb)) >> 8))
 #   define MPGetRValue(argb)      ((BYTE)((DWORD)(argb) >> 16))
 #   define MPGetAValue(argb)      ((BYTE)((DWORD)(argb) >> 24))
     if (self->fill_mode == NCSP_TRANROUND_SINGLE_FILL){
-        int color;
+        DWORD color;
         color = (fillborder) ? (self->border_color) : (self->bk_color);
-        if (MPGetAValue(color) != 0){
-            ncsFillRegion(hdc, prgn, ncs_cb_fillspan_simple,
-                    (void*)(DWORD)MakeRGBA(
-                        MPGetRValue(color),
-                        MPGetGValue(color),
-                        MPGetBValue(color),
-                        MPGetAValue(color)));
+        if (GetAValue(color) != 0){
+            /* VW:
+             * BUGFIX: do not convert the color format from RGBA to ARGB defined by mGPlus here.
+             */
+            ncsFillRegion(hdc, prgn, ncs_cb_fillspan_simple, (void*)color);
         }
     }else{
         struct multigradient_context context;
