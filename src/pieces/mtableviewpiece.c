@@ -495,20 +495,21 @@ static void mTableViewPiece_getDefaultRowRect(mTableViewPiece* self, RECT* rect)
 }
 
 /* separator. */
+#define NCS_TABLEVIEW_SEPARATOR_MARGIN_LEFT 5
 static mPanelPiece* mTableViewPiece_createSeparatorLine(mTableViewPiece* self)
 {
     if (self->separatorStyle == NCS_TABLEVIEW_SEPARATORSTYLE_SINGLINE) {
         RECT rc;
         mPanelPiece* panel= NEWPIECE(mPanelPiece);
         mExSeparatorPiece* piece = NEWPIECE(mExSeparatorPiece);
-        int size = _c(piece)->getProperty(piece, NCSP_EXSEPARATOR_SIZE);
+        _c(piece)->setProperty(piece, NCSP_EXSEPARATOR_SIZE, 0);
 
         _c(self)->getDefaultRowRect(self, &rc);
-        rc.bottom = size;
+        rc.bottom = 1;
         _c(piece)->setProperty(piece, NCSP_EXSEPARATOR_COLOR, self->separatorColor);
         _c(panel)->setRect(panel, &rc);
         _c(piece)->setRect(piece, &rc);  
-        _c(panel)->addContent(panel, (mHotPiece*)piece, 0, 0);
+        _c(panel)->addContent(panel, (mHotPiece*)piece, NCS_TABLEVIEW_SEPARATOR_MARGIN_LEFT, 0);
         return panel;
     }
     else 
