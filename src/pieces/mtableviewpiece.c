@@ -496,7 +496,8 @@ static void mTableViewPiece_getDefaultRowRect(mTableViewPiece* self, RECT* rect)
 
 /* separator. */
 #define NCS_TABLEVIEW_SEPARATOR_MARGIN_LEFT 5
-static mPanelPiece* mTableViewPiece_createSeparatorLine(mTableViewPiece* self)
+#define NCS_TABLEVIEW_SEPARATOR_MARGIN_TOP  5
+static mPanelPiece* mTableViewPiece_createSeparatorLine(mTableViewPiece* self, BOOL border)
 {
     if (self->separatorStyle == NCS_TABLEVIEW_SEPARATORSTYLE_SINGLINE) {
         RECT rc;
@@ -509,7 +510,7 @@ static mPanelPiece* mTableViewPiece_createSeparatorLine(mTableViewPiece* self)
         _c(piece)->setProperty(piece, NCSP_EXSEPARATOR_COLOR, self->separatorColor);
         _c(panel)->setRect(panel, &rc);
         _c(piece)->setRect(piece, &rc);  
-        _c(panel)->addContent(panel, (mHotPiece*)piece, NCS_TABLEVIEW_SEPARATOR_MARGIN_LEFT, 0);
+        _c(panel)->addContent(panel, (mHotPiece*)piece, border?0:NCS_TABLEVIEW_SEPARATOR_MARGIN_LEFT, 0);
         return panel;
     }
     else 
@@ -651,6 +652,15 @@ static mPanelPiece* mTableViewPiece_createIndexSectionContent(mTableViewPiece* s
         _c(item)->setType(item, NCS_TABLEVIEW_TITLETYPE);
     }
 
+    /* create top border */
+    if (row_num > 0) {
+        mPanelPiece* piece = _c(self)->createSeparatorLine(self, TRUE);
+        if (piece) {
+            mPieceItem* item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
+            _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
+        }
+    }
+
     for (i = 0;  i < row_num; i++) {
         mIndexPath index = {section, i};
         mTableViewItemPiece* item_piece = _c(self)->createItemForRow(self, &index);
@@ -676,12 +686,21 @@ static mPanelPiece* mTableViewPiece_createIndexSectionContent(mTableViewPiece* s
 
             /* create separator. */
             if (i < row_num -1) {
-                mPanelPiece* piece = _c(self)->createSeparatorLine(self);
+                mPanelPiece* piece = _c(self)->createSeparatorLine(self, FALSE);
                 if (piece) {
                     item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
                     _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
                 }
             }
+        }
+    }
+
+    /* create bottom border */
+    if (row_num > 0) {
+        mPanelPiece* piece = _c(self)->createSeparatorLine(self, TRUE);
+        if (piece) {
+            mPieceItem* item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
+            _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
         }
     }
 
@@ -733,7 +752,7 @@ static mPanelPiece* mTableViewPiece_createGroupSectionContent(mTableViewPiece* s
 
             /* create separator. */
             if (i < row_num -1) {
-                mPanelPiece* piece = _c(self)->createSeparatorLine(self);
+                mPanelPiece* piece = _c(self)->createSeparatorLine(self, FALSE);
                 if (piece) {
                     item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
                     _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);

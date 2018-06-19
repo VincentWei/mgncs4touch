@@ -118,7 +118,7 @@ struct _mTableViewPiece
 	mScrollViewPieceClassHeader(clss, superCls) \
     void (*changeMode)(clss*); \
     void (*getDefaultRowRect)(clss* self, RECT* rect); \
-    mPanelPiece* (*createSeparatorLine)(clss* self); \
+    mPanelPiece* (*createSeparatorLine)(clss* self, BOOL border); \
     mPanelPiece* (*createDefaultRow)(clss* self, mTableViewItemPiece* item_piece);\
     void (*reloadData)(clss* self);\
     mPanelPiece* (*createIndexSectionHead)(clss* self, int section); \
