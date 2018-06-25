@@ -709,7 +709,7 @@ static int mItemPiece_processMessage(mItemPiece *self, int message, WPARAM wPara
 
 static PLOGFONT createLogFont (unsigned size)
 {
-    return CreateLogFont ("ttf", "helvetica", "GB2312",
+    return CreateLogFont ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_BOOK, FONT_SLANT_ROMAN,
             FONT_SETWIDTH_NORMAL, FONT_OTHER_AUTOSCALE,
             FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,

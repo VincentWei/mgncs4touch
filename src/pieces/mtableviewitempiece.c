@@ -564,8 +564,8 @@ static int mTableViewItemPiece_processMessage(mTableViewItemPiece *self, int mes
             _c(self)->setHighlight(self, FALSE);
             self->pushDown = FALSE;
         }
-        else if (message == MSG_LBUTTONDOWN && self->highlight){
-            _c(self)->setHighlight(self, TRUE);
+        else if (message == MSG_LBUTTONDOWN) {
+            _c(self)->setHighlight(self, self->highlight);
             self->pushDown = TRUE;
         }
         else if (message == MSG_MOUSEMOVE) {
