@@ -173,6 +173,7 @@ fi
 AC_OUTPUT([
     Makefile
     mgncs4touch.pc
+    m4/Makefile
     include/Makefile
     include/pieces/Makefile
     include/physics-animation/Makefile
