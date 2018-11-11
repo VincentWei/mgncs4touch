@@ -925,7 +925,7 @@ static const char* mTableViewPiece_indexForSection(mTableViewPiece* self, int se
 
 static void  mTableViewPiece_rowDidSelectAtIndexPath(mTableViewPiece* self, const mIndexPath* indexpath)
 {
-    fprintf(stderr, "you need implement me %s, indexpath (%d,%d).\n", __FUNCTION__,
+    _MG_PRINTF ("you need implement me %s, indexpath (%d,%d).\n", __FUNCTION__,
             indexpath->section, indexpath->row);
 }
 
