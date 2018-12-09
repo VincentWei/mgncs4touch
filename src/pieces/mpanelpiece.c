@@ -1434,8 +1434,7 @@ void PanelPiece_update(mHotPiece *piece, BOOL fErase)
         // reach top level container
         mWidget* owner = (mWidget*)topPanel->owner;
 
-        extern void GUIAPI UpdateInvalidRect (HWND hWnd, BOOL bErase);
-        UpdateInvalidRect(owner->hwnd, fErase);
+        UpdateInvalidClient(owner->hwnd, fErase);
     }
 }
 
