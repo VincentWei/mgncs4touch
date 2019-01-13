@@ -46,10 +46,12 @@
 
 static PLOGFONT createLogFont (unsigned size)
 {
-    return CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL, FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+    return CreateLogFontEx ("ttf", "helvetica", "UTF-8",
+            FONT_WEIGHT_REGULAR,
+            FONT_SLANT_ROMAN,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             size, 0);
 }
 

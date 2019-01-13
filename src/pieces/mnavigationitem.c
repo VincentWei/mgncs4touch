@@ -119,13 +119,13 @@ static void mNavigationItem_construct (mNavigationItem* self, DWORD param)
 {
 	Class(mObject).construct((mObject*)self, param);
 
-    self->default_button_font = CreateLogFont ("ttf", "helvetica", "GB2312",
-    FONT_WEIGHT_BOOK, 
-    FONT_SLANT_ROMAN,
-    FONT_SETWIDTH_NORMAL,
-    FONT_OTHER_AUTOSCALE,
-    FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
-    NAVIGATIONBAR_DEFAULT_BUTTON_FONT_SIZE, 0);
+    self->default_button_font = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
+        FONT_WEIGHT_REGULAR,
+        FONT_SLANT_ROMAN,
+        FONT_FLIP_NONE,
+        FONT_OTHER_NONE,
+        FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
+        NAVIGATIONBAR_DEFAULT_BUTTON_FONT_SIZE, 0);
 
     self->style = NAVIGATION_STYLE_NORMAL;
     self->title = NULL;

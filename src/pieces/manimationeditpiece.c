@@ -87,11 +87,11 @@ static void set_font (HWND hwnd,mAnimationEditPiece *self, const char *str)
         for (i=1;i<TEXT_ZOOM_NO;i++)/*font[0] come from user*/
         {
             self->pFont[i] = CreateLogFont (logfont.type, logfont.family,logfont.charset,
-                FONT_WEIGHT_BOOK,
+                FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
-                FONT_SETWIDTH_NORMAL,
-                FONT_OTHER_AUTOSCALE,
-                FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+                FONT_FLIP_NONE,
+                FONT_OTHER_NONE,
+                FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
                 logfont.size*1/(i+1), 0);
         }
     }

@@ -581,12 +581,12 @@ static void mNavigationPanelPiece_construct (mNavigationPanelPiece *self, DWORD 
 
 	Class(mPanelPiece).construct((mPanelPiece*)self, param);
 
-    self->default_title_font = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    self->default_title_font = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             NAVIGATIONBAR_DEFAULT_TITLE_FONT_SIZE, 0);
    
     /* init list(stack) */
