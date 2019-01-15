@@ -122,7 +122,6 @@ static void mTextPiece_paint(mTextPiece *self, HDC hdc, mWidget *owner, DWORD ad
                 );
 
         SetRect(&rc,rcClient.left,rcClient.top+1,rcClient.right,rcClient.bottom+1);
-
         if (self->maxLen > 0) {
             TextOutOmitted (hdc, rc.left, rc.top, str, strlen(str), self->maxLen);
         }
