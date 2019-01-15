@@ -180,7 +180,6 @@ static DWORD mShapeTransRoundPiece_getProperty(mShapeTransRoundPiece* self, int 
     }
 }
 
-
 static void setPath (mShapeTransRoundPiece *self, 
         HPATH path, int tx, int ty, int tw, int th)
 {
@@ -189,6 +188,8 @@ static void setPath (mShapeTransRoundPiece *self,
     int x, y, w, h;
     x = tx, y = ty, w = tw, h = th;
     sharp_width -= x;
+
+    _ERR_PRINTF("VincentWei(%s): called.", __FUNCTION__);
 
     MGPlusPathReset(path);
     if (radius) {
@@ -227,12 +228,13 @@ static void setPath (mShapeTransRoundPiece *self,
 
         // add left sharp
         if ((self->sharp_flag & TRANROUND_SHARPFLAG_LEFT) != 0) {
-            MPPOINT point_lines[] = {{x, y}, {tx, (h+1)>>1}, {x, h}};
+            _ERR_PRINTF("VincentWei(%s): Add left arrow here.", __FUNCTION__);
+            MPPOINT point_lines[] = {{x, y}, {tx, y + ((h+1)>>1)}, {x, y + h}};
             MGPlusPathAddLines(path, point_lines, 3);
         }
         // add right sharp
         if ((self->sharp_flag & TRANROUND_SHARPFLAG_RIGHT) != 0) {
-            MPPOINT point_lines[] = {{x+w+sharp_width, h>>1}, {x+w, y}, {x+w, h}};
+            MPPOINT point_lines[] = {{x+w+sharp_width, y + (h>>1)}, {x+w, y}, {x+w, y + h}};
             MGPlusPathAddLines(path, point_lines, 3);
         }
     } else {
@@ -244,11 +246,11 @@ static void setPath (mShapeTransRoundPiece *self,
             w -= sharp_width;
         }
 
-        //MGPlusPathAddRectangle (path, x, y, w, h);
+        MGPlusPathAddRectangle (path, x, y, w, h);
 
         // add left sharp
         if ((self->sharp_flag & TRANROUND_SHARPFLAG_LEFT) != 0) {
-            MPPOINT point_lines[] = {{x, y}, {x-w, (h+1)>>1}, {x, h}, {x+w, h}};
+            MPPOINT point_lines[] = {{x, y}, {x-w, y + ((h+1)>>1)}, {x, y + h}, {x+w, y + h}};
             MGPlusPathAddLines(path, point_lines, 4);
         }
         else {
@@ -258,7 +260,7 @@ static void setPath (mShapeTransRoundPiece *self,
 
         // add right sharp
         if ((self->sharp_flag & TRANROUND_SHARPFLAG_RIGHT) != 0) {
-            MPPOINT point_lines[] = {{x+w+sharp_width, h>>1}, {x+w, y}, {x, y}};
+            MPPOINT point_lines[] = {{x+w+sharp_width, y + (h>>1)}, {x+w, y}, {x, y}};
             MGPlusPathAddLines(path, point_lines, 3);
         }
         else {
@@ -554,6 +556,11 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         p[i].y = prc->top;
         i++;
     }
+
+    // VincentWei: always close the polygon.
+    p[i].x = p[0].x;
+    p[i].y = p[0].y;
+    i++;
 
     InitPolygonRegion(region, p, i);
 }
