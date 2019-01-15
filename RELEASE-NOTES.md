@@ -10,7 +10,9 @@ https://github.com/VincentWei/mgncs4touch
 
 ### What's new in this version
 
-  * 
+* BUGFIXING:
+  1. Use screen width to define the `NAVIGATIONBAR_W`.
+  1. Always close the polygon region for mShapeTransRoundPiece.
 
 Please use MiniGUI core V3.2.2 or later.
 

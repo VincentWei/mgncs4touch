@@ -47,10 +47,8 @@ extern "C" {
 typedef struct _mNavigationBarPieceClass mNavigationBarPieceClass;
 typedef struct _mNavigationBarPiece mNavigationBarPiece;
 
-
 /* navigation bar default configure */
-//#define NAVIGATIONBAR_W                           SCREEN_W
-#define NAVIGATIONBAR_W                           800
+#define NAVIGATIONBAR_W                           (GetGDCapability(HDC_SCREEN, GDCAP_HPIXEL))
 #define NAVIGATIONBAR_H                           38
 #define NAVIGATIONBAR_DEFAULT_BUTTON_H            27
 #define NAVIGATIONBAR_HORIZONAL_W                 8 
