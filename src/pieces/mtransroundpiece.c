@@ -512,7 +512,7 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         self->sharp_width = RECTWP(prc) >> 1;
 
     i = 0;
-    if(self->sharp_flag & TRANROUND_SHARPFLAG_LEFT){
+    if (self->sharp_flag & TRANROUND_SHARPFLAG_LEFT) {
         self->corner_flag &= ~TRANROUND_CORNERFLAG_LEFTTOP;
         self->corner_flag &= ~TRANROUND_CORNERFLAG_LEFTBOTTOM;
 
@@ -526,7 +526,7 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         p[i].y = prc->bottom;
         i++;
     }
-    else{
+    else {
         p[i].x = prc->left;
         p[i].y = prc->top;
         i++;
@@ -534,7 +534,7 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         p[i].y = prc->bottom;
     }
 
-    if(self->sharp_flag & TRANROUND_SHARPFLAG_RIGHT){
+    if (self->sharp_flag & TRANROUND_SHARPFLAG_RIGHT) {
         self->corner_flag &= ~TRANROUND_CORNERFLAG_RIGHTTOP;
         self->corner_flag &= ~TRANROUND_CORNERFLAG_RIGHTBOTTOM;
 
@@ -548,7 +548,7 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         p[i].y = prc->top;
         i++;
     }
-    else{
+    else {
         p[i].x = prc->right - 1;
         p[i].y = prc->bottom;
         i++;
@@ -557,7 +557,7 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         i++;
     }
 
-    // VincentWei: always close the polygon.
+    // VincentWei: make sure that the polygon is closed.
     p[i].x = p[0].x;
     p[i].y = p[0].y;
     i++;
