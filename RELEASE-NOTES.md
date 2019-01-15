@@ -3,6 +3,7 @@
 ## Version 1.4.0
 
 The MiniGUI development team announces the availability of mGNCS4Touch 1.4.0.
+
 All users of MiniGUI are encouraged to test this version carefully, and
 report any bugs and incompatibilities on GitHub:
 
@@ -13,6 +14,7 @@ https://github.com/VincentWei/mgncs4touch
 * BUGFIXING:
   1. Use screen width to define the `NAVIGATIONBAR_W`.
   1. Always close the polygon region for mShapeTransRoundPiece.
+  1. Change screen width in MiniGUI.cfg to 360 from 800.
 
 Please use MiniGUI core V3.4.0 or later.
 
