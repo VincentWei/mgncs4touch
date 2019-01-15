@@ -555,6 +555,12 @@ static void mInitSharpClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT
         i++;
     }
 
+    if (p[i-1].x != p[0].x && p[i-1].y != p[0].y) {
+        p[i].x = p[0].x;
+        p[i].y = p[0].y;
+        i++;
+    }
+
     InitPolygonRegion(region, p, i);
 }
 

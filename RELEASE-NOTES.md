@@ -1,5 +1,19 @@
 # Release Notes
 
+## Version 1.2.2
+
+The MiniGUI development team announces the availability of mGNCS4Touch 1.2.2.
+All users of MiniGUI are encouraged to test this version carefully, and
+report any bugs and incompatibilities on GitHub:
+
+https://github.com/VincentWei/mgncs4touch
+
+### What's new in this version
+
+  * 
+
+Please use MiniGUI core V3.2.2 or later.
+
 ## Version 1.2.1
 
 The MiniGUI development team announces the availability of mGNCS4Touch 1.2.1.
