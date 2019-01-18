@@ -86,7 +86,7 @@ static void set_font (HWND hwnd,mAnimationEditPiece *self, const char *str)
     {
         for (i=1;i<TEXT_ZOOM_NO;i++)/*font[0] come from user*/
         {
-            self->pFont[i] = CreateLogFont (logfont.type, logfont.family,logfont.charset,
+            self->pFont[i] = CreateLogFontEx (logfont.type, logfont.family,logfont.charset,
                 FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
                 FONT_FLIP_NONE,
