@@ -23,3 +23,21 @@ Makefile.in
 /*config.h
 /*config.h.in
 
+# Executables
+samples/balloontip
+samples/btnnavbar
+samples/commdraw
+samples/datepicker
+samples/exlist
+samples/hscrollview
+samples/iconflow
+samples/imgnavbar
+samples/itembar
+samples/mgncs4touch
+samples/name2value
+samples/newtrackbar
+samples/picker
+samples/settingtableview
+samples/switchbutton
+samples/tableview
+samples/timepicker
