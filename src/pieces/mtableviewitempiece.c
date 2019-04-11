@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -113,7 +113,7 @@ static MGEFF_ANIMATION item_swtichPiece_disappear(mTableViewItemPiece *self)
             128, ANIM_RUNTIME, Linear);
 #endif
     _c((mRotateSwitchPiece*)self->switchPiece)->resetState((mRotateSwitchPiece*)self->switchPiece);
-    
+
     return anim;
 }
 
@@ -519,7 +519,7 @@ static void mTableViewItemPiece_setHighlight(mTableViewItemPiece* self, BOOL hig
 {
     mShapeTransRoundPiece *bk = _c(self)->getBkgndPiece(self);
     if (highlight) {
-        s_setGradientColor(self, bk, 
+        s_setGradientColor(self, bk,
                 func_gradient_color, func_gradient_pos, TABLESIZE(func_gradient_color));
     }
     else {
@@ -551,7 +551,7 @@ static int mTableViewItemPiece_processMessage(mTableViewItemPiece *self, int mes
                         if (switchPiece && abs(v_x) > 200.0 && abs(v_y) < 100.0) {
                             _c(switchPiece)->processMessage(switchPiece, MSG_LBUTTONDOWN, 0, 0, owner);
                             _c(switchPiece)->processMessage(switchPiece, MSG_LBUTTONUP, 0, 0, owner);
-                            fprintf(stderr, "valie =%d, click rotatepiece, vx=%f\n", 
+                            fprintf(stderr, "valie =%d, click rotatepiece, vx=%f\n",
                                     self->deletePieceIsAppear, v_x);
                         }
 #endif
@@ -575,7 +575,7 @@ static int mTableViewItemPiece_processMessage(mTableViewItemPiece *self, int mes
 
         if (hotPiece == self->userPiece && self->userPieceIsLocked)
             return 0;
-    } 
+    }
 
     return Class(mPanelPiece).processMessage((mPanelPiece*)self, message, wParam, lParam, owner);
 }

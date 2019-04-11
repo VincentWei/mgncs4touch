@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -50,9 +50,9 @@
 #define NDEBUG  1
 #include "mtouchdebug.h"
 
-#define PCK_EPSINON			0.01
-#define USEPARENTRDR(self)	(GetWindowExStyle(self->hwnd) & WS_EX_USEPARENTRDR)
-#define GETELEMENT(self,id)	ncsGetElement((USEPARENTRDR(self) ? ncsGetParentObj(self->hwnd) : (mWidget *)self), id)
+#define PCK_EPSINON            0.01
+#define USEPARENTRDR(self)    (GetWindowExStyle(self->hwnd) & WS_EX_USEPARENTRDR)
+#define GETELEMENT(self,id)    ncsGetElement((USEPARENTRDR(self) ? ncsGetParentObj(self->hwnd) : (mWidget *)self), id)
 
 
 static int g_finalFrame = 0;
@@ -155,9 +155,9 @@ static void prepareBkDC(mPicker* self)
 {
     RECT rc, rcP;
     HDC hdc;
-	DWORD style;
+    DWORD style;
     DWORD bc = 0, mc = 0, c;
-	int corner = ECT_NORMAL;
+    int corner = ECT_NORMAL;
 
     if (self->bkDC != HDC_INVALID)
         DeleteCompatibleDC(self->bkDC);
@@ -176,14 +176,14 @@ static void prepareBkDC(mPicker* self)
     c = GETELEMENT(self, NCS4TOUCH_BGC_PCK_MAIN);
     DrawRectRing(self->bkDC, &rc, &rcP, c);
 
-	style = GetWindowStyle(self->hwnd);
-	if (style & NCSS_PCK_BRC) {
-		corner = ECT_BOTH;
-	} else if (style & NCSS_PCK_LRC) {
-		corner = ECT_LEFTR;
-	} else if (style & NCSS_PCK_RRC) {
-		corner = ECT_RIGHTR;
-	}
+    style = GetWindowStyle(self->hwnd);
+    if (style & NCSS_PCK_BRC) {
+        corner = ECT_BOTH;
+    } else if (style & NCSS_PCK_LRC) {
+        corner = ECT_LEFTR;
+    } else if (style & NCSS_PCK_RRC) {
+        corner = ECT_RIGHTR;
+    }
     mc = GETELEMENT(self, NCS4TOUCH_BGC_PCK_PICKER);
     bc = ncsCommRDRCalc3dboxColor(mc, NCSR_COLOR_DARKER);
     DrawPickerRect(self->bkDC, &rcP, bc, mc, corner);
@@ -207,7 +207,7 @@ static void mPicker_construct(mPicker* self, DWORD param)
     self->vMargin     = 0;
     self->numBits     = 0;
     self->showBits    = 0;
-	self->bkDC 		  = HDC_INVALID;
+    self->bkDC           = HDC_INVALID;
     self->handle     = 0 ;
     dwStyle = GetWindowStyle(self->hwnd);
 
@@ -227,11 +227,11 @@ static void mPicker_destroy (mPicker *self)
         mGEffAnimationDelete(self->handle);
         self->handle = NULL;
     }
-	if (self->bkDC != HDC_INVALID) {
-		DeleteCompatibleDC(self->bkDC);
-		self->bkDC = HDC_INVALID;
-	}
-	Class(mAnimation).destroy((mAnimation*)self);
+    if (self->bkDC != HDC_INVALID) {
+        DeleteCompatibleDC(self->bkDC);
+        self->bkDC = HDC_INVALID;
+    }
+    Class(mAnimation).destroy((mAnimation*)self);
 }
 
 static BOOL mPicker_onCreate(mPicker* self, DWORD add)
@@ -265,23 +265,23 @@ static HITEM _getItem(mPicker* self, int index)
 
 static int drawAlphaCover(HDC hdc, PRECT prc, DWORD color, int alpha)
 {
-	DWORD fc = ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_DARKER);
+    DWORD fc = ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_DARKER);
     DWORD hc = ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_LIGHTER);
 
     HDC tmpDC = CreateCompatibleDCEx(hdc, RECTWP(prc), RECTHP(prc));
 
-	SetBrushColor(tmpDC, ncsColor2Pixel(tmpDC, hc));
+    SetBrushColor(tmpDC, ncsColor2Pixel(tmpDC, hc));
     FillBox(tmpDC, 0, 0, RECTWP(prc), RECTHP(prc)>>1);
     SetBrushColor(tmpDC, ncsColor2Pixel(tmpDC, color));
     FillBox(tmpDC, 0, RECTHP(prc)>>1, RECTWP(prc), RECTHP(prc)>>1);
 
-	SetPenColor(tmpDC, ncsColor2Pixel(tmpDC, fc));
+    SetPenColor(tmpDC, ncsColor2Pixel(tmpDC, fc));
     Rectangle(tmpDC, 0, 0, RECTWP(prc)-1, RECTHP(prc)-1);
 
-	SetMemDCAlpha(tmpDC, MEMDC_FLAG_SRCALPHA, alpha);
+    SetMemDCAlpha(tmpDC, MEMDC_FLAG_SRCALPHA, alpha);
     BitBlt(tmpDC, 0, 0, 0, 0, hdc, prc->left, prc->top, -1);
 
-	DeleteCompatibleDC(tmpDC);
+    DeleteCompatibleDC(tmpDC);
     return 0;
 }
 
@@ -290,7 +290,7 @@ static void mPicker_onPaint(mPicker* self, HDC hdc, const PCLIPRGN _clip)
 {
     HITEM hItem;
     RECT rc, rcDraw, rcSel;
-	BOOL isCompDC = FALSE;
+    BOOL isCompDC = FALSE;
     HDC tmpDc = HDC_INVALID;
     int i = 0, w = 0, count = 0, vis = 0, index = 0;
     float cursor = 0.0, move = 0.0;
@@ -320,15 +320,15 @@ static void mPicker_onPaint(mPicker* self, HDC hdc, const PCLIPRGN _clip)
     move = cursor - index;
 
     tmpDc = CreateCompatibleDC(hdc);
-	if (tmpDc != HDC_INVALID) {
-		isCompDC = TRUE;
-	} else {
-		tmpDc = hdc;
-	}
+    if (tmpDc != HDC_INVALID) {
+        isCompDC = TRUE;
+    } else {
+        tmpDc = hdc;
+    }
 
-	if (self->bkDC != HDC_INVALID) {
-		BitBlt(self->bkDC, 0, 0, 0, 0, tmpDc, 0, 0, 0);
-	}
+    if (self->bkDC != HDC_INVALID) {
+        BitBlt(self->bkDC, 0, 0, 0, 0, tmpDc, 0, 0, 0);
+    }
     w = RECTH(rc) / self->itemVisible;
 
     SelectClipRect(tmpDc, &rc);
@@ -353,10 +353,10 @@ static void mPicker_onPaint(mPicker* self, HDC hdc, const PCLIPRGN _clip)
     rcSel.bottom = rcSel.top + RECTH(rc) / self->itemVisible;
     drawAlphaCover(tmpDc, &rcSel, GETELEMENT(self, NCS4TOUCH_BGC_PCK_SELECT), 112);
 
-	if (isCompDC) {
-		BitBlt(tmpDc, 0, 0, 0, 0, hdc, 0, 0, 0);
-		DeleteCompatibleDC(tmpDc);
-	}
+    if (isCompDC) {
+        BitBlt(tmpDc, 0, 0, 0, 0, hdc, 0, 0, 0);
+        DeleteCompatibleDC(tmpDc);
+    }
 
     if (g_finalFrame) {
         _c(self)->endAnimation(self);
@@ -403,10 +403,10 @@ static LRESULT mPicker_wndProc(mPicker* self, UINT msg, WPARAM w, LPARAM l)
         case MSG_MOUSEMOVE:
             width = 5;
 
-			if (self->mouseY == -1) {
-				self->mouseY = HISWORD(l);
-				return 0;
-			}
+            if (self->mouseY == -1) {
+                self->mouseY = HISWORD(l);
+                return 0;
+            }
 
             if (lbuttondown && self->mouseY != HISWORD(l)) {
                 if (self->mouseY - HISWORD(l) > width) {
@@ -622,16 +622,16 @@ static void mPicker_runAnimation(mPicker* self, float startV, float endV)
     }
 
     {
-	    EffPropertyAnimationSetting settings[] = {
-		    {
-			    &self->key, MGEFF_FLOAT,
-			    (void*)&startV, (void*)&endV,
-			    InOutCubic, duration, _finished_cb
-		    },
-		    {NULL, 0, NULL, NULL, 0, 0, NULL}
-	    };
+        EffPropertyAnimationSetting settings[] = {
+            {
+                &self->key, MGEFF_FLOAT,
+                (void*)&startV, (void*)&endV,
+                InOutCubic, duration, _finished_cb
+            },
+            {NULL, 0, NULL, NULL, 0, 0, NULL}
+        };
 
-	    self->handle = _M(self, createAnimation, settings);
+        self->handle = _M(self, createAnimation, settings);
     }
     mGEffAnimationAsyncRun(self->handle);
     mGEffAnimationSetProperty(self->handle, MGEFF_PROP_KEEPALIVE, 1);

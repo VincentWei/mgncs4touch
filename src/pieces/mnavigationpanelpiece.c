@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -44,7 +44,7 @@
 
 #define NAVIGATIONPANELPIECE_OPAQUE                      255
 #define NAVIGATIONPANELPIECE_TRANSPARENT                 128
-#define NAVIGATIONPANELPIECE_NOVISIBLE                   0 
+#define NAVIGATIONPANELPIECE_NOVISIBLE                   0
 #define NAVIGATIONPANELPIECE_ANIMATION_DURATION          500
 
 
@@ -54,11 +54,11 @@ static mNavigationItem* get_current_item (mNavigationPanelPiece* self)
     item_list_t* current = NULL;
     if ( list_empty(&self->item_head) )
         return NULL;
-    
+
     current = (item_list_t*)self->item_head.next;
     if ( NULL == current)
         return NULL;
-    
+
     return current->item;
 }
 
@@ -68,18 +68,18 @@ static mNavigationItem* get_next_item (mNavigationPanelPiece* self)
 {
     item_list_t* current = NULL;
     item_list_t* next = NULL;
-    
+
     if ( list_empty(&self->item_head) )
         return NULL;
-    
+
     current = (item_list_t*)self->item_head.next;
     if ( NULL == current)
         return NULL;
-    
+
     next = (item_list_t*)current->list.next;
     if ( NULL == next || next == (item_list_t*)&self->item_head)
         return NULL;
-    
+
     return next->item;
 }
 
@@ -90,17 +90,17 @@ static BOOL is_root_item (mNavigationPanelPiece* self, mNavigationItem* item)
     item_list_t* root = NULL;
     if ( list_empty(&self->item_head) )
         return FALSE;
-    
+
     root = (item_list_t*)self->item_head.prev;
     if ( NULL == root)
         return FALSE;
-    
+
     return (BOOL)(root->item == item);
 }
 
 
 /* create change navigation bar animation */
-static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self, 
+static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
         mNavigationItem* src_item, mNavigationItem* target_item, BOOL push)
 {
     int i;
@@ -134,7 +134,7 @@ static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
         if ( NULL != src_item_piece[i] ) {
             /* src item fade out animation */
             _c(bar)->setPieceAlpha(bar, src_item_piece[i], NAVIGATIONPANELPIECE_OPAQUE);
-            src_alpha_anim[i] = _c(bar)->setPieceAlphaWithAnimation(bar, src_item_piece[i], 
+            src_alpha_anim[i] = _c(bar)->setPieceAlphaWithAnimation(bar, src_item_piece[i],
                     NAVIGATIONPANELPIECE_NOVISIBLE, NAVIGATIONPANELPIECE_ANIMATION_DURATION/2, OutCubic);
             mGEffAnimationAddToGroup(group, src_alpha_anim[i]);
 
@@ -145,22 +145,22 @@ static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
             if ( NULL != piece_item ) {
                 if (push)
                     end = piece_item->x - RECTW(rect)/2;
-                else 
+                else
                     end = piece_item->x + RECTW(rect)/2;
 
-                src_move_anim[i] = _c(bar)->movePieceWithAnimation(bar, src_item_piece[i], 
-                        end, piece_item->y, 
+                src_move_anim[i] = _c(bar)->movePieceWithAnimation(bar, src_item_piece[i],
+                        end, piece_item->y,
                         NAVIGATIONPANELPIECE_ANIMATION_DURATION/2, OutCubic);
                 mGEffAnimationAddToGroup(group, src_move_anim[i]);
             }
         }
-        
+
         /* target item animation */
         piece_item = NULL;
         if ( NULL != target_item_piece[i] ) {
             /* target item fade in animation */
             _c(bar)->setPieceAlpha(bar, target_item_piece[i], NAVIGATIONPANELPIECE_NOVISIBLE);
-            target_alpha_anim[i] = _c(bar)->setPieceAlphaWithAnimation(bar, target_item_piece[i], 
+            target_alpha_anim[i] = _c(bar)->setPieceAlphaWithAnimation(bar, target_item_piece[i],
                     NAVIGATIONPANELPIECE_OPAQUE, NAVIGATIONPANELPIECE_ANIMATION_DURATION/2, OutCubic);
             mGEffAnimationAddToGroup(group, target_alpha_anim[i]);
 
@@ -179,8 +179,8 @@ static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
                 }
 
                 _c(bar)->movePiece(bar, target_item_piece[i], start, piece_item->y);
-                target_move_anim[i] = _c(bar)->movePieceWithAnimation(bar, target_item_piece[i], 
-                        end, piece_item->y, 
+                target_move_anim[i] = _c(bar)->movePieceWithAnimation(bar, target_item_piece[i],
+                        end, piece_item->y,
                         NAVIGATIONPANELPIECE_ANIMATION_DURATION/2, OutCubic);
                 mGEffAnimationAddToGroup(group, target_move_anim[i]);
             }
@@ -200,7 +200,7 @@ static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
             case NAVIGATION_STYLE_HIDE_BAR:
                 _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_NOVISIBLE);
                 break;
-        
+
             case NAVIGATION_STYLE_NORMAL:
             default:
                 _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_OPAQUE);
@@ -210,31 +210,31 @@ static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
         /* then create the change animation according to target style */
         switch ( target_item->style ) {
             case NAVIGATION_STYLE_FULLSCREEN:
-                bar_anim = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar, 
+                bar_anim = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar,
                         NAVIGATIONPANELPIECE_TRANSPARENT, NAVIGATIONPANELPIECE_ANIMATION_DURATION, InQuad);
                 break;
 
             case NAVIGATION_STYLE_HIDE_BAR:
-                bar_anim = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar, 
+                bar_anim = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar,
                         NAVIGATIONPANELPIECE_NOVISIBLE, NAVIGATIONPANELPIECE_ANIMATION_DURATION, InQuad);
                 break;
-        
+
             case NAVIGATION_STYLE_NORMAL:
             default:
-                bar_anim = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar, 
+                bar_anim = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar,
                         NAVIGATIONPANELPIECE_OPAQUE, NAVIGATIONPANELPIECE_ANIMATION_DURATION, InQuad);
                 break;
         }
 
         mGEffAnimationAddToGroup(group, bar_anim);
     }
-    
+
     return group;
 }
 
 
 /* create change navigation view animation */
-static MGEFF_ANIMATION create_view_animation (mNavigationPanelPiece* self, 
+static MGEFF_ANIMATION create_view_animation (mNavigationPanelPiece* self,
         mNavigationItem* src_item, mNavigationItem* target_item, BOOL push)
 {
     int /*src_start, */src_end;
@@ -268,9 +268,9 @@ static MGEFF_ANIMATION create_view_animation (mNavigationPanelPiece* self,
     }
 
     if ( NULL != src_piece_item ) {
-        src_animation = _c(self)->movePieceWithAnimation(self, (mHotPiece*)src_item->content, 
-                src_end, 
-                src_piece_item->y, 
+        src_animation = _c(self)->movePieceWithAnimation(self, (mHotPiece*)src_item->content,
+                src_end,
+                src_piece_item->y,
                 NAVIGATIONPANELPIECE_ANIMATION_DURATION, OutCubic);
         mGEffAnimationAddToGroup(group, src_animation);
     }
@@ -285,17 +285,17 @@ static MGEFF_ANIMATION create_view_animation (mNavigationPanelPiece* self,
                     0);
             DeleteMemDC(memdc);
         }
-        _c(self)->movePiece(self, (mHotPiece*)target_item->content, 
-                target_start, 
+        _c(self)->movePiece(self, (mHotPiece*)target_item->content,
+                target_start,
                 target_piece_item->y);
-        target_animation = _c(self)->movePieceWithAnimation(self, (mHotPiece*)target_item->content, 
-                target_end, 
-                target_piece_item->y, 
+        target_animation = _c(self)->movePieceWithAnimation(self, (mHotPiece*)target_item->content,
+                target_end,
+                target_piece_item->y,
                 NAVIGATIONPANELPIECE_ANIMATION_DURATION, OutCubic);
         /* mGEffAnimationSetProperty(target_animation, MGEFF_PROP_DEBUG, 1); */
         mGEffAnimationAddToGroup(group, target_animation);
     }
-    
+
     return group;
 }
 
@@ -308,7 +308,7 @@ static BOOL bar_left_button_clicked_handler (mHotPiece *self,
     return TRUE;
 }
 
-static mButtonPanelPiece* create_default_left_button (mNavigationPanelPiece* self, 
+static mButtonPanelPiece* create_default_left_button (mNavigationPanelPiece* self,
         mNavigationItem* item, const char* title)
 {
     mShapeTransRoundPiece* bk_piece;
@@ -334,7 +334,7 @@ static mTextPiece* create_default_title_button (mNavigationPanelPiece* self, con
 {
     RECT rect;
     mTextPiece* text_piece;
-    
+
     /* create text_piece */
     text_piece = (mTextPiece*)NEWPIECE(mTextPiece);
 
@@ -389,7 +389,7 @@ static void move_bar_topmost (mNavigationPanelPiece* self)
 
 
 /* do update navigation view and bar */
-static void enter_update_navigation (mNavigationPanelPiece* self, 
+static void enter_update_navigation (mNavigationPanelPiece* self,
         mNavigationItem* current_item, mNavigationItem* prev_item)
 {
     int alpha = 255;
@@ -424,13 +424,13 @@ static void enter_update_navigation (mNavigationPanelPiece* self,
         ncsAdjustNavigationItemRectWithTitle((mHotPiece*)title_button, title, self->default_title_font);
     }
 
-    _c(title_button)->getRect(title_button, &rect); 
-    piece_item = _c(bar)->searchItem(bar, (mHotPiece*)title_button); 
+    _c(title_button)->getRect(title_button, &rect);
+    piece_item = _c(bar)->searchItem(bar, (mHotPiece*)title_button);
     if ( NULL == piece_item )
-        _c(bar)->addContent(bar, (mHotPiece*)title_button, 
+        _c(bar)->addContent(bar, (mHotPiece*)title_button,
                 NAVIGATIONBAR_TITLE_X(RECTW(rect)), NAVIGATIONBAR_DEFAULT_BUTTON_Y);
     else
-        _c(bar)->movePiece(bar, (mHotPiece*)title_button, 
+        _c(bar)->movePiece(bar, (mHotPiece*)title_button,
                 NAVIGATIONBAR_TITLE_X(RECTW(rect)), NAVIGATIONBAR_DEFAULT_BUTTON_Y);
     bar->title_button = title_button;
 
@@ -450,27 +450,27 @@ static void enter_update_navigation (mNavigationPanelPiece* self,
     }
 
     if ( NULL != left_button ) {
-        piece_item = _c(bar)->searchItem(bar, (mHotPiece*)left_button); 
+        piece_item = _c(bar)->searchItem(bar, (mHotPiece*)left_button);
         if ( NULL == piece_item )
-            _c(bar)->addContent(bar, (mHotPiece*)left_button, 
+            _c(bar)->addContent(bar, (mHotPiece*)left_button,
                     NAVIGATIONBAR_HORIZONAL_W, NAVIGATIONBAR_DEFAULT_BUTTON_Y);
         else
-            _c(bar)->movePiece(bar, (mHotPiece*)left_button, 
+            _c(bar)->movePiece(bar, (mHotPiece*)left_button,
                     NAVIGATIONBAR_HORIZONAL_W, NAVIGATIONBAR_DEFAULT_BUTTON_Y);
     }
     bar->left_button = left_button;
-    
-    
+
+
     /* configure the right button */
     right_button = (mButtonPanelPiece*)_c(current_item)->getProperty(current_item, NCSP_NAVIGATIONITEM_RIGHT_BUTTON);
     if ( NULL != right_button ) {
-        _c(right_button)->getRect(right_button, &rect); 
-        piece_item = _c(bar)->searchItem(bar, (mHotPiece*)right_button); 
+        _c(right_button)->getRect(right_button, &rect);
+        piece_item = _c(bar)->searchItem(bar, (mHotPiece*)right_button);
         if ( NULL == piece_item )
-            _c(bar)->addContent(bar, (mHotPiece*)right_button, 
+            _c(bar)->addContent(bar, (mHotPiece*)right_button,
                     NAVIGATIONBAR_RIGHT_X(RECTW(rect)), NAVIGATIONBAR_DEFAULT_BUTTON_Y);
         else
-            _c(bar)->movePiece(bar, (mHotPiece*)right_button, 
+            _c(bar)->movePiece(bar, (mHotPiece*)right_button,
                     NAVIGATIONBAR_RIGHT_X(RECTW(rect)), NAVIGATIONBAR_DEFAULT_BUTTON_Y);
     }
     bar->right_button = right_button;
@@ -500,7 +500,7 @@ static void enter_update_navigation (mNavigationPanelPiece* self,
 
 
     /* configure the view(content) */
-    piece_item = _c(self)->searchItem(self, (mHotPiece*)current_item->content); 
+    piece_item = _c(self)->searchItem(self, (mHotPiece*)current_item->content);
     if ( NULL == piece_item ) {
         _c(self)->addContent(self, current_item->content, 0, content_y);
         move_bar_topmost(self);
@@ -534,7 +534,7 @@ static void leave_update_navigation (mNavigationPanelPiece* self, mNavigationIte
         _c(bar)->delContent(bar, (mHotPiece*)old_item->bar_right_button);
     }
 
-    /* don't remove the content from panel peice, the tableview piece need it, 
+    /* don't remove the content from panel peice, the tableview piece need it,
      * for content parent. */
     if ( NULL != old_item->content ) {
         //cancel_content((mPanelPiece*)self, (mHotPiece*)old_item->content);
@@ -556,10 +556,10 @@ mNavigationPanelPiece* ncsCreateNavigationPanelPieceWithRootView (mNavigationIte
 
     if ( NULL == rootItem )
         return NULL;
-    
+
     /* create NavigationPanelPiece */
     navigation_panel_piece = (mNavigationPanelPiece*)NEWPIECE(mNavigationPanelPiece);
-    
+
     /* push the rootItem to the list(stack) */
     item = (item_list_t*)calloc(1, sizeof(item_list_t));
     item->item = rootItem;
@@ -567,11 +567,11 @@ mNavigationPanelPiece* ncsCreateNavigationPanelPieceWithRootView (mNavigationIte
 
     /* add root item referen */
     ADDREF(rootItem);
-    
+
     /* update the UI */
     enter_update_navigation(navigation_panel_piece, rootItem, NULL);
-    
-    return navigation_panel_piece;    
+
+    return navigation_panel_piece;
 }
 
 
@@ -579,7 +579,7 @@ static void mNavigationPanelPiece_construct (mNavigationPanelPiece *self, DWORD 
 {
     RECT rect;
 
-	Class(mPanelPiece).construct((mPanelPiece*)self, param);
+    Class(mPanelPiece).construct((mPanelPiece*)self, param);
 
     self->default_title_font = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
@@ -588,7 +588,7 @@ static void mNavigationPanelPiece_construct (mNavigationPanelPiece *self, DWORD 
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             NAVIGATIONBAR_DEFAULT_TITLE_FONT_SIZE, 0);
-   
+
     /* init list(stack) */
     INIT_LIST_HEAD(&self->item_head);
 
@@ -605,7 +605,7 @@ static void mNavigationPanelPiece_destroy (mNavigationPanelPiece* self, DWORD pa
 {
     item_list_t* item_list = NULL;
     mNavigationItem* item = get_current_item(self);
-    
+
     /* delete the last item from NavigationPanelPiece */
     if ( NULL != item ) {
         leave_update_navigation(self, item);
@@ -624,7 +624,7 @@ static void mNavigationPanelPiece_destroy (mNavigationPanelPiece* self, DWORD pa
         list_del(self->item_head.next);
         free(item_list);
     }
-    
+
     Class(mPanelPiece).destroy((mPanelPiece*)self);
 }
 
@@ -657,7 +657,7 @@ static DWORD mNavigationPanelPiece_getProperty (mNavigationPanelPiece* self, int
     if ( NULL == self )
         return (DWORD)NULL;
 
-	switch (id) {
+    switch (id) {
         case NCSP_NAVIGATIONPANELPIECE_BAR:
             return (DWORD)self->bar;
 
@@ -668,9 +668,9 @@ static DWORD mNavigationPanelPiece_getProperty (mNavigationPanelPiece* self, int
 
         default:
             break;
-	}
+    }
 
-	return Class(mPanelPiece).getProperty((mPanelPiece*)self, id);
+    return Class(mPanelPiece).getProperty((mPanelPiece*)self, id);
 }
 
 
@@ -684,24 +684,24 @@ static void mNavigationPanelPiece_push (mNavigationPanelPiece* self, mNavigation
 
     if ( NULL == self || NULL == item)
         return;
-    
+
     ADDREF(item);
     /* save the old item */
     prev_item = get_current_item(self);
-    
+
     /* push the new item */
     new = (item_list_t*)calloc(1, sizeof(item_list_t));
     new->item = item;
     list_add(&new->list, &self->item_head);
-    
+
     /* update the UI */
     enter_update_navigation(self, item, prev_item);
-    
+
     /* create change animation */
     group = mGEffAnimationCreateGroup(MGEFF_PARALLEL);
     bar_animation = create_bar_animation(self, prev_item, item, TRUE);
     view_animation = create_view_animation(self, prev_item, item, TRUE);
-    
+
     /* play the change animation(sync) */
     mGEffAnimationAddToGroup(group, bar_animation);
     mGEffAnimationAddToGroup(group, view_animation);
@@ -710,7 +710,7 @@ static void mNavigationPanelPiece_push (mNavigationPanelPiece* self, mNavigation
     /* adjust the bar to the right position */
     if ( NAVIGATION_STYLE_HIDE_BAR == item->style )
         _c(self)->movePiece(self, (mHotPiece*)self->bar, 0, 0 - NAVIGATIONBAR_H);
-    
+
     /* cleanup the old item */
     leave_update_navigation(self, prev_item);
 }
@@ -728,27 +728,27 @@ static void mNavigationPanelPiece_pop (mNavigationPanelPiece* self)
 
     if ( NULL == self )
         return;
-    
+
     /* save the old item */
     old_item = get_current_item(self);
-    
+
     /* pop the old item */
     item = (item_list_t*)self->item_head.next;
     list_del(self->item_head.next);
     free(item);
-    
+
     /* save the new */
     current_item = get_current_item(self);
     prev_item = get_next_item(self);
-    
+
     /* update the UI */
     enter_update_navigation(self, current_item, prev_item);
-    
+
     /* create change animation */
     group = mGEffAnimationCreateGroup(MGEFF_PARALLEL);
     bar_animation = create_bar_animation(self, old_item, current_item, FALSE);
     view_animation = create_view_animation(self, old_item, current_item, FALSE);
-     
+
     /* play the animation(sync) */
     mGEffAnimationAddToGroup(group, bar_animation);
     mGEffAnimationAddToGroup(group, view_animation);
@@ -757,7 +757,7 @@ static void mNavigationPanelPiece_pop (mNavigationPanelPiece* self)
     /* adjust the bar to the right position */
     if ( NAVIGATION_STYLE_HIDE_BAR == current_item->style )
         _c(self)->movePiece(self, (mHotPiece*)self->bar, 0, 0 - NAVIGATIONBAR_H);
-    
+
     /* cleanup the old item */
     leave_update_navigation(self, old_item);
     UNREF(old_item);
@@ -780,31 +780,31 @@ static void mNavigationPanelPiece_showNavigationBar (mNavigationPanelPiece* self
     if ( FALSE == show && NAVIGATION_STYLE_FULLSCREEN == current_item->style ) {
         if ( TRUE == hasAnimation) {
             _c(self)->movePiece(self, (mHotPiece*)bar, 0, 0);
-            _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_TRANSPARENT); 
-    
-            animation = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar, 
+            _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_TRANSPARENT);
+
+            animation = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar,
                     NAVIGATIONPANELPIECE_NOVISIBLE, NAVIGATIONPANELPIECE_ANIMATION_DURATION, InQuad);
             _c(self)->animationSyncRunAndDelete(self, animation);
         }
-    
+
         _c(self)->movePiece(self, (mHotPiece*)bar, 0, 0 - NAVIGATIONBAR_H);
-        _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_NOVISIBLE); 
-        current_item->style = NAVIGATION_STYLE_HIDE_BAR; 
+        _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_NOVISIBLE);
+        current_item->style = NAVIGATION_STYLE_HIDE_BAR;
     }
     /* show the bar */
     else if ( TRUE == show && NAVIGATION_STYLE_HIDE_BAR == current_item->style ) {
         if ( TRUE == hasAnimation) {
             _c(self)->movePiece(self, (mHotPiece*)bar, 0, 0);
-            _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_NOVISIBLE); 
-    
-            animation = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar, 
+            _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_NOVISIBLE);
+
+            animation = _c(self)->setPieceAlphaWithAnimation(self, (mHotPiece*)bar,
                     NAVIGATIONPANELPIECE_TRANSPARENT, NAVIGATIONPANELPIECE_ANIMATION_DURATION, InQuad);
             _c(self)->animationSyncRunAndDelete(self, animation);
         }
 
         _c(self)->movePiece(self, (mHotPiece*)bar, 0, 0);
-        _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_TRANSPARENT); 
-        current_item->style = NAVIGATION_STYLE_FULLSCREEN; 
+        _c(self)->setPieceAlpha(self, (mHotPiece*)bar, NAVIGATIONPANELPIECE_TRANSPARENT);
+        current_item->style = NAVIGATION_STYLE_FULLSCREEN;
     }
 }
 
@@ -816,13 +816,13 @@ static BOOL mNavigationPanelPiece_currentIsRoot (mNavigationPanelPiece* self)
 
 
 BEGIN_MINI_CLASS(mNavigationPanelPiece, mPanelPiece)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, construct)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, destroy)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, setProperty)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, getProperty)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, push)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, pop)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, showNavigationBar)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, currentIsRoot)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, construct)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, destroy)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, setProperty)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, getProperty)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, push)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, pop)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, showNavigationBar)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, currentIsRoot)
 END_MINI_CLASS
 

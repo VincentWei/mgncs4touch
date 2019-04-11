@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -51,7 +51,7 @@
 /* local function declaration */
 static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value);
 static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
-				      mHotPiece *sender, int event_id, DWORD param);
+                      mHotPiece *sender, int event_id, DWORD param);
 static mPieceItem* nextItem(mTableViewPiece* self, mItemIterator* iter, mHotPiece* prev);
 
 static int s_onContentMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner)
@@ -69,7 +69,7 @@ static int s_onContentMouseMove(mHotPiece *_self, int message, WPARAM wParam, LP
             sectionPiece = SAFE_CAST(mPanelPiece, _c(item)->getPiece(item));
             assert(NULL != sectionPiece);
 
-            row_iter = 
+            row_iter =
                 _c(sectionPiece->itemManager)->createItemIterator(sectionPiece->itemManager);
             while(NULL != (item = _c(row_iter)->next(row_iter))) {
                 mTableViewItemPiece* piece = (mTableViewItemPiece*)_c(item)->getPiece(item);
@@ -92,14 +92,14 @@ static int s_onContentMousePress(mHotPiece *_self, int message, WPARAM wParam, L
     mTableViewPiece *self = (mTableViewPiece*)(_self->parent);
     mPieceItem* tableItem = _c(self)->searchItem(self, (mHotPiece*)self->tablePanel);
     if (tableItem) {
-        int x = LOSWORD(lParam); 
+        int x = LOSWORD(lParam);
         int y = HISWORD(lParam);
-        mPanelPiece* hotGroup = (mPanelPiece*)_c(self->tablePanel)->childAt(self->tablePanel, 
+        mPanelPiece* hotGroup = (mPanelPiece*)_c(self->tablePanel)->childAt(self->tablePanel,
                 x, y);
 
         if (hotGroup) {
             mPieceItem* groupItem = _c(self->tablePanel)->searchItem(self->tablePanel, (mHotPiece*)hotGroup);
-            mTableViewItemPiece* hotPiece = (mTableViewItemPiece*)_c(hotGroup)->childAt(hotGroup, 
+            mTableViewItemPiece* hotPiece = (mTableViewItemPiece*)_c(hotGroup)->childAt(hotGroup,
                     x - _c(groupItem)->getX(groupItem),
                     y - _c(groupItem)->getY(groupItem));
             mPieceItem* item = _c(hotGroup)->searchItem(hotGroup, (mHotPiece*)hotPiece);
@@ -110,7 +110,7 @@ static int s_onContentMousePress(mHotPiece *_self, int message, WPARAM wParam, L
                 piece->highlight =_c(self)->willSelectRowAtIndexPath(self, &indexpath);
                 clickPiece = piece;
 
-                _DBG_PRINTF ("click down At item indexpath(%d,%d), hightlight=%d, piece=%p, (x,y)=(%d,%d)\n", 
+                _DBG_PRINTF ("click down At item indexpath(%d,%d), hightlight=%d, piece=%p, (x,y)=(%d,%d)\n",
                         indexpath.section, indexpath.row,
                         piece->highlight, piece,
                         item->x, item->y);
@@ -130,11 +130,11 @@ static int s_onContentMousePress(mHotPiece *_self, int message, WPARAM wParam, L
             sectionPiece = SAFE_CAST(mPanelPiece, _c(item)->getPiece(item));
             assert(NULL != sectionPiece);
 
-            row_iter = 
+            row_iter =
                 _c(sectionPiece->itemManager)->createItemIterator(sectionPiece->itemManager);
             while(NULL != (item = _c(row_iter)->next(row_iter))) {
                 mTableViewItemPiece* piece = (mTableViewItemPiece*)_c(item)->getPiece(item);
-                if (piece != clickPiece 
+                if (piece != clickPiece
                         && _c(item)->getType(item) == NCS_TABLEVIEW_NORMALROWTYPE){
                     _c(piece)->resetEditMode(piece);
                 }
@@ -174,7 +174,7 @@ static int deleteItem(mWidget* self, int message, WPARAM wParam, LPARAM lParam)
                         //_c(table)->removeItem(table, (char*)item, TRUE);
                         _c(table)->itemToIndexPath(table, piece, &indexpath);
                         _c(table)->onCommitDeleteRowAtIndexPath(table, &indexpath);
-                        _DBG_PRINTF ("%s:delete piece is %p, indexpath(%d,%d)\n", __FUNCTION__, 
+                        _DBG_PRINTF ("%s:delete piece is %p, indexpath(%d,%d)\n", __FUNCTION__,
                                 piece, indexpath.section, indexpath.row);
                         _DBG_PRINTF ("table %p -- NCSN_TABLEVIEWITEMPIECE_DELETECLICKED\n", table);
                         break;
@@ -235,7 +235,7 @@ static BOOL onContentPieceClicked(mTableViewPiece *self, mHotPiece* sender, int 
 static void mTableViewPiece_construct(mTableViewPiece *self, DWORD add_data)
 {
     Class(mScrollViewPiece).construct((mScrollViewPiece*)self, add_data);
-    
+
     //self->backgroundPiece  = (mHotPiece*)createBackgroundPiece(self);
 
     self->style = add_data;
@@ -252,7 +252,7 @@ static void mTableViewPiece_construct(mTableViewPiece *self, DWORD add_data)
         mLineVBox* box = (mLineVBox*)NEW(mLineVBox);
         _c(self->tablePanel)->setLayoutManager(self->tablePanel, (mLayoutManager*)box);
         _c(self)->addContent(self, (mHotPiece*)self->tablePanel, 0, 0);
-        if (self->style == NCS_TABLEVIEW_GROUP_STYLE) {   
+        if (self->style == NCS_TABLEVIEW_GROUP_STYLE) {
             _c(box)->setGap(box, NCS_TABLEVIEW_GROUPGAP);
         }
         _c(self->tablePanel)->appendEventHandler(self->tablePanel, MSG_LBUTTONDOWN, s_onContentMousePress);
@@ -267,7 +267,7 @@ static void mTableViewPiece_construct(mTableViewPiece *self, DWORD add_data)
 
 static int mTableViewPiece_processMessage(mTableViewPiece *self, int message, WPARAM wParam, LPARAM lParam, mObject *owner)
 {
-    if (message == MSG_MOUSEMOVEIN 
+    if (message == MSG_MOUSEMOVEIN
             || (message >= MSG_FIRSTMOUSEMSG && message <= MSG_RBUTTONDBLCLK)) {
         static BOOL indexFocus = FALSE;
         if (self->indexLocate) {
@@ -287,7 +287,7 @@ static int mTableViewPiece_processMessage(mTableViewPiece *self, int message, WP
                 return _c(self->indexLocate)->processMessage(self->indexLocate, message, wParam, lParam, owner);
             }
         }
-    } 
+    }
 
     return Class(mScrollViewPiece).processMessage((mScrollViewPiece*)self, message, wParam, lParam, owner);
 }
@@ -306,7 +306,7 @@ static void mTableViewPiece_changeMode(mTableViewPiece* self)
         sectionPiece = SAFE_CAST(mPanelPiece, _c(item)->getPiece(item));
         assert(NULL != sectionPiece);
 
-        row_iter = 
+        row_iter =
             _c(sectionPiece->itemManager)->createItemIterator(sectionPiece->itemManager);
 
         while(NULL != (item = _c(row_iter)->next(row_iter))) {
@@ -327,7 +327,7 @@ static void mTableViewPiece_changeMode(mTableViewPiece* self)
 static mTableViewItemPiece* mTableViewPiece_indexPathToItem(mTableViewPiece* self, const mIndexPath* indexpath)
 {
     mItemIterator* section_iter =
-	_c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
+    _c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
     mItemIterator* row_iter = NULL;
     int i = 0, j = 0;
     mPanelPiece* sectionPiece = NULL;
@@ -340,7 +340,7 @@ static mTableViewItemPiece* mTableViewPiece_indexPathToItem(mTableViewPiece* sel
         assert(NULL != sectionPiece);
 
         if (indexpath->section == i++) { // match section.
-            mItemIterator* row_iter = 
+            mItemIterator* row_iter =
                 _c(sectionPiece->itemManager)->createItemIterator(sectionPiece->itemManager);
             while(NULL != (item = _c(row_iter)->next(row_iter))) {
                 mTableViewItemPiece* piece = (mTableViewItemPiece*)_c(item)->getPiece(item);
@@ -405,7 +405,7 @@ static void mTableViewPiece_rectForHeaderInSection(mTableViewPiece* self, int se
     mPieceItem* headeritem;
     mPieceItem* parentItem = NULL;
     mItemIterator *iter = _c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
-    
+
     while((item = _c(iter)->next(iter))){
         if (i++ == section) {
             mPanelPiece* group = (mPanelPiece*)_c(item)->getPiece(item);
@@ -425,7 +425,7 @@ static void mTableViewPiece_rectForHeaderInSection(mTableViewPiece* self, int se
             break;
         }
     }
-    
+
     assert(parentItem);
     rect->left   = _c(parentItem)->getX(parentItem) /* + _c(item)->getX(item); */;
     rect->top    = _c(parentItem)->getY(parentItem) /* + _c(item)->getY(item); */;
@@ -441,17 +441,17 @@ static void mTableViewPiece_rectForRowAtIndexPath(mTableViewPiece* self, const m
     mPanelPiece* parent;
     mPieceItem* item;
     mPieceItem* parentItem;
-    
+
     piece = (mHotPiece*) _c(self)->indexPathToItem(self, indexpath);
 
     if (!piece)
         return;
-    
+
     parent = (mPanelPiece*) piece->parent;
     parentItem = _c(self->tablePanel)->searchItem(self->tablePanel, (mHotPiece*)parent);
     item = _c(parent)->searchItem(parent, (mHotPiece*)piece);
     _c(piece)->getRect(piece, &rc);
-    
+
     rect->left   = _c(parentItem)->getX(parentItem) + _c(item)->getX(item);
     rect->top    = _c(parentItem)->getY(parentItem) + _c(item)->getY(item);
     rect->right  = rect->left + RECTW(rc);
@@ -465,7 +465,7 @@ static void mTableViewPiece_rectForSection(mTableViewPiece* self, int section, R
     mPieceItem* item;
     mPieceItem* groupItem = NULL;
     mItemIterator *iter = _c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
-    
+
     while((item = _c(iter)->next(iter))){
         if (i++ == section) {
             mPanelPiece* group = (mPanelPiece*)_c(item)->getPiece(item);
@@ -475,7 +475,7 @@ static void mTableViewPiece_rectForSection(mTableViewPiece* self, int section, R
             break;
         }
     }
-    
+
     if (groupItem) {
         rect->left   = _c(groupItem)->getX(groupItem);
         rect->top    = _c(groupItem)->getY(groupItem);
@@ -509,11 +509,11 @@ static mPanelPiece* mTableViewPiece_createSeparatorLine(mTableViewPiece* self, B
         rc.bottom = 1;
         _c(piece)->setProperty(piece, NCSP_EXSEPARATOR_COLOR, self->separatorColor);
         _c(panel)->setRect(panel, &rc);
-        _c(piece)->setRect(piece, &rc);  
+        _c(piece)->setRect(piece, &rc);
         _c(panel)->addContent(panel, (mHotPiece*)piece, border?0:NCS_TABLEVIEW_SEPARATOR_MARGIN_LEFT, 0);
         return panel;
     }
-    else 
+    else
         return NULL;
 }
 
@@ -534,7 +534,7 @@ static mPanelPiece* mTableViewPiece_createDefaultRow(mTableViewPiece* self, mTab
         _c(text)->setProperty(text, NCSP_TEXTPIECE_LOGFONT);
     }
     */
-    _c(panel)->addContentToLayout(panel, (mHotPiece*)text); 
+    _c(panel)->addContentToLayout(panel, (mHotPiece*)text);
     _c(panel)->addContentToLayout(panel, (mHotPiece*)item_piece->accessory);
     //_c(panel)->setLayout(panel, ...);
 
@@ -554,8 +554,8 @@ static void mTableViewPiece_reloadData(mTableViewPiece* self)
         if (self->style == NCS_TABLEVIEW_GROUP_STYLE) {
             section_piece = _c(self)->createGroupSectionContent(self, i);
         }
-        else {    
-            section_piece = _c(self)->createIndexSectionContent(self, i);        
+        else {
+            section_piece = _c(self)->createIndexSectionContent(self, i);
         }
         item = _c(self->tablePanel)->addContentToLayout(self->tablePanel, (mHotPiece*)section_piece);
         _c(item)->setType(item, NCS_TABLEVIEW_SECTIONTYPE);
@@ -608,7 +608,7 @@ static mPanelPiece* mTableViewPiece_createIndexSectionHead(mTableViewPiece* self
         _c(self)->getDefaultRowRect(self, &rc);
         _c(text)->setRect(text, &rc);
         _c(rect)->setRect(rect, &rc);
-        
+
         _c(text)->setProperty(text, NCSP_LABELPIECE_ALIGN, NCS_ALIGN_LEFT);
         _c(text)->setProperty(text, NCSP_LABELPIECE_VALIGN, NCS_VALIGN_CENTER);
         _c(text)->setProperty(text, NCSP_TEXTPIECE_TEXTCOLOR, 0xFF000000);
@@ -629,7 +629,7 @@ static mPanelPiece* mTableViewPiece_createIndexSectionHead(mTableViewPiece* self
 #if 0
 static void s_outputRect(mTableViewPiece* self, RECT* rc, int section)
 {
-    fprintf(stderr, "section is %s, rows=%d, rect is (%d,%d,%d,%d).\n", 
+    fprintf(stderr, "section is %s, rows=%d, rect is (%d,%d,%d,%d).\n",
             _c(self)->indexForSection(self, section),
             _c(self)->numberOfRowsInSection(self, section),
             rc->left, rc->top, rc->right, rc->bottom);
@@ -643,7 +643,7 @@ static mPanelPiece* mTableViewPiece_createIndexSectionContent(mTableViewPiece* s
     mPanelPiece* group = NEWPIECE(mPanelPiece);
     RECT rc;
 
-    mPanelPiece* index = _c(self)->createIndexSectionHead(self, section);  
+    mPanelPiece* index = _c(self)->createIndexSectionHead(self, section);
     mLineVBox* box = (mLineVBox*)NEW(mLineVBox);
 
     _c(group)->setLayoutManager(group, (mLayoutManager*)box);
@@ -656,7 +656,7 @@ static mPanelPiece* mTableViewPiece_createIndexSectionContent(mTableViewPiece* s
     if (row_num > 0) {
         mPanelPiece* piece = _c(self)->createSeparatorLine(self, TRUE);
         if (piece) {
-            mPieceItem* item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
+            mPieceItem* item = _c(group)->addContentToLayout(group, (mHotPiece*)piece);
             _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
         }
     }
@@ -688,7 +688,7 @@ static mPanelPiece* mTableViewPiece_createIndexSectionContent(mTableViewPiece* s
             if (i < row_num -1) {
                 mPanelPiece* piece = _c(self)->createSeparatorLine(self, FALSE);
                 if (piece) {
-                    item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
+                    item = _c(group)->addContentToLayout(group, (mHotPiece*)piece);
                     _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
                 }
             }
@@ -699,7 +699,7 @@ static mPanelPiece* mTableViewPiece_createIndexSectionContent(mTableViewPiece* s
     if (row_num > 0) {
         mPanelPiece* piece = _c(self)->createSeparatorLine(self, TRUE);
         if (piece) {
-            mPieceItem* item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
+            mPieceItem* item = _c(group)->addContentToLayout(group, (mHotPiece*)piece);
             _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
         }
     }
@@ -754,7 +754,7 @@ static mPanelPiece* mTableViewPiece_createGroupSectionContent(mTableViewPiece* s
             if (i < row_num -1) {
                 mPanelPiece* piece = _c(self)->createSeparatorLine(self, FALSE);
                 if (piece) {
-                    item = _c(group)->addContentToLayout(group, (mHotPiece*)piece); 
+                    item = _c(group)->addContentToLayout(group, (mHotPiece*)piece);
                     _c(item)->setType(item, NCS_TABLEVIEW_SEPARATORTYPE);
                 }
             }
@@ -820,7 +820,7 @@ static void mTableViewPiece_deleteRowAtIndexPath(
 
     /* delete separator */
     {
-        mItemIterator* row_iter = 
+        mItemIterator* row_iter =
             _c(group->itemManager)->createItemIterator(group->itemManager);
         mPieceItem* next = nextItem(self, row_iter, piece);
         if (next && _c(next)->getType(next) == NCS_TABLEVIEW_SEPARATORTYPE) {
@@ -867,7 +867,7 @@ static void mTableViewPiece_paint(mTableViewPiece* self, HDC hdc, mObject * owne
 
 static void mTableViewPiece_setSeparatorStyle(mTableViewPiece* self, enum mTableViewSeparatorStyle style)
 {
-    assert((style >= NCS_TABLEVIEW_SEPARATORSTYLE_NONE && 
+    assert((style >= NCS_TABLEVIEW_SEPARATORSTYLE_NONE &&
             style < NCS_TABLEVIEW_SEPARATORSTYLE_MAX));
     self->separatorStyle = style;
 }
@@ -978,7 +978,7 @@ static void autoAdjustTableViewPosition(mTableViewPiece* self)
 
     _c(self->tablePanel)->getRect(self->tablePanel, &rc);
     view_bottom = rc.bottom;
-    _c(self)->getRect(self, &rc);    
+    _c(self)->getRect(self, &rc);
     max_y = view_bottom - rc.bottom;
 
     /* printf("=====================table_bottom: %d, view_bottom: %d\n", rc.bottom, view_bottom); */
@@ -990,7 +990,7 @@ static void autoAdjustTableViewPosition(mTableViewPiece* self)
         _c(self)->getViewport(self, &rc);
         x = rc.left;
         y = rc.top;
-    
+
         if (y > max_y) y = max_y;
 
         _c(self)->moveViewport(self, x, y);
@@ -998,7 +998,7 @@ static void autoAdjustTableViewPosition(mTableViewPiece* self)
 }
 
 static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
-				      mHotPiece *sender, int event_id, DWORD param)
+                      mHotPiece *sender, int event_id, DWORD param)
 {
     RECT rc;
     int x, y;
@@ -1006,7 +1006,7 @@ static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
 
     _c(self->tablePanel)->getRect(self->tablePanel, &rc);
     view_bottom = rc.bottom;
-    _c(self)->getRect(self, &rc);    
+    _c(self)->getRect(self, &rc);
     max_y = view_bottom - rc.bottom;
 
     _c(self)->rectForHeaderInSection(self, param, &rc);
@@ -1015,7 +1015,7 @@ static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
 
     if (y > max_y) y = max_y;
     _c(self)->moveViewport(self, x, y);
-    
+
     return TRUE;
 }
 

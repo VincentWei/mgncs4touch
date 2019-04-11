@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -70,14 +70,14 @@ static void phy_ctx_destroy(cpSpace *space, struct scroll_phy_ctx *ctx) {
     free(ctx);
 }
 
-static mPieceItem* s_getContent(mHScrollViewPiece* self) 
+static mPieceItem* s_getContent(mHScrollViewPiece* self)
 {
     if (self->m_content) {
         return self->m_content;
     }else{
         mItemIterator *iter = _c(self->itemManager)->createItemIterator(self->itemManager);
         mPieceItem *item;
-       
+
         while ((item = _c(iter)->next(iter))) {
             if (item != self->m_scrollbar) {
                 self->m_content = item;
@@ -307,7 +307,7 @@ static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LP
         }
 
         space = s_setupSpace(self, v_x, v_y);
-        self->m_animation = phyanim_create(space, self, s_onCalc, s_onDraw); 
+        self->m_animation = phyanim_create(space, self, s_onCalc, s_onDraw);
         mGEffAnimationSetContext(self->m_animation, self);
         mGEffAnimationSetFinishedCb(self->m_animation, s_finish_cb);
         mGEffAnimationAsyncRun(self->m_animation);
@@ -325,7 +325,7 @@ static int s_viewOnMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARA
     y = HISWORD(lParam);
     if (s_canScroll(self)) {
         _c(self)->getViewport(self, &rc);
-        _c(self)->moveViewport(self, 
+        _c(self)->moveViewport(self,
                 rc.left + (self->m_oldMousePos.x - x) * self->m_ratioX,
                 rc.top + (self->m_oldMousePos.y - y) * self->m_ratioY);
         s_autoHideScrollbar(self, FALSE);
@@ -415,7 +415,7 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
             flag = 0;
         }else{
             if (GetTickCount() < self->m_timePressed + CLICK_TIMEOUT
-                    && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x) 
+                    && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x)
                         + ABS(HISWORD(lParam) - self->m_pressMousePos.y) < CLICK_MICRO_MOVEMENT)) {
                 flag = 0;
             }else{
@@ -423,7 +423,7 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
             }
 
             _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: ***** release-press=%lu, movement=%d\n",
-                    GetTickCount() - self->m_timePressed, 
+                    GetTickCount() - self->m_timePressed,
                     ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y));
         }
         if (flag == 0) {
@@ -584,7 +584,7 @@ static void mHScrollViewPiece_getViewport(mHScrollViewPiece *self, RECT *rc) {
     _c(self)->getRect(self, rc);
     w = RECTWP(rc);
     h = RECTHP(rc);
-    SetRect(rc, -_c(child)->getX(child), -_c(child)->getY(child), -_c(child)->getX(child) + w, 
+    SetRect(rc, -_c(child)->getX(child), -_c(child)->getY(child), -_c(child)->getX(child) + w,
             -_c(child)->getY(child) + h);
 }
 
@@ -750,7 +750,7 @@ static void s_drawContentWithCache(mHScrollViewPiece *self, HDC hdc, mObject * o
 
 /* VW: support horizontal scrolling */
 static void mHScrollViewPiece_paint(mHScrollViewPiece *self, HDC hdc, mObject * owner, DWORD add_data) {
-    /* 
+    /*
      * Background
      */
     {
@@ -806,7 +806,7 @@ static void mHScrollViewPiece_paint(mHScrollViewPiece *self, HDC hdc, mObject * 
         Class(mPanelPiece).paint((mPanelPiece *)self, hdc, owner, add_data);
     }
 
-    /* 
+    /*
      * Decorator
      */
     {
@@ -825,7 +825,7 @@ static BOOL mHScrollViewPiece_setRect(mHScrollViewPiece *self, const RECT *prc) 
 static void mHScrollViewPiece_invalidatePiece(mHScrollViewPiece *self, mHotPiece *piece, const RECT *rc, BOOL reserveCache) {
     Class(mPanelPiece).invalidatePiece((mPanelPiece*)self, piece, rc, reserveCache);
     if (! reserveCache) {
-        mPieceItem* child = s_getContent(self); 
+        mPieceItem* child = s_getContent(self);
 
         if (child->piece == piece) {
             if (rc == NULL) {

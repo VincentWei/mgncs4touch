@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -48,7 +48,7 @@ static void mShapeTransRoundPiece_construct(mShapeTransRoundPiece *self, DWORD a
     ARGB colors[] = {0xff1a1a1a,0xff505050,0xff555555,0xff868890};
     float pos[] = {0.0, 0.2, 0.9, 1.0};
 
-	Class(mStaticPiece).construct((mStaticPiece*)self, add_data);
+    Class(mStaticPiece).construct((mStaticPiece*)self, add_data);
     _c(self)->getRect(self, &rc);
 
     self->hgs = MP_INV_HANDLE;
@@ -116,7 +116,7 @@ static BOOL mShapeTransRoundPiece_setProperty(mShapeTransRoundPiece* self, int i
             self->bk_color = (ARGB)value;
             break;
         case NCSP_TRANROUND_RADIUS:
-            self->corner_radius = (int)value;    
+            self->corner_radius = (int)value;
             break;
         case NCSP_TRANROUND_BORDERSIZE:
             self->border_size = (int)value;
@@ -180,7 +180,7 @@ static DWORD mShapeTransRoundPiece_getProperty(mShapeTransRoundPiece* self, int 
     }
 }
 
-static void setPath (mShapeTransRoundPiece *self, 
+static void setPath (mShapeTransRoundPiece *self,
         HPATH path, int tx, int ty, int tw, int th)
 {
     int sharp_width = self->sharp_width;
@@ -218,7 +218,7 @@ static void setPath (mShapeTransRoundPiece *self,
         }
         /* hide right bottom */
         if ((self->corner_flag & TRANROUND_CORNERFLAG_RIGHTBOTTOM) == 0) {
-            MGPlusPathAddRectangle (path, 
+            MGPlusPathAddRectangle (path,
                     (x+w)-radius, (y+h)-radius, radius, radius);
         }
         /* hide left bottom */
@@ -276,7 +276,7 @@ static void mShapeTransRoundPiece_FillWithPlus(mShapeTransRoundPiece *self, HDC 
     RECT rc;
     int r,g,b;
     gal_pixel pixel;
-    
+
     _c(self)->getRect(self, &rc);
     if (self->fill_mode == NCSP_TRANROUND_SINGLE_FILL
             && self->border_size == 0
@@ -361,14 +361,14 @@ static void mShapeTransRoundPiece_FillWithPlus(mShapeTransRoundPiece *self, HDC 
             MGPlusPenSetWidth(pen, pen_size_compensate);
             MGPlusPenSetColor(pen, self->border_color);
 
-            MGPlusDrawRoundRect (self->hgs, pen, 
-                    pen_size_compensate, pen_size_compensate, 
-                    w-pen_size_compensate*2, h-pen_size_compensate*2, 
+            MGPlusDrawRoundRect (self->hgs, pen,
+                    pen_size_compensate, pen_size_compensate,
+                    w-pen_size_compensate*2, h-pen_size_compensate*2,
                     self->corner_radius-pen_size_compensate);
         }
     }
 
-    setPath (self, path, x, y, w, h); 
+    setPath (self, path, x, y, w, h);
 
     /* fill round rect */
     if (self->fill_mode == NCSP_TRANROUND_SINGLE_FILL) {
@@ -406,7 +406,7 @@ static void mShapeTransRoundPiece_FillWithPlus(mShapeTransRoundPiece *self, HDC 
 #endif
 }
 
-static void mInitRoundRectClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT *prc, int rx, int ry) 
+static void mInitRoundRectClipRgn(mShapeTransRoundPiece *self, PCLIPRGN region, RECT *prc, int rx, int ry)
 {
     PCLIPRGN cliprgn1;
     PCLIPRGN cliprgn2;
@@ -611,7 +611,7 @@ static void mShapeTransRoundPiece_mFillRegion(mShapeTransRoundPiece *self, HDC h
 
         memset(&context, 0, sizeof(context));
         context.top = prc->top;
-        context.bottom = prc->bottom; 
+        context.bottom = prc->bottom;
         context.n = MGPlusLinearGradientBrushGetColorNumber(brush);
         assert(context.n >= 0);
 
@@ -653,7 +653,7 @@ static void mShapeTransRoundPiece_Fill(mShapeTransRoundPiece *self, HDC hdc, mWi
     tmpdc = hdc;
     if (self->paint_mode == TRANROUND_PAINTMODE_BITBLT){
         if (GetGDCapability(hdc, GDCAP_AMASK) == 0)
-            tmpdc = CreateMemDC(RECTW(rc), RECTH(rc), 32, MEMDC_FLAG_HWSURFACE, 
+            tmpdc = CreateMemDC(RECTW(rc), RECTH(rc), 32, MEMDC_FLAG_HWSURFACE,
                     0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
         else{
             tmpdc = CreateCompatibleDCEx(hdc, RECTW(rc), RECTH(rc));
@@ -686,9 +686,9 @@ static void mShapeTransRoundPiece_Fill(mShapeTransRoundPiece *self, HDC hdc, mWi
 
 static void mShapeTransRoundPiece_destroy (mShapeTransRoundPiece *self)
 {
-    MGPlusBrushDelete (self->brush_solid);    
-    MGPlusBrushDelete (self->brush_gradient);    
-    MGPlusBrushDelete (self->brush_gradient_border);    
+    MGPlusBrushDelete (self->brush_solid);
+    MGPlusBrushDelete (self->brush_gradient);
+    MGPlusBrushDelete (self->brush_gradient_border);
     MGPlusGraphicDelete (self->hgs);
 
     Class(mStaticPiece).destroy((mStaticPiece*)self);

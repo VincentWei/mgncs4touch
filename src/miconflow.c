@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -102,7 +102,7 @@ static void mIconFlow_drawItem (mIconFlow *self, HITEM hItem, HDC hdc, RECT *rcD
     }
 
     StretchBlt (hdc_bmp, 0, 0, 0, 0, hdc_icon, 0, 0, w, h, 0);
-    
+
     if (self->iconBorder) {
         unsigned b = self->iconBorder / 2;
         int lh = h - b - 1;
@@ -136,7 +136,7 @@ static void mIconFlow_destroy (mIconFlow *self)
     Class(mItemView).destroy ((mItemView *)self);
 }
 
-static int mIconFlow_inItem (mIconFlow *self, int mouseX, int mouseY, 
+static int mIconFlow_inItem (mIconFlow *self, int mouseX, int mouseY,
                      HITEM *pRet, POINT *pt)
 {
     int i, index = -1;
@@ -179,7 +179,7 @@ static int mIconFlow_inItem (mIconFlow *self, int mouseX, int mouseY,
     return index;
 }
 
-static HITEM mIconFlow_addItem(mIconFlow *self, 
+static HITEM mIconFlow_addItem(mIconFlow *self,
         NCS_ICONFLOW_ITEMINFO *info, int *pos)
 {
     HITEM   hItem = 0;
@@ -188,9 +188,9 @@ static HITEM mIconFlow_addItem(mIconFlow *self,
     if (!info)
         return 0;
 
-    hItem = _c(self)->createItem(self, 0, 0, info->index, 
+    hItem = _c(self)->createItem(self, 0, 0, info->index,
             self->defItemHeight, info->label, info->addData, &idx, FALSE);
-    
+
     if (!hItem) {
         return 0;
     }
@@ -201,7 +201,7 @@ static HITEM mIconFlow_addItem(mIconFlow *self,
     //set image
     if (info && info->bmp)
         _c(self)->setImage(self, hItem, ((DWORD)info->bmp));
-   
+
     _c(self)->refreshItem(self, hItem, NULL);
 
     return hItem;
@@ -311,12 +311,12 @@ mIconFlow_setIconSize(mIconFlow *self, int width, int height)
 {
     if (width <= 0)
         self->defItemWidth = DEF_ICON_WIDTH;
-    else 
+    else
         self->defItemWidth = width;
 
     if (height <= 0)
         self->defItemHeight = DEF_ICON_HEIGHT;
-    else 
+    else
         self->defItemHeight = height;
 
     _c(self)->setVisItemCenter (self,
@@ -358,7 +358,7 @@ static void
 mIconFlow_beginAnimation (mIconFlow *self, float startvalue, float endvalue)
 {
     float distance = startvalue - endvalue;
-    
+
     if (distance > -0.1f && distance < 0.1f) {
         return;
     }
@@ -397,7 +397,7 @@ mIconFlow_onEraseBkgnd(mIconFlow *self, HDC hdc, const RECT *pinv)
 static void
 mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
 {
-	int visItemCountP1;
+    int visItemCountP1;
     int count = _c(self)->getItemCount (self);
     HITEM *hItem;
     RECT *rcDraw;
@@ -430,7 +430,7 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
         int curWidth;
         int curHeight;
         int j, m;
-        
+
         if (i % 2 == 0) {
             index -= i;
             idx_p3d = i + 2;
@@ -458,14 +458,14 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
             if (curCenterX == self->point3d[visItemCountP1].x)
                 hItem[i] = (HITEM)NULL;
         }
-        
+
         curScale    = self->point3d[i].z
                 + move * (self->point3d[idx_p3d].z - self->point3d[i].z);
         curWidth    = self->defItemWidth * curScale;
         curHeight   = self->defItemHeight * curScale;
 
 #if 1
-//iconflow       
+//iconflow
         rcDraw[i].left    = curCenterX - curWidth / 2;
         rcDraw[i].top     = curCenterY - curHeight / 2;
         rcDraw[i].right   = rcDraw[i].left + curWidth;
@@ -641,10 +641,10 @@ static LRESULT mIconFlow_wndProc (mIconFlow *self, UINT message, WPARAM wParam, 
             }
             return 0;
         case MSG_MOUSEMOVE:
-            if (self->direction == ICONFLOW_DIR_NONE 
+            if (self->direction == ICONFLOW_DIR_NONE
                     //TODO: delete this if KS_LEFTBUTTON's bug is fixed
                     && lbuttondown
-//                    && (GetShiftKeyStatus() & KS_LEFTBUTTON) 
+//                    && (GetShiftKeyStatus() & KS_LEFTBUTTON)
                     ) {
                 if (self->isVertical) {
                     if (self->mouse.y - HISWORD (lParam) > 3)
@@ -705,10 +705,10 @@ static LRESULT mIconFlow_wndProc (mIconFlow *self, UINT message, WPARAM wParam, 
 static BOOL
 mIconFlow_setProperty(mIconFlow* self, int id, DWORD value)
 {
-	if( id >= NCSP_ICONFLOW_MAX)
-		return FALSE;
+    if( id >= NCSP_ICONFLOW_MAX)
+        return FALSE;
 
-	switch(id) {
+    switch(id) {
         case NCSP_ICONFLOW_DEFICONHEIGHT:
             _c(self)->setIconSize(self, self->defItemWidth, value);
             return TRUE;
@@ -750,17 +750,17 @@ mIconFlow_setProperty(mIconFlow* self, int id, DWORD value)
             return TRUE;
     }
 
-	return Class(mItemView).setProperty((mItemView*)self, id, value);
+    return Class(mItemView).setProperty((mItemView*)self, id, value);
 }
 
 static DWORD
 mIconFlow_getProperty(mIconFlow* self, int id)
 {
-	if( id >= NCSP_ICONFLOW_MAX)
-		return -1;
+    if( id >= NCSP_ICONFLOW_MAX)
+        return -1;
 
-	switch(id)
-	{
+    switch(id)
+    {
         case NCSP_ICONFLOW_DEFICONWIDTH:
             return self->defItemWidth;
         case NCSP_ICONFLOW_DEFICONHEIGHT:
@@ -779,7 +779,7 @@ mIconFlow_getProperty(mIconFlow* self, int id)
             return (DWORD)self->iconUseZoom;
     }
 
-	return Class(mItemView).getProperty((mItemView*)self, id);
+    return Class(mItemView).getProperty((mItemView*)self, id);
 }
 
 BEGIN_CMPT_CLASS(mIconFlow, mItemView)
@@ -803,5 +803,5 @@ BEGIN_CMPT_CLASS(mIconFlow, mItemView)
     CLASS_METHOD_MAP(mIconFlow, setIconSize);
     CLASS_METHOD_MAP(mIconFlow, setVisItemCount);
     CLASS_METHOD_MAP(mIconFlow, setSpan);
-	SET_DLGCODE(DLGC_WANTARROWS);
+    SET_DLGCODE(DLGC_WANTARROWS);
 END_CMPT_CLASS

@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -43,7 +43,7 @@
 #define IDC_ADDITIONAL (-1)
 #define DATA_SHIFT 16
 
-static int balloon_calculate_coordinate (BALLOONTIP_SHAPE *balloontip_shape, RECT winrc, 
+static int balloon_calculate_coordinate (BALLOONTIP_SHAPE *balloontip_shape, RECT winrc,
         int triangle_height, TRIANGLE_DIRECTION triangle_direction)
 {
     int win_h = RECTH (winrc);
@@ -54,18 +54,18 @@ static int balloon_calculate_coordinate (BALLOONTIP_SHAPE *balloontip_shape, REC
 
     switch (triangle_direction) {
         case TRIANGLE_DOWN:
-            balloontip_shape->main_x = 0; 
+            balloontip_shape->main_x = 0;
             balloontip_shape->main_y = 0;
             balloontip_shape->main_w = win_w;
             balloontip_shape->main_h = win_h - triangle_height;
             break;
         case TRIANGLE_UP:
-            balloontip_shape->main_x = 0; 
+            balloontip_shape->main_x = 0;
             balloontip_shape->main_y = triangle_height;
             balloontip_shape->main_w = win_w;
             balloontip_shape->main_h = win_h - triangle_height;
             break;
-        default : 
+        default :
             return -1;
     }
     return 0;
@@ -123,17 +123,17 @@ static int balloon_draw_edge (HWND hWnd, unsigned short triangle_offset, TRIANGL
     radius = bmp_corner.bmHeight/2;
 
     /* draw corner */
-    FillBoxWithBitmapPart (win_dc, 
-            balloontip_shape.main_x, balloontip_shape.main_y, radius, radius, 
+    FillBoxWithBitmapPart (win_dc,
+            balloontip_shape.main_x, balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, 0, 0);/*left top*/
-    FillBoxWithBitmapPart (win_dc, 
-            balloontip_shape.main_w - radius, balloontip_shape.main_y, radius, radius,  
+    FillBoxWithBitmapPart (win_dc,
+            balloontip_shape.main_w - radius, balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, radius, 0);/*right top*/
-    FillBoxWithBitmapPart (win_dc, 
-            balloontip_shape.main_x, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,  
+    FillBoxWithBitmapPart (win_dc,
+            balloontip_shape.main_x, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, 0, radius);/*left buttom*/
-    FillBoxWithBitmapPart (win_dc, 
-            balloontip_shape.main_w-radius, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,  
+    FillBoxWithBitmapPart (win_dc,
+            balloontip_shape.main_w-radius, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, radius, radius);/*right buttom*/
 
     for (i=0; i<2; ++i) {
@@ -141,7 +141,7 @@ static int balloon_draw_edge (HWND hWnd, unsigned short triangle_offset, TRIANGL
         for (j=0; j<RECTW(winrc)-2*radius; ++j) {
             x = balloontip_shape.main_x + radius + j;
             y = i?(balloontip_shape.main_y+balloontip_shape.main_h - radius):balloontip_shape.main_y;
-            FillBoxWithBitmapPart (win_dc, x, y, 1, radius, 
+            FillBoxWithBitmapPart (win_dc, x, y, 1, radius,
                     bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, radius, i?radius:0);
         }
 
@@ -149,7 +149,7 @@ static int balloon_draw_edge (HWND hWnd, unsigned short triangle_offset, TRIANGL
         for (j=0; j<RECTH(winrc)-2*radius; ++j) {
             x = i?(balloontip_shape.main_w - radius):0;
             y = balloontip_shape.main_y + radius + j;
-            FillBoxWithBitmapPart (win_dc, x, y, radius, 1, 
+            FillBoxWithBitmapPart (win_dc, x, y, radius, 1,
                     bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, i?radius:0, radius);
         }
     }
@@ -166,7 +166,7 @@ error2:
     return -1;
 }
 
-static int put_frame_to_window(HWND hwnd, HDC secondary_dc, 
+static int put_frame_to_window(HWND hwnd, HDC secondary_dc,
         HDC real_dc, const RECT* secondary_rc, const RECT* real_rc,
         const RECT* main_update_rc)
 {
@@ -175,7 +175,7 @@ static int put_frame_to_window(HWND hwnd, HDC secondary_dc,
     }
     if (IsMainWindow(hwnd)) {
         HWND add_ctrl = GetDlgItem (hwnd, IDC_ADDITIONAL);
-        BitBlt(secondary_dc, secondary_rc->left, secondary_rc->top, 
+        BitBlt(secondary_dc, secondary_rc->left, secondary_rc->top,
             RECTWP(secondary_rc), RECTHP(secondary_rc), real_dc,
             real_rc->left, real_rc->top, -1);
             if (HWND_INVALID != add_ctrl) {
@@ -196,10 +196,10 @@ static int set_new_update_behavior(HWND hWnd, unsigned short tri_offset, TRIANGL
 {
     HDC sec_dc = CreateSecondaryDC(hWnd);
     if (HDC_INVALID != sec_dc) {
-	DWORD addition;
+    DWORD addition;
         SetSecondaryDC (hWnd, sec_dc, put_frame_to_window);
         addition = ((direction << DATA_SHIFT) | tri_offset);
-        if (HWND_INVALID != 
+        if (HWND_INVALID !=
                 CreateWindow(CTRL_STATIC, "", WS_CHILD, IDC_ADDITIONAL, 0, 0, 1, 1, hWnd, addition)) {
             return 0;
         }
@@ -271,17 +271,17 @@ int ncsSetBalloonTipStyle (HWND hWnd, unsigned short triangle_offset, TRIANGLE_D
     FillBox (mask_hdc, balloontip_shape.main_x, balloontip_shape.main_y, balloontip_shape.main_w, balloontip_shape.main_h);
 
     /* draw corner */
-    FillBoxWithBitmapPart (mask_hdc, 
-            balloontip_shape.main_x, balloontip_shape.main_y, radius, radius, 
+    FillBoxWithBitmapPart (mask_hdc,
+            balloontip_shape.main_x, balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, 0, 0);/*left top*/
-    FillBoxWithBitmapPart (mask_hdc, 
-            balloontip_shape.main_w - radius, balloontip_shape.main_y, radius, radius,  
+    FillBoxWithBitmapPart (mask_hdc,
+            balloontip_shape.main_w - radius, balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, radius, 0);/*right top*/
-    FillBoxWithBitmapPart (mask_hdc, 
-            balloontip_shape.main_x, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,  
+    FillBoxWithBitmapPart (mask_hdc,
+            balloontip_shape.main_x, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, 0, radius);/*left buttom*/
-    FillBoxWithBitmapPart (mask_hdc, 
-            balloontip_shape.main_w-radius, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,  
+    FillBoxWithBitmapPart (mask_hdc,
+            balloontip_shape.main_w-radius, balloontip_shape.main_h-radius+balloontip_shape.main_y, radius, radius,
             bmp_corner.bmWidth, bmp_corner.bmHeight, &bmp_corner, radius, radius);/*right buttom*/
 
     /*make mybitmp*/

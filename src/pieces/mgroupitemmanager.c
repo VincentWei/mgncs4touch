@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -46,7 +46,7 @@
 
 static void mGroupItemManager_construct(mGroupItemManager *self, DWORD add_data)
 {
-	Class(mAbstractItemManager).construct((mAbstractItemManager*)self, add_data);
+    Class(mAbstractItemManager).construct((mAbstractItemManager*)self, add_data);
 
     INIT_LIST_HEAD(&self->itemList);
     self->itemCmp = strcmp;
@@ -95,7 +95,7 @@ BOOL mGroupItemManager_addGroupItem(mGroupItemManager* self, mGroupPieceItem* it
         else {
             char* key = _c(item)->getKey(item);
             char group[2];
-            group[0] = key[0]; 
+            group[0] = key[0];
             group[1] = '\0';
             s = _c(self)->searchGroupItem(self, group, TRUE);
             list_add_tail(&(item->list), &s->child);
@@ -109,7 +109,7 @@ mGroupPieceItem* mGroupItemManager_searchGreaterGroupItem(mGroupItemManager* sel
 {
     list_t* i;
     mGroupPieceItem* ret = NULL;
-    if (group) {   
+    if (group) {
         list_for_each(i, &self->itemList) {
             mGroupPieceItem* c = (mGroupPieceItem*)ITEM_HEAD(i, list);
             if (self->itemCmp(_c(c)->getKey(c), key) >= 0) {
@@ -122,7 +122,7 @@ mGroupPieceItem* mGroupItemManager_searchGreaterGroupItem(mGroupItemManager* sel
         /* first key char is group key. */
         char group[2];
         mGroupPieceItem* g_item;
-        group[0] = key[0]; 
+        group[0] = key[0];
         group[1] = '\0';
         g_item = _c(self)->searchGroupItem(self, group, TRUE);
         if (g_item) {
@@ -143,7 +143,7 @@ mGroupPieceItem* mGroupItemManager_searchGroupItem(mGroupItemManager* self, cons
 {
     list_t* i;
     mGroupPieceItem* ret = NULL;
-    if (group) {   
+    if (group) {
         list_for_each(i, &self->itemList) {
             mGroupPieceItem* c = (mGroupPieceItem*)ITEM_HEAD(i, list);
             if (self->itemCmp(key, _c(c)->getKey(c)) == 0) {
@@ -155,7 +155,7 @@ mGroupPieceItem* mGroupItemManager_searchGroupItem(mGroupItemManager* self, cons
     else {
         /* first key char is group key. */
         char group[2];
-        group[0] = key[0]; 
+        group[0] = key[0];
         group[1] = '\0';
         ret = _c(self)->searchGroupItem(self, group, TRUE);
         if (ret) {
@@ -205,14 +205,14 @@ mItemIterator* mGroupItemManager_createGroupItemIterator(mGroupItemManager* self
 }
 
 BEGIN_MINI_CLASS(mGroupItemManager, mAbstractItemManager)
-	CLASS_METHOD_MAP(mGroupItemManager, construct)
-	CLASS_METHOD_MAP(mGroupItemManager, destroy)
-	CLASS_METHOD_MAP(mGroupItemManager, searchGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, searchGreaterGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, addGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, removeGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, clear)
-	CLASS_METHOD_MAP(mGroupItemManager, createItemIterator)
-	CLASS_METHOD_MAP(mGroupItemManager, createGroupItemIterator)
+    CLASS_METHOD_MAP(mGroupItemManager, construct)
+    CLASS_METHOD_MAP(mGroupItemManager, destroy)
+    CLASS_METHOD_MAP(mGroupItemManager, searchGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, searchGreaterGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, addGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, removeGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, clear)
+    CLASS_METHOD_MAP(mGroupItemManager, createItemIterator)
+    CLASS_METHOD_MAP(mGroupItemManager, createGroupItemIterator)
 END_MINI_CLASS
 

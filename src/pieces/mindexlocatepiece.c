@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -42,30 +42,30 @@
 
 #include "mgncs4touch.h"
 
-#define IL_WIDTH	20
-#define IL_ITEM_WIDTH	20
-#define IL_ITEM_HEIGHT	15
+#define IL_WIDTH    20
+#define IL_ITEM_WIDTH    20
+#define IL_ITEM_HEIGHT    15
 
-#define IL_BG_COLOR_NORMAL	0x00000000
-#define IL_BG_COLOR_TOUCHED	0x80808080
+#define IL_BG_COLOR_NORMAL    0x00000000
+#define IL_BG_COLOR_TOUCHED    0x80808080
 
-#define MARGIN_TOP	8
-#define MARGIN_BOTTOM	5
-#define MARGIN_TOTAL	(MARGIN_TOP + MARGIN_BOTTOM)
-#define OFFSET_Y	-1
+#define MARGIN_TOP    8
+#define MARGIN_BOTTOM    5
+#define MARGIN_TOTAL    (MARGIN_TOP + MARGIN_BOTTOM)
+#define OFFSET_Y    -1
 
 static int rulerLength(mIndexLocatePiece* self)
 {
     RECT rc;
     _c(self)->getRect(self, &rc);
-    
+
     return RECTH(rc) - MARGIN_TOP - MARGIN_BOTTOM;
 }
 
 static void resetBackgroundRect(mIndexLocatePiece* self)
 {
     RECT rc;
-    
+
     _c(self)->getRect(self, &rc);
     rc.right = IL_WIDTH;
 
@@ -91,8 +91,8 @@ static void mIndexLocatePiece_construct(mIndexLocatePiece* self, DWORD add_data)
     Class(mPanelPiece).construct((mPanelPiece*)self, add_data);
 
     {
-	mLineVBox* box = (mLineVBox*)NEW(mLineVBox);
-	_c(self)->setLayoutManager(self, (mLayoutManager*)box);
+    mLineVBox* box = (mLineVBox*)NEW(mLineVBox);
+    _c(self)->setLayoutManager(self, (mLayoutManager*)box);
     }
 
     self->parentPiece = (mHotPiece*)add_data;
@@ -148,13 +148,13 @@ static void mIndexLocatePiece_reloadData(mIndexLocatePiece* self)
 }
 
 /* static void mIndexLocatePiece_paint(mIndexLocatePiece* self, */
-/* 				    HDC hdc, mObject * owner, DWORD add_data) */
+/*                     HDC hdc, mObject * owner, DWORD add_data) */
 /* { */
 /*     Class(mTableViewPiece).paint((mTableViewPiece*)self, hdc, owner, add_data); */
 /* } */
 
 static int mIndexLocatePiece_processMessage(mIndexLocatePiece* self, int message,
-					    WPARAM wParam, LPARAM lParam, mObject* owner)
+                        WPARAM wParam, LPARAM lParam, mObject* owner)
 {
     if (message >= MSG_FIRSTMOUSEMSG && message <= MSG_RBUTTONDBLCLK) {
         /* int x = LOSWORD(lParam); */
@@ -193,16 +193,16 @@ static int mIndexLocatePiece_processMessage(mIndexLocatePiece* self, int message
                 ncsRaiseEvent((mObject*)self,
                         NCSN_INDEXLOCATEPIECE_TOUCHED, (DWORD)percent);
         }
-    } 
+    }
     else if (message == MSG_MOUSEMOVEIN) {
-        if (wParam) {	/* move in */
+        if (wParam) {    /* move in */
             /* show background */
             _c(self->backgroundPiece)->setProperty(
                     self->backgroundPiece, NCSP_TRANROUND_BKCOLOR, IL_BG_COLOR_TOUCHED);
 
             PanelPiece_invalidatePiece(self->parentPiece, NULL);
         }
-        else {		/* move out */
+        else {        /* move out */
             /* hide background */
             _c(self->backgroundPiece)->setProperty(
                     self->backgroundPiece, NCSP_TRANROUND_BKCOLOR, IL_BG_COLOR_NORMAL);

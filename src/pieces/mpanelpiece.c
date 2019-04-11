@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -340,7 +340,7 @@ static void test_rotate_and_paint(mPieceItem *item, HDC hdc, mObject *owner, DWO
             if (item->cacheDC == HDC_INVALID) {
                 //item->cacheDC = CreateCompatibleDCEx(hdc, RECTW(rc), RECTH(rc));
                 if ( 0 == GetGDCapability(hdc, GDCAP_AMASK) ) {
-                    item->cacheDC = CreateMemDC(RECTW(rc), RECTH(rc), 32, MEMDC_FLAG_HWSURFACE, 
+                    item->cacheDC = CreateMemDC(RECTW(rc), RECTH(rc), 32, MEMDC_FLAG_HWSURFACE,
                             0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
                 }
                 else {
@@ -349,7 +349,7 @@ static void test_rotate_and_paint(mPieceItem *item, HDC hdc, mObject *owner, DWO
 
                 set_transroundpiece_paintmode(item, TRANROUND_PAINTMODE_GRAPHICSAVE);
                 paintmode_should_be_reset(item->piece);
-                _c(item->piece)->paint(item->piece, item->cacheDC, owner, add_data); 
+                _c(item->piece)->paint(item->piece, item->cacheDC, owner, add_data);
             }
 
             if ( 0 == GetGDCapability(hdc, GDCAP_AMASK) ) {
@@ -368,15 +368,15 @@ static void test_rotate_and_paint(mPieceItem *item, HDC hdc, mObject *owner, DWO
         else {
             getRectFromDC(hdc, &rc);
             rotate_dc = CreateCompatibleDCEx(hdc, RECTW(rc), RECTH(rc));
-            
+
             set_transroundpiece_paintmode(item, TRANROUND_PAINTMODE_GRAPHICSAVE);
-            
+
             paintmode_should_be_reset(item->piece);
-            
+
             _c(item->piece)->paint(item->piece, rotate_dc, owner, add_data);
-            
+
             rotate(hdc, rotate_dc, &item->normalVector);
-            
+
             DeleteMemDC(rotate_dc);
         }
     } else {
@@ -529,7 +529,7 @@ static BOOL mPanelPiece_setRect(mPanelPiece *self, const RECT *prc)
 
     if (ret)
         _c(self)->reLayout(self);
-     
+
     return ret;
 }
 
@@ -538,7 +538,7 @@ static void mPanelPiece_enableChildCache(mPanelPiece *self, mHotPiece* child, BO
     mPieceItem *item = NULL;
     item = _c(self)->searchItem(self, child);
 
-    if (item == NULL || item->isEnableCache == enable) 
+    if (item == NULL || item->isEnableCache == enable)
         return;
 
     _DBG_PRINTF ("%s:%d enable panel child:%p, cache: %d.\n", __FUNCTION__, __LINE__, child, enable);
@@ -553,7 +553,7 @@ static BOOL mPanelPiece_updateChildCache(mPanelPiece *self, mHotPiece* child)
     mPanelPiece* itempiece = NULL;
     item = _c(self)->searchItem(self, child);
 
-    if (item == NULL || item->isEnableCache == FALSE || item->cacheDC == HDC_INVALID) 
+    if (item == NULL || item->isEnableCache == FALSE || item->cacheDC == HDC_INVALID)
         return FALSE;
     else
         itempiece = (mPanelPiece*)item->piece;
@@ -566,7 +566,7 @@ static BOOL mPanelPiece_updateChildCache(mPanelPiece *self, mHotPiece* child)
     /* set the panelpiece cliprect to whole piece rect for it can be update to cacheDC */
     clipRect = itempiece->clipRect;
     _c(itempiece)->getRect(itempiece, &itempiece->clipRect);
-    _c(item->piece)->paint(item->piece, item->cacheDC, (mObject*)self->owner, 0); 
+    _c(item->piece)->paint(item->piece, item->cacheDC, (mObject*)self->owner, 0);
     itempiece->clipRect = clipRect;
 
     return TRUE;
@@ -601,7 +601,7 @@ static void mPanelPiece_paint(mPanelPiece* self, HDC hdc, mObject* owner, DWORD 
 
     _c(self)->getRect(self, &containerRc);
     clipRect = containerRc;
-    if (RECTW(self->invalidRect) 
+    if (RECTW(self->invalidRect)
             && RECTH(self->invalidRect)) {
         IntersectRect(&clipRect, &clipRect, &self->invalidRect);
         _DBG_PRINTF ("piece is %p, clipRect is (%d,%d,%d,%d).\n",
@@ -659,7 +659,7 @@ static void mPanelPiece_paint(mPanelPiece* self, HDC hdc, mObject* owner, DWORD 
             if (tmpdc == HDC_INVALID) {
                 int w = GetGDCapability(hdc, GDCAP_MAXX) + 1;
                 int h = GetGDCapability(hdc, GDCAP_MAXY) + 1;
-                if (RECTW(rc) > 0 && RECTH(rc) > 0 
+                if (RECTW(rc) > 0 && RECTH(rc) > 0
                         && !(top >= h || left >= w)) {
                     _ERR_PRINTF ("Error: subDC INVALID :%d %d %d %d\n",
                             left, top, RECTW(rc), RECTH(rc));
@@ -683,7 +683,7 @@ static void mPanelPiece_paint(mPanelPiece* self, HDC hdc, mObject* owner, DWORD 
         } else {
             /* no need scale */
             if (self->isTopPanel || item->alpha != 255) {
-                // should *RESET* all paintmode of shapeTransRoundPiece to 
+                // should *RESET* all paintmode of shapeTransRoundPiece to
                 // TRANROUND_PAINTMODE_BITBLT
                 // if self is the top panel piece
                 if (self->shouldResetPaintMode) {
@@ -748,7 +748,7 @@ static void mPanelPiece_destroy(mPanelPiece* self)
     }
 
     if (self->layout) DELETE(self->layout);
-    
+
     _c(self)->clearContents(self);
     _c(self)->clearEventHandler(self);
     DELETE(self->itemManager);
@@ -811,7 +811,7 @@ static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, intptr_t id, vo
                 float angle = (*(float*)value >= ROTATE_90 * 2) ? 0.0 : *(float*)value;
                 mPieceItem *item =  (item = _c(self)->searchItem(self, child));
                 assert(item);
-                _c(self)->rotatePiece(self, child, angle, 
+                _c(self)->rotatePiece(self, child, angle,
                         item->normalVector.x, item->normalVector.y, item->normalVector.z);
             }
             break;
@@ -942,7 +942,7 @@ static MGEFF_ANIMATION mPanelPiece_rotatePieceWithAnimation(mPanelPiece *self, m
         assert(anim);
 
         s = item->normalVector.angle;
-	e = angle;
+    e = angle;
         item->normalVector.x = x;
         item->normalVector.y = y;
         item->normalVector.z = z;
@@ -1150,7 +1150,7 @@ static int mPanelPiece_processMessage(mPanelPiece *self, int message, WPARAM wPa
             mWidget_releaseHoveringFocus();
         }
     }
-    
+
     return 0;
 }
 
@@ -1190,7 +1190,7 @@ static void mPanelPiece_setOwner(mPanelPiece* self, mWidget* owner)
 static mWidget *mPanelPiece_getOwner(mPanelPiece *self) {
     mPanelPiece *parent;
 
-    for (parent=self; parent != (mPanelPiece*)-1 && parent->parent; 
+    for (parent=self; parent != (mPanelPiece*)-1 && parent->parent;
             parent=(mPanelPiece *)parent->parent) {
     }
 
@@ -1207,7 +1207,7 @@ static void mPanelPiece_animationAsyncRun(mPanelPiece *self, MGEFF_ANIMATION ani
 {
     /* assert (PanelPiece_isTopPanel(self)); */
     self = PanelPiece_getTopPanel((mHotPiece*)self);
-    
+
     // stop current update animation if exists
     if (self->update_anim)
         mGEffAnimationStop(self->update_anim);
@@ -1217,7 +1217,7 @@ static void mPanelPiece_animationAsyncRun(mPanelPiece *self, MGEFF_ANIMATION ani
     mGEffAnimationSetFinishedCb(self->update_anim, _update_finished_cb);
     mGEffAnimationSetContext(self->update_anim, self);
 
-    
+
 #ifdef ENABLE_ANIM_FPS_TEST
     anim_fps_test_start (1);
 #endif
@@ -1239,7 +1239,7 @@ static void mPanelPiece_animationSyncRunAndDelete(mPanelPiece *self, MGEFF_ANIMA
 
     /* assert(PanelPiece_isTopPanel(self)); */
     self = PanelPiece_getTopPanel((mHotPiece*)self);
-    
+
     if (anim == NULL)
         return;
 
@@ -1458,7 +1458,7 @@ mPanelPiece *PanelPiece_getTopPanel(mHotPiece *piece)
     assert(INSTANCEOF(piece, mPanelPiece));
     if (((mPanelPiece*)piece)->owner)
         return (mPanelPiece*)piece;
-    else 
+    else
         return NULL;
 }
 

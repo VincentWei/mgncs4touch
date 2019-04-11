@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -105,7 +105,7 @@ static void set_font (HWND hwnd,mAnimationEditPiece *self, const char *str)
     }
 }
 
-static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self, 
+static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self,
         const char *key_str, BOOL append)
 {
     MGEFF_ANIMATION animation_handle = NULL;
@@ -155,7 +155,7 @@ static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self,
         mGEffAnimationSyncRun (animation_handle);
         mGEffAnimationDelete (animation_handle);
         memset (&self->text[string_length - key_str_len], 0,key_str_len);
-    } 
+    }
    free (tmpstr);
 }
 
@@ -163,7 +163,7 @@ static void mAnimationEditPiece_construct(mAnimationEditPiece *self, DWORD param
 {
     int i;
 
-	Class(mStaticPiece).construct((mStaticPiece*)self, param);
+    Class(mStaticPiece).construct((mStaticPiece*)self, param);
 
     self->content_length = TEXT_BUFFER_LENGTH+1;
     self->text = (char *)calloc (1, self->content_length);
@@ -197,7 +197,7 @@ static void mAnimationEditPiece_destroy (mAnimationEditPiece *self, DWORD param)
     free (self->text);
     self->text = NULL;
     self->content_length = 0;
-    
+
     for (i=1; i<TEXT_ZOOM_NO; ++i) {/*font[0] come from user,will be released by user*/
         DestroyLogFont (self->pFont[i]);
     }
@@ -224,7 +224,7 @@ static void mAnimationEditPiece_setContent(HWND hwnd,
 
     memset (self->text, 0, self->content_length);
     strcpy (self->text, str);
-    
+
     /* calculate new string's offest */
     _c(self)->getRect(self,&rc);
     set_font (hwnd,self, self->text);
@@ -262,11 +262,11 @@ static void mAnimationEditPiece_append(HWND hwnd,mAnimationEditPiece *self, cons
         self->text = p;
         self->content_length = self->content_length * 2;
     }
-    
+
     animation_modify_string (hwnd,self, str, TRUE);
 }
 
-static void mAnimationEditPiece_tailDelete(HWND hwnd,mAnimationEditPiece *self, int num) 
+static void mAnimationEditPiece_tailDelete(HWND hwnd,mAnimationEditPiece *self, int num)
 {
     assert (num>=0);
 
@@ -283,7 +283,7 @@ static void mAnimationEditPiece_tailDelete(HWND hwnd,mAnimationEditPiece *self, 
     animation_modify_string (hwnd,self, &self->text[strlen(self->text) - num], FALSE);
 }
 
-static void mAnimationEditPiece_paint (mAnimationEditPiece *self, HDC hdc, 
+static void mAnimationEditPiece_paint (mAnimationEditPiece *self, HDC hdc,
         mWidget *owner, DWORD add_data)
 {
     SIZE size;
@@ -331,8 +331,8 @@ static BOOL mAnimationEditPiece_setProperty(mAnimationEditPiece *self, int id, D
 
 static DWORD mAnimationEditPiece_getProperty(mAnimationEditPiece *self, int id)
 {
-	switch(id)
-	{
+    switch(id)
+    {
         case NCSP_ANIMATIONEDITPIECE_FONT:
             if (self->pFont != NULL)
             {
@@ -346,17 +346,17 @@ static DWORD mAnimationEditPiece_getProperty(mAnimationEditPiece *self, int id)
             return (DWORD)self->text_color;
         case NCSP_ANIMATIONEDITPIECE_TEXTSHADOWCOLOR:
             return (DWORD)self->text_shadow_color;
-	}
-	return Class(mStaticPiece).getProperty((mStaticPiece*)self, id);
+    }
+    return Class(mStaticPiece).getProperty((mStaticPiece*)self, id);
 }
 
 
 BEGIN_MINI_CLASS(mAnimationEditPiece, mStaticPiece)
-	CLASS_METHOD_MAP(mAnimationEditPiece, construct)
-	CLASS_METHOD_MAP(mAnimationEditPiece, destroy)
-	CLASS_METHOD_MAP(mAnimationEditPiece, paint)
-	CLASS_METHOD_MAP(mAnimationEditPiece, setProperty)
-	CLASS_METHOD_MAP(mAnimationEditPiece, getProperty)
+    CLASS_METHOD_MAP(mAnimationEditPiece, construct)
+    CLASS_METHOD_MAP(mAnimationEditPiece, destroy)
+    CLASS_METHOD_MAP(mAnimationEditPiece, paint)
+    CLASS_METHOD_MAP(mAnimationEditPiece, setProperty)
+    CLASS_METHOD_MAP(mAnimationEditPiece, getProperty)
     CLASS_METHOD_MAP(mAnimationEditPiece, setContent)
     CLASS_METHOD_MAP(mAnimationEditPiece, getContent)
     CLASS_METHOD_MAP(mAnimationEditPiece, append)

@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -73,10 +73,10 @@ static void getLayoutRect(mItemBar* self, PRECT prc)
 
     _M(p, getRect, prc);
 
-    prc->left   += m; 
-    prc->top    += m; 
-    prc->right  -= m; 
-    prc->bottom -= m; 
+    prc->left   += m;
+    prc->top    += m;
+    prc->right  -= m;
+    prc->bottom -= m;
 }
 
 
@@ -118,7 +118,7 @@ static void resetThisLayout(mItemBar* self, mHBoxLayoutPiece* hheader)
 }
 
 
-static int parseString(const char* strSrc, 
+static int parseString(const char* strSrc,
         char* str1, char* str2, int str1Len, int str2Len)
 {
     char* p1 = NULL;
@@ -178,7 +178,7 @@ static BOOL mItemBar_onCreate(mItemBar* self, DWORD addData)
     Class(mWidget).onCreate((mWidget*)self, addData);
 
     if (GetWindowStyle(self->hwnd) & NCSS_ITEMBAR_HASCHILD) {
-        _M((mNSDrawPiece*)getItemBarPiece(self, ITB_DANGLE_PIECE_ID), 
+        _M((mNSDrawPiece*)getItemBarPiece(self, ITB_DANGLE_PIECE_ID),
                 setProperty, NCSP_NSDRAW_PIECE_ANGLE, NSDRAW_SHAPE_ANGLE);
     }
 
@@ -212,9 +212,9 @@ static BOOL DrawItemBk(mItemBar* self, HDC hdc)
     int radius = 5;
 
     radius = ncsGetElement((mWidget*)self, NCS4TOUCH_RRECT_RADIUS);
-    color = ncsGetElement((mWidget*)self, 
+    color = ncsGetElement((mWidget*)self,
             self->dotHit ? NCS4TOUCH_BGC_ITB_LIGHT : NCS4TOUCH_BGC_ITB);
-    exstyle = GetWindowExStyle(self->hwnd); 
+    exstyle = GetWindowExStyle(self->hwnd);
 
     if ((exstyle & WS_EX_TROUNDCNS) && (exstyle & WS_EX_BROUNDCNS))
         con = ECT_BOTH;
@@ -242,7 +242,7 @@ static void mItemBar_onPaint(mItemBar* self, HDC hdc, const PCLIPRGN pClip)
 
     Class(mWidget).onPaint((mWidget*)self, hdc, pClip);
 
-    lcolor = ncsGetElement((mWidget*)self, 
+    lcolor = ncsGetElement((mWidget*)self,
             self->dotHit ? NCS4TOUCH_FGC_ITB_LTEXT_LIGHT : NCS4TOUCH_FGC_ITB_LTEXT);
     rcolor = ncsGetElement((mWidget*)self,
             self->dotHit ? NCS4TOUCH_FGC_ITB_RTEXT_LIGHT : NCS4TOUCH_FGC_ITB_RTEXT);
@@ -291,7 +291,7 @@ static LRESULT mItemBar_wndProc(mItemBar* self, UINT msg, WPARAM w, LPARAM l)
                     _M(drawTick, setProperty, NCSP_NSDRAW_PIECE_DOTHIT, FALSE);
                     dwStyle = GetWindowStyle(self->hwnd);
                     if (dwStyle & NCSS_ITEMBAR_CHECKABLE) {
-                        if (NSDRAW_SHAPE_TICK == _M(drawTick, 
+                        if (NSDRAW_SHAPE_TICK == _M(drawTick,
                                     getProperty, NCSP_NSDRAW_PIECE_TICK)) {
                             _M(drawTick, setProperty, NCSP_NSDRAW_PIECE_TICK, -1);
                         } else {
@@ -326,12 +326,12 @@ static BOOL mItemBar_setProperty(mItemBar* self, int id, DWORD value)
         case NCSP_WIDGET_RDR:
             if (strcmp((char*)value, NCS4TOUCH_RENDERER) == 0)
                 break;
-            else 
+            else
                 return FALSE;
 
         case NCSP_ITEMBAR_CHECKED:
-            _M((mNSDrawPiece*)getItemBarPiece(self, ITB_DTICK_PIECE_ID), 
-                    setProperty, NCSP_NSDRAW_PIECE_TICK, 
+            _M((mNSDrawPiece*)getItemBarPiece(self, ITB_DTICK_PIECE_ID),
+                    setProperty, NCSP_NSDRAW_PIECE_TICK,
                     value == 0 ? -1 : NSDRAW_SHAPE_TICK);
             InvalidateRect(self->hwnd, NULL, TRUE);
             return TRUE;
@@ -349,7 +349,7 @@ static BOOL mItemBar_setProperty(mItemBar* self, int id, DWORD value)
             return TRUE;
         }
         case NCSP_ITEMBAR_MARGIN:
-            _M((mHBoxLayoutPiece *)self->body, 
+            _M((mHBoxLayoutPiece *)self->body,
                     setProperty, NCSP_BOXLAYOUTPIECE_MARGIN, value);
             InvalidateRect(self->hwnd, NULL, TRUE);
             return TRUE;
@@ -379,7 +379,7 @@ static DWORD mItemBar_getProperty(mItemBar* self, int id)
             return _M(imagePiece, getProperty, NCSP_IMAGEPIECE_IMAGE);
         }
         case NCSP_ITEMBAR_MARGIN:
-            return _M((mHBoxLayoutPiece *)self->body, 
+            return _M((mHBoxLayoutPiece *)self->body,
                     getProperty, NCSP_BOXLAYOUTPIECE_MARGIN);
 
         default:

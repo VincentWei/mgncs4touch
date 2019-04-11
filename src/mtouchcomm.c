@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -69,11 +69,11 @@ static void _cb(void* context, int x, int y)
     int r, g, b;
     RBC *stct = (RBC*)context;
 
-    r = stct->rS + (y - stct->rc.top) * stct->rDelta; 
-    g = stct->gS + (y - stct->rc.top) * stct->gDelta; 
-    b = stct->bS + (y - stct->rc.top) * stct->bDelta; 
+    r = stct->rS + (y - stct->rc.top) * stct->rDelta;
+    g = stct->gS + (y - stct->rc.top) * stct->gDelta;
+    b = stct->bS + (y - stct->rc.top) * stct->bDelta;
     SetPenColor(stct->hdc, RGB2Pixel(stct->hdc, r, g, b));
-    
+
     LineEx(stct->hdc, x, y, stct->rc.right - (x - stct->rc.left), y);
 }
 
@@ -112,27 +112,27 @@ void DrawGradientRroundRect(HDC hdc, DWORD color, PRECT pRc, unsigned int r, BOO
         stct.rS = GetRValue(dark);
         stct.gS = GetGValue(dark);
         stct.bS = GetBValue(dark);
-        stct.rDelta = (GetRValue(color) - stct.rS) * 1.0 / r; 
-        stct.gDelta = (GetGValue(color) - stct.gS) * 1.0 / r; 
-        stct.bDelta = (GetBValue(color) - stct.bS) * 1.0 / r; 
+        stct.rDelta = (GetRValue(color) - stct.rS) * 1.0 / r;
+        stct.gDelta = (GetGValue(color) - stct.gS) * 1.0 / r;
+        stct.bDelta = (GetBValue(color) - stct.bS) * 1.0 / r;
         CircleArcGenerator((void*)&stct, x0 + r, y0 + r, r, a, a, _cb);
         // draw bottom
         SetRect(&stct.rc, x0, y1 - r, x1, y1);
         stct.rS = GetRValue(color);
         stct.gS = GetGValue(color);
         stct.bS = GetBValue(color);
-        stct.rDelta = (GetRValue(light) - stct.rS) * 1.0 / r; 
-        stct.gDelta = (GetGValue(light) - stct.gS) * 1.0 / r; 
-        stct.bDelta = (GetBValue(light) - stct.bS) * 1.0 / r; 
+        stct.rDelta = (GetRValue(light) - stct.rS) * 1.0 / r;
+        stct.gDelta = (GetGValue(light) - stct.gS) * 1.0 / r;
+        stct.bDelta = (GetBValue(light) - stct.bS) * 1.0 / r;
         CircleArcGenerator((void*)&stct, x0 + r, y1 - r, r, -a, -a, _cb);
     }
-    
+
     // draw main body
     if (y1 - y0 > ch) {
         SetBrushColor(hdc, ncsColor2Pixel(hdc, color));
         FillBox(hdc, x0, y0 + r, x1 - x0, (y1 - y0) - ch);
     }
-    
+
     // draw thin frame
     SetPenColor(hdc, ncsColor2Pixel(hdc, dark));
     if (r > 0) {
@@ -176,34 +176,34 @@ int DrawRoundRectButton(HDC hdc, RECT *prc, DWORD color, unsigned int r)
     int i;
     RECT rcC = {1, 1, RECTWP(prc) - 1, RECTHP(prc) - 1};
 
-    pt[0].x = rcC.right - r; pt[0].y = 0; 
-    pt[1].x = rcC.left + r; pt[1].y = 0; 
-    pt[2].x = 0; pt[2].y = r; 
-    pt[3].x = 0; pt[3].y = RECTH(rcC) - r; 
+    pt[0].x = rcC.right - r; pt[0].y = 0;
+    pt[1].x = rcC.left + r; pt[1].y = 0;
+    pt[2].x = 0; pt[2].y = r;
+    pt[3].x = 0; pt[3].y = RECTH(rcC) - r;
     pt[4].x = r; pt[4].y = RECTH(rcC);
     pt[5].x = rcC.right - r; pt[5].y = RECTH(rcC);
-    pt[6].x = rcC.right; pt[6].y = RECTH(rcC) - r; 
-    pt[7].x = rcC.right; pt[7].y = r; 
+    pt[6].x = rcC.right; pt[6].y = RECTH(rcC) - r;
+    pt[7].x = rcC.right; pt[7].y = r;
 
     p[0] = ABGR2ARGB(ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_LIGHTER));
     p[1] = ABGR2ARGB(ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_DARKER));
 
     graphic = MGPlusGraphicCreate(RECTWP(prc), RECTHP(prc));
     if (MP_INV_HANDLE == graphic) {
-        return -1; 
+        return -1;
     }
 
     brush = MGPlusBrushCreate(MP_BRUSH_TYPE_LINEARGRADIENT);
     if (MP_INV_HANDLE == brush) {
         MGPlusGraphicDelete(graphic);
-        return -1; 
-    }   
+        return -1;
+    }
 
     pen = MGPlusPenCreate(1, p[1]);
     if (MP_INV_HANDLE == pen) {
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
-        return -1; 
+        return -1;
     }
 
     path = MGPlusPathCreate(MP_PATH_FILL_MODE_WINDING);
@@ -211,7 +211,7 @@ int DrawRoundRectButton(HDC hdc, RECT *prc, DWORD color, unsigned int r)
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
         MGPlusPenDelete(pen);
-        return -1; 
+        return -1;
     }
 
     MGPlusSetLinearGradientBrushMode(brush, MP_LINEAR_GRADIENT_MODE_VERTICAL);
@@ -241,31 +241,31 @@ int DrawRoundRectButton(HDC hdc, RECT *prc, DWORD color, unsigned int r)
 int DrawPickerRect(HDC hdc, RECT *prc, DWORD edgeColor, DWORD mainColor, int corner)
 {
 #if 1
-	int r = 3;
-	HPATH path;
+    int r = 3;
+    HPATH path;
     HBRUSH brush;
     HPEN pen;
     HGRAPHICS graphic;
     RECT rcC = {0, 0, RECTWP(prc), RECTHP(prc)};
-	ARGB color[4];
-    
+    ARGB color[4];
+
     graphic = MGPlusGraphicCreate(RECTWP(prc), RECTHP(prc));
     if (MP_INV_HANDLE == graphic) {
-        return -1; 
+        return -1;
     }
 
     brush = MGPlusBrushCreate(MP_BRUSH_TYPE_LINEARGRADIENT);
     if (MP_INV_HANDLE == brush) {
         MGPlusGraphicDelete(graphic);
-        return -1; 
-    }   
-    
-    pen = MGPlusPenCreate(1, 
-			ABGR2ARGB(ncsCommRDRCalc3dboxColor(edgeColor, NCSR_COLOR_DARKER)));
+        return -1;
+    }
+
+    pen = MGPlusPenCreate(1,
+            ABGR2ARGB(ncsCommRDRCalc3dboxColor(edgeColor, NCSR_COLOR_DARKER)));
     if (MP_INV_HANDLE == pen) {
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
-        return -1; 
+        return -1;
     }
 
     path = MGPlusPathCreate(MP_PATH_FILL_MODE_WINDING);
@@ -273,153 +273,153 @@ int DrawPickerRect(HDC hdc, RECT *prc, DWORD edgeColor, DWORD mainColor, int cor
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
         MGPlusPenDelete(pen);
-        return -1; 
+        return -1;
     }
-	
-	switch (corner) {
-		case ECT_BOTH :// both corner round
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
-				
-				MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-				break;
-			}
-		case ECT_LEFTR: //left corner round
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
-				
-				MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-				break;
-			}
-		case ECT_RIGHTR : //right corner round
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top);
-				
-				MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-				break;
-			}
-		default : // none corner round
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top);
-				
-				MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-				break;
-			}
-	}
-	MGPlusSetLinearGradientBrushMode(brush, MP_LINEAR_GRADIENT_MODE_VERTICAL);
+
+    switch (corner) {
+        case ECT_BOTH :// both corner round
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
+
+                MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+                break;
+            }
+        case ECT_LEFTR: //left corner round
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
+
+                MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+                break;
+            }
+        case ECT_RIGHTR : //right corner round
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top);
+
+                MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+                break;
+            }
+        default : // none corner round
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top);
+
+                MGPlusPathMovetoI(path, rcC.right - r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+                break;
+            }
+    }
+    MGPlusSetLinearGradientBrushMode(brush, MP_LINEAR_GRADIENT_MODE_VERTICAL);
     MGPlusSetLinearGradientBrushRect(brush, &rcC);
-	
-	color[0] = ABGR2ARGB(edgeColor);
+
+    color[0] = ABGR2ARGB(edgeColor);
     color[1] = ABGR2ARGB(ncsCommRDRCalc3dboxColor(edgeColor, NCSR_COLOR_LIGHTER));
-	color[2] = color[0];
+    color[2] = color[0];
     MGPlusSetLinearGradientBrushColors(brush, color, 3);
-    
+
     MGPlusFillPath(graphic, brush, path);
-    
-	MGPlusPathReset(path);
-	MGPlusPathMovetoI(path, rcC.left + r, rcC.top);
-	MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-	MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-	MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-	MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-    
-	color[0] = ABGR2ARGB(ncsCommRDRCalc3dboxColor(mainColor, NCSR_COLOR_DARKER));
+
+    MGPlusPathReset(path);
+    MGPlusPathMovetoI(path, rcC.left + r, rcC.top);
+    MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+    MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+    MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+    MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+
+    color[0] = ABGR2ARGB(ncsCommRDRCalc3dboxColor(mainColor, NCSR_COLOR_DARKER));
     color[1] = ABGR2ARGB(mainColor);
     color[2] = color[1];
-	color[3] = color[0];
+    color[3] = color[0];
     MGPlusSetLinearGradientBrushColors(brush, color, 4);
-	MGPlusSetLinearGradientBrushMode(brush, MP_LINEAR_GRADIENT_MODE_VERTICAL);
+    MGPlusSetLinearGradientBrushMode(brush, MP_LINEAR_GRADIENT_MODE_VERTICAL);
     MGPlusSetLinearGradientBrushRect(brush, &rcC);
-	
-    MGPlusFillPath(graphic, brush, path);
-	
-	MGPlusPathReset(path);
-	rcC.right--;
-	rcC.bottom--;
-	switch (corner) {
-		case ECT_BOTH :// both corner round
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
-				break;
-			}
-		case ECT_LEFTR:
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
-				break;
-			}
-		case ECT_RIGHTR:
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
-				MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top);
-				break;
-			}
-		default:
-		   	{
-				MGPlusPathMovetoI(path, rcC.left, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
-				MGPlusPathLinetoI(path, rcC.right, rcC.top);
-				MGPlusPathLinetoI(path, rcC.left, rcC.top);
-				break;
-			}
-	}
 
-	MGPlusDrawPath(graphic, pen, path);
-    
+    MGPlusFillPath(graphic, brush, path);
+
+    MGPlusPathReset(path);
+    rcC.right--;
+    rcC.bottom--;
+    switch (corner) {
+        case ECT_BOTH :// both corner round
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
+                break;
+            }
+        case ECT_LEFTR:
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left + r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top + r);
+                break;
+            }
+        case ECT_RIGHTR:
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom - r);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top + r);
+                MGPlusPathLinetoI(path, rcC.right - r, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top);
+                break;
+            }
+        default:
+               {
+                MGPlusPathMovetoI(path, rcC.left, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.bottom);
+                MGPlusPathLinetoI(path, rcC.right, rcC.top);
+                MGPlusPathLinetoI(path, rcC.left, rcC.top);
+                break;
+            }
+    }
+
+    MGPlusDrawPath(graphic, pen, path);
+
     BitBlt(MGPlusGetGraphicDC(graphic), 0, 0, 0, 0, hdc, prc->left, prc->top, 0);
 
-	MGPlusPenDelete(pen);
+    MGPlusPenDelete(pen);
     MGPlusPathDelete(path);
     MGPlusBrushDelete(brush);
     MGPlusGraphicDelete(graphic);
@@ -464,7 +464,7 @@ int DrawPickerRect(HDC hdc, RECT *prc, DWORD edgeColor, DWORD mainColor, int cor
 }
 
 
-/*       
+/*
  *    /-------------+    +------------\
  *   /              |    |             \
  *  X               |    |              X
@@ -486,20 +486,20 @@ int DrawSharpButton(HDC hdc, RECT *prc, DWORD color, BOOL left)
 
     if (left) {
         pt[0].x = rcC.right - r; pt[0].y = 0;
-		pt[1].x = half; pt[1].y = 0;
-		pt[2].x = 0; pt[2].y = half;
-		pt[3].x = half; pt[3].y = RECTH(rcC);
-		pt[4].x = rcC.right - r; pt[4].y = RECTH(rcC);
-		pt[5].x = rcC.right; pt[5].y = RECTH(rcC) - r;
-		pt[6].x = rcC.right; pt[6].y = r;
+        pt[1].x = half; pt[1].y = 0;
+        pt[2].x = 0; pt[2].y = half;
+        pt[3].x = half; pt[3].y = RECTH(rcC);
+        pt[4].x = rcC.right - r; pt[4].y = RECTH(rcC);
+        pt[5].x = rcC.right; pt[5].y = RECTH(rcC) - r;
+        pt[6].x = rcC.right; pt[6].y = r;
     } else {
-		pt[0].x = r; pt[0].y = 0;
-		pt[1].x = rcC.right - half; pt[1].y = 0;
-		pt[2].x = rcC.right; pt[2].y = half;
-		pt[3].x = rcC.right - half; pt[3].y = RECTH(rcC);
-		pt[4].x = r; pt[4].y = RECTH(rcC);
-		pt[5].x = 0; pt[5].y = RECTH(rcC) - r;
-		pt[6].x = 0; pt[6].y = r;
+        pt[0].x = r; pt[0].y = 0;
+        pt[1].x = rcC.right - half; pt[1].y = 0;
+        pt[2].x = rcC.right; pt[2].y = half;
+        pt[3].x = rcC.right - half; pt[3].y = RECTH(rcC);
+        pt[4].x = r; pt[4].y = RECTH(rcC);
+        pt[5].x = 0; pt[5].y = RECTH(rcC) - r;
+        pt[6].x = 0; pt[6].y = r;
     }
 
     p[0] = ABGR2ARGB(ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_LIGHTER));
@@ -519,7 +519,7 @@ int DrawSharpButton(HDC hdc, RECT *prc, DWORD color, BOOL left)
     if (MP_INV_HANDLE == pen) {
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
-        return -1; 
+        return -1;
     }
 
     path = MGPlusPathCreate(MP_PATH_FILL_MODE_WINDING);
@@ -565,18 +565,18 @@ int DrawTouchTick(HDC hdc, RECT* prc, DWORD color)
     rcC.top = (RECTHP(prc) - RECTWP(prc)) / 2;
     rcC.bottom = rcC.top + RECTWP(prc);
 
-    pt[0].x = RECTW(rcC) / 4; pt[0].y = RECTH(rcC) * 2 / 4; 
-    pt[1].x = RECTW(rcC) * 1 / 2; pt[1].y = RECTH(rcC) * 2 / 3; 
-    pt[2].x = RECTW(rcC); pt[2].y = RECTH(rcC) / 3; 
+    pt[0].x = RECTW(rcC) / 4; pt[0].y = RECTH(rcC) * 2 / 4;
+    pt[1].x = RECTW(rcC) * 1 / 2; pt[1].y = RECTH(rcC) * 2 / 3;
+    pt[2].x = RECTW(rcC); pt[2].y = RECTH(rcC) / 3;
 
     graphic = MGPlusGraphicCreate(RECTWP(prc), RECTHP(prc));
     if (MP_INV_HANDLE == graphic)
-        return -1; 
+        return -1;
 
     pen = MGPlusPenCreate(3, ABGR2ARGB(color));
     if (MP_INV_HANDLE == pen) {
         MGPlusGraphicDelete(graphic);
-        return -1; 
+        return -1;
     }
 
     MGPlusPenSetJoinStyle(pen, JOIN_MILTER_ROUND);
@@ -586,7 +586,7 @@ int DrawTouchTick(HDC hdc, RECT* prc, DWORD color)
     if (MP_INV_HANDLE == path) {
         MGPlusGraphicDelete(graphic);
         MGPlusPenDelete(pen);
-        return -1; 
+        return -1;
     }
 
     MGPlusPathMoveto(path, pt[0].x, pt[0].y);
@@ -616,19 +616,19 @@ int DrawTouchAngle(HDC hdc, RECT* prc, DWORD color)
     rcC.top = (RECTHP(prc) - RECTWP(prc)) / 2;
     rcC.bottom = rcC.top + RECTWP(prc);
 
-    pt[0].x = RECTW(rcC) * 5 / 12; pt[0].y = RECTH(rcC) * 1 / 3; 
-    pt[1].x = RECTW(rcC) * 7 / 12; pt[1].y = RECTH(rcC) * 1 / 2; 
-    pt[2].x = RECTW(rcC) * 5 / 12; pt[2].y = RECTH(rcC) * 2 / 3; 
+    pt[0].x = RECTW(rcC) * 5 / 12; pt[0].y = RECTH(rcC) * 1 / 3;
+    pt[1].x = RECTW(rcC) * 7 / 12; pt[1].y = RECTH(rcC) * 1 / 2;
+    pt[2].x = RECTW(rcC) * 5 / 12; pt[2].y = RECTH(rcC) * 2 / 3;
 
     graphic = MGPlusGraphicCreate(RECTWP(prc), RECTHP(prc));
     if (MP_INV_HANDLE == graphic) {
         return -1;
-    } 
+    }
 
     pen = MGPlusPenCreate(3, ABGR2ARGB(color));
     if (MP_INV_HANDLE == pen) {
         MGPlusGraphicDelete(graphic);
-        return -1; 
+        return -1;
     }
 
     MGPlusPenSetJoinStyle(pen, JOIN_MILTER_ROUND);
@@ -638,7 +638,7 @@ int DrawTouchAngle(HDC hdc, RECT* prc, DWORD color)
     if (MP_INV_HANDLE == path) {
         MGPlusGraphicDelete(graphic);
         MGPlusPenDelete(pen);
-        return -1; 
+        return -1;
     }
 
     MGPlusPathMoveto(path, pt[0].x, pt[0].y);
@@ -725,28 +725,28 @@ BOOL DrawVariableRoundRect(HDC hdc, PRECT prc, DWORD color, int r, ECONER con)
 
     c = r << 1;
 
-	pc[0].x = c; pc[0].y = c; 
-	pc[1].x = c; pc[1].y = rcC.bottom - c; 
-	pc[2].x = rcC.right - c; pc[2].y = rcC.bottom - c; 
-	pc[3].x = rcC.right - c; pc[3].y = c; 
+    pc[0].x = c; pc[0].y = c;
+    pc[1].x = c; pc[1].y = rcC.bottom - c;
+    pc[2].x = rcC.right - c; pc[2].y = rcC.bottom - c;
+    pc[3].x = rcC.right - c; pc[3].y = c;
 
     penColor = ABGR2ARGB(ncsCommRDRCalc3dboxColor(color, NCSR_COLOR_DARKER));
 
     graphic = MGPlusGraphicCreate(RECTWP(prc), RECTHP(prc));
     if (MP_INV_HANDLE == graphic)
-        return -1; 
+        return -1;
 
     brush = MGPlusBrushCreate(MP_BRUSH_TYPE_SOLIDCOLOR);
     if (MP_INV_HANDLE == brush) {
         MGPlusGraphicDelete(graphic);
-        return -1; 
-    }   
+        return -1;
+    }
 
     path = MGPlusPathCreate(MP_PATH_FILL_MODE_ALTERNATE);
     if (MP_INV_HANDLE == path) {
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
-        return -1; 
+        return -1;
     }
 
     pen = MGPlusPenCreate(1, penColor);
@@ -754,7 +754,7 @@ BOOL DrawVariableRoundRect(HDC hdc, PRECT prc, DWORD color, int r, ECONER con)
         MGPlusGraphicDelete(graphic);
         MGPlusBrushDelete(brush);
         MGPlusPathDelete(path);
-        return -1; 
+        return -1;
     }
 
     MGPlusSetSolidBrushColor(brush, ABGR2ARGB(color));
@@ -807,28 +807,28 @@ int DrawRectRing(HDC hdc, PRECT pRcOutside, PRECT pRcInside, DWORD c)
     HBRUSH brush;
     HGRAPHICS graphic;
     ARGB p[3];
-    RECT rcG = {0, 0, RECTWP(pRcOutside), RECTHP(pRcOutside)}; 
+    RECT rcG = {0, 0, RECTWP(pRcOutside), RECTHP(pRcOutside)};
 
     graphic = MGPlusGraphicCreate(RECTWP(pRcOutside), RECTHP(pRcOutside));
     if (MP_INV_HANDLE == graphic)
-        return -1; 
+        return -1;
 
     path = MGPlusPathCreate(MP_PATH_FILL_MODE_ALTERNATE);
     if (MP_INV_HANDLE == path) {
         MGPlusGraphicDelete(graphic);
-        return -1; 
+        return -1;
     }
 
     MGPlusPathAddRectangleI(path, 0, 0, RECTWP(pRcOutside), RECTHP(pRcOutside));
-    //MGPlusPathAddRectangleI(path, pRcInside->left - pRcOutside->left, pRcInside->top - pRcOutside->top, 
+    //MGPlusPathAddRectangleI(path, pRcInside->left - pRcOutside->left, pRcInside->top - pRcOutside->top,
     //        RECTWP(pRcInside), RECTHP(pRcInside));
 
     brush = MGPlusBrushCreate(MP_BRUSH_TYPE_LINEARGRADIENT);
     if (MP_INV_HANDLE == brush) {
         MGPlusGraphicDelete(graphic);
         MGPlusPathDelete(path);
-        return -1; 
-    }   
+        return -1;
+    }
 
     MGPlusSetLinearGradientBrushMode(brush, MP_LINEAR_GRADIENT_MODE_VERTICAL);
     MGPlusSetLinearGradientBrushRect(brush, &rcG);

@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -50,7 +50,7 @@
             ADDREFPIECE(piece);     \
         }                           \
     } while(0);                     \
-}                                   
+}
 
 #define ITEMPIECE_UNREF(piece)      \
 {                                   \
@@ -75,8 +75,8 @@ mNavigationItem* ncsCreateNavigationItem (mHotPiece* content, const char* title,
     _c(navigation_item)->setProperty(navigation_item, NCSP_NAVIGATIONITEM_CONTENT, (DWORD)content);
     navigation_item->title = (char*)title;
     navigation_item->style = style;
-   
-    return navigation_item;    
+
+    return navigation_item;
 }
 
 
@@ -95,7 +95,7 @@ void ncsAdjustNavigationItemRectWithTitle (mHotPiece* piece, const char* title, 
     RECT rect, piece_rc;
     SIZE size;
     PLOGFONT old_font;
-    
+
     /* according to title len calc width */
     size.cx = 9999;
     hdc = HDC_SCREEN;
@@ -117,7 +117,7 @@ void ncsAdjustNavigationItemRectWithTitle (mHotPiece* piece, const char* title, 
 
 static void mNavigationItem_construct (mNavigationItem* self, DWORD param)
 {
-	Class(mObject).construct((mObject*)self, param);
+    Class(mObject).construct((mObject*)self, param);
 
     self->default_button_font = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
         FONT_WEIGHT_REGULAR,
@@ -147,7 +147,7 @@ static void mNavigationItem_destroy (mNavigationItem* self, DWORD param)
     ITEMPIECE_UNREF(self->bar_right_button);
 
     DestroyLogFont(self->default_button_font);
-    
+
     Class(mObject).destroy((mObject*)self);
 }
 
@@ -175,7 +175,7 @@ static BOOL mNavigationItem_setProperty (mNavigationItem* self, int id, DWORD va
             break;
 
         case NCSP_NAVIGATIONITEM_BAR_BKG:
-            if ( NULL == self->background ) 
+            if ( NULL == self->background )
                 return FALSE;
             return _c(self->background)->setProperty(self->background, NCSP_TRANROUND_BKCOLOR, value);
 
@@ -227,7 +227,7 @@ static DWORD mNavigationItem_getProperty (mNavigationItem* self, int id)
     if ( NULL == self )
         return (DWORD)NULL;
 
-	switch (id) {
+    switch (id) {
         case NCSP_NAVIGATIONITEM_CONTENT:
             return (DWORD)self->content;
 
@@ -259,13 +259,13 @@ static DWORD mNavigationItem_getProperty (mNavigationItem* self, int id)
 
         default:
             break;
-	}
+    }
 
-	return (DWORD)NULL;
+    return (DWORD)NULL;
 }
 
 
-static m3DButtonPiece* mNavigationItem_createDefaultButton (mNavigationItem* self, 
+static m3DButtonPiece* mNavigationItem_createDefaultButton (mNavigationItem* self,
         const char* title, DWORD add_data)
 {
     RECT rect;
@@ -274,41 +274,41 @@ static m3DButtonPiece* mNavigationItem_createDefaultButton (mNavigationItem* sel
     mShapeTransRoundPiece* bk_piece;
 
     ARGB normal_colors[] = {
-        NAVIGATIONBAR_NORMALBUTTON_COLOR1, 
+        NAVIGATIONBAR_NORMALBUTTON_COLOR1,
         NAVIGATIONBAR_NORMALBUTTON_COLOR2};
 
     ARGB pushed_colors[] = {
-        NAVIGATIONBAR_PUSHBUTTON_COLOR1, 
-        NAVIGATIONBAR_PUSHBUTTON_COLOR2, 
+        NAVIGATIONBAR_PUSHBUTTON_COLOR1,
+        NAVIGATIONBAR_PUSHBUTTON_COLOR2,
         NAVIGATIONBAR_PUSHBUTTON_COLOR3};
 
     ARGB border_colors[] = {
-        NAVIGATIONBAR_BORDER_COLOR1, 
+        NAVIGATIONBAR_BORDER_COLOR1,
         NAVIGATIONBAR_BORDER_COLOR2};
 
     float normal_pos[] = {
-        NAVIGATIONBAR_NORMAL_POS1, 
+        NAVIGATIONBAR_NORMAL_POS1,
         NAVIGATIONBAR_NORMAL_POS2};
 
     float border_pos[] = {
-        NAVIGATIONBAR_BORDER_POS1, 
+        NAVIGATIONBAR_BORDER_POS1,
         NAVIGATIONBAR_BORDER_POS2};
-    
+
     /* create button_piece */
     button_piece  = (m3DButtonPiece*)NEWPIECEEX(m3DButtonPiece, add_data);
 
     /* set property */
     SetRect(&rect, 0, 0, NAVIGATIONBAR_W/4, NAVIGATIONBAR_DEFAULT_BUTTON_H);
     _c(button_piece)->setRect(button_piece, &rect);
-    _c(button_piece)->setGradientBackgroundColor(button_piece, 
+    _c(button_piece)->setGradientBackgroundColor(button_piece,
             normal_colors,
-            normal_pos, 
+            normal_pos,
             TABLESIZE(normal_pos),
-            pushed_colors, NULL, 
+            pushed_colors, NULL,
             TABLESIZE(pushed_colors));
-    _c(button_piece)->setGradientBorderColor(button_piece, 
-            border_colors, 
-            border_pos, 
+    _c(button_piece)->setGradientBorderColor(button_piece,
+            border_colors,
+            border_pos,
             TABLESIZE(border_pos));
     _c(button_piece)->setStates(button_piece);
 
@@ -328,10 +328,10 @@ static m3DButtonPiece* mNavigationItem_createDefaultButton (mNavigationItem* sel
 
 
 BEGIN_MINI_CLASS(mNavigationItem, mObject)
-	CLASS_METHOD_MAP(mNavigationItem, construct)
-	CLASS_METHOD_MAP(mNavigationItem, destroy)
-	CLASS_METHOD_MAP(mNavigationItem, setProperty)
-	CLASS_METHOD_MAP(mNavigationItem, getProperty)
-	CLASS_METHOD_MAP(mNavigationItem, createDefaultButton)
+    CLASS_METHOD_MAP(mNavigationItem, construct)
+    CLASS_METHOD_MAP(mNavigationItem, destroy)
+    CLASS_METHOD_MAP(mNavigationItem, setProperty)
+    CLASS_METHOD_MAP(mNavigationItem, getProperty)
+    CLASS_METHOD_MAP(mNavigationItem, createDefaultButton)
 END_MINI_CLASS
 
