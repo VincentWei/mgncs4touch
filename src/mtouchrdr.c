@@ -192,6 +192,7 @@ static BOOL _lookup_etcfile(const char* filename)
     return FALSE;
 }
 
+GHANDLE __mgncs4touch_etc;
 
 BOOL ncsTouchInitRenderers(void)
 {
@@ -203,15 +204,25 @@ BOOL ncsTouchInitRenderers(void)
         //TODO other render
     };
 
-    if (!_lookup_etcfile(MGNCS4TOUCH_ETCFILE)) {
-        LOGE("mGNCS4Touch: File [" MGNCS4TOUCH_ETCFILE "] not found !\n");
-        return FALSE;
+    // Please set __mgncs4touch_etc externally for incore configuration
+    if (__mgncs4touch_etc) {
+        if (!ncsLoadRdrElementsFromEtcHandle(__mgncs4touch_etc,
+                    rdrname, 1, config_str)) {
+            LOGE("mGNCS4Touch: failed to load renderer configuration from external ETC handle!\n");
+            return FALSE;
+        }
     }
+    else {
+        if (!_lookup_etcfile(MGNCS4TOUCH_ETCFILE)) {
+            LOGE("mGNCS4Touch: File [" MGNCS4TOUCH_ETCFILE "] not found !\n");
+            return FALSE;
+        }
 
-    if (!ncsLoadRdrElementsFromEtcFile(ncsTouchRdrEtcFile,
-                rdrname, 1, config_str)) {
-        LOGE("mGNCS4Touch: Load renderer Error!\n");
-        return FALSE;
+        if (!ncsLoadRdrElementsFromEtcFile(ncsTouchRdrEtcFile,
+                    rdrname, 1, config_str)) {
+            LOGE("mGNCS4Touch: Load renderer Error!\n");
+            return FALSE;
+        }
     }
 
     for (i = 0; i < sizeof(entries) / sizeof(NCS_RDR_ENTRY); i++) {
