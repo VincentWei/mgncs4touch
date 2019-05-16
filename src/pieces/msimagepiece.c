@@ -45,17 +45,17 @@
 
 static int mSImagePiece_processMessage(mSImagePiece* self, int message, WPARAM wParam, LPARAM lParam, mWidget * owner)
 {
-	if (message == MSG_LBUTTONDOWN) {
-		mWidget_captureHotPiece(owner, (mObject*)self);
-	}else if (message == MSG_LBUTTONUP)
-	{
-		mWidget_releaseCapturedHotPiece();
-		ncsRaiseEvent((mObject *)self, NCSN_ABP_CLICKED, 0);
-	}
-	return 0;
+    if (message == MSG_LBUTTONDOWN) {
+        mWidget_captureHotPiece(owner, (mObject*)self);
+    }else if (message == MSG_LBUTTONUP)
+    {
+        mWidget_releaseCapturedHotPiece();
+        ncsRaiseEvent((mObject *)self, NCSN_ABP_CLICKED, 0);
+    }
+    return 0;
 }
 
 BEGIN_MINI_CLASS(mSImagePiece, mImagePiece)
-	CLASS_METHOD_MAP(mSImagePiece, processMessage)
+    CLASS_METHOD_MAP(mSImagePiece, processMessage)
 END_MINI_CLASS
 

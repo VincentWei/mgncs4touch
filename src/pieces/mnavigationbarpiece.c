@@ -44,7 +44,7 @@
 
 static void mNavigationBarPiece_construct (mNavigationBarPiece *self, DWORD param)
 {
-	Class(mPanelPiece).construct((mPanelPiece*)self, param);
+    Class(mPanelPiece).construct((mPanelPiece*)self, param);
 
     self->left_button = NULL;
     self->title_button = NULL;
@@ -98,7 +98,7 @@ static DWORD mNavigationBarPiece_getProperty (mNavigationBarPiece* self, int id)
     if ( NULL == self )
         return (DWORD)NULL;
 
-	switch (id) {
+    switch (id) {
         case NCSP_NAVIGATIONBARPIECE_BACKGROUND:
             return (DWORD)self->background;
 
@@ -116,16 +116,16 @@ static DWORD mNavigationBarPiece_getProperty (mNavigationBarPiece* self, int id)
 
         default:
             break;
-	}
+    }
 
-	return Class(mPanelPiece).getProperty((mPanelPiece*)self, id);
+    return Class(mPanelPiece).getProperty((mPanelPiece*)self, id);
 }
 
 
 BEGIN_MINI_CLASS(mNavigationBarPiece, mPanelPiece)
-	CLASS_METHOD_MAP(mNavigationBarPiece, construct)
-	CLASS_METHOD_MAP(mNavigationBarPiece, destroy)
-	CLASS_METHOD_MAP(mNavigationBarPiece, setProperty)
-	CLASS_METHOD_MAP(mNavigationBarPiece, getProperty)
+    CLASS_METHOD_MAP(mNavigationBarPiece, construct)
+    CLASS_METHOD_MAP(mNavigationBarPiece, destroy)
+    CLASS_METHOD_MAP(mNavigationBarPiece, setProperty)
+    CLASS_METHOD_MAP(mNavigationBarPiece, getProperty)
 END_MINI_CLASS
 

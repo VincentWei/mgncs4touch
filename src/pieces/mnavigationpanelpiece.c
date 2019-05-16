@@ -579,7 +579,7 @@ static void mNavigationPanelPiece_construct (mNavigationPanelPiece *self, DWORD 
 {
     RECT rect;
 
-	Class(mPanelPiece).construct((mPanelPiece*)self, param);
+    Class(mPanelPiece).construct((mPanelPiece*)self, param);
 
     self->default_title_font = CreateLogFont ("ttf", "helvetica", "GB2312",
             FONT_WEIGHT_BOOK, 
@@ -657,7 +657,7 @@ static DWORD mNavigationPanelPiece_getProperty (mNavigationPanelPiece* self, int
     if ( NULL == self )
         return (DWORD)NULL;
 
-	switch (id) {
+    switch (id) {
         case NCSP_NAVIGATIONPANELPIECE_BAR:
             return (DWORD)self->bar;
 
@@ -668,9 +668,9 @@ static DWORD mNavigationPanelPiece_getProperty (mNavigationPanelPiece* self, int
 
         default:
             break;
-	}
+    }
 
-	return Class(mPanelPiece).getProperty((mPanelPiece*)self, id);
+    return Class(mPanelPiece).getProperty((mPanelPiece*)self, id);
 }
 
 
@@ -816,13 +816,13 @@ static BOOL mNavigationPanelPiece_currentIsRoot (mNavigationPanelPiece* self)
 
 
 BEGIN_MINI_CLASS(mNavigationPanelPiece, mPanelPiece)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, construct)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, destroy)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, setProperty)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, getProperty)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, push)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, pop)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, showNavigationBar)
-	CLASS_METHOD_MAP(mNavigationPanelPiece, currentIsRoot)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, construct)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, destroy)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, setProperty)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, getProperty)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, push)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, pop)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, showNavigationBar)
+    CLASS_METHOD_MAP(mNavigationPanelPiece, currentIsRoot)
 END_MINI_CLASS
 

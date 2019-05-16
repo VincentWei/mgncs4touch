@@ -45,8 +45,8 @@
 
 static void mColorableLabelPiece_construct(mColorableLabelPiece *self, DWORD add_data)
 {
-	Class(mLabelPiece).construct((mLabelPiece *)self, add_data);
-	self->txtColor = ncsGetElement(NULL, NCS_FGC_3DBODY);
+    Class(mLabelPiece).construct((mLabelPiece *)self, add_data);
+    self->txtColor = ncsGetElement(NULL, NCS_FGC_3DBODY);
 }
 
 
@@ -54,16 +54,16 @@ static void mColorableLabelPiece_paint(mColorableLabelPiece *self, HDC hdc, mWid
 {
     RECT rcClient;
     DWORD uFormat = DT_WORDBREAK;
-	//gal_pixel old_color;
+    //gal_pixel old_color;
     const char* str = self->str;
 
     if(owner == NULL || str == NULL)
         return ;
 
     SelectFont(hdc, GetWindowFont(owner->hwnd));
-	_c(self)->getRect(self, &rcClient);
+    _c(self)->getRect(self, &rcClient);
 
-	/*old_color = */SetTextColor(hdc, ncsColor2Pixel(hdc, self->txtColor));
+    /*old_color = */SetTextColor(hdc, ncsColor2Pixel(hdc, self->txtColor));
 
     if(self->align == NCS_ALIGN_CENTER)
         uFormat |= DT_CENTER ;
@@ -86,37 +86,37 @@ static void mColorableLabelPiece_paint(mColorableLabelPiece *self, HDC hdc, mWid
         uFormat |= DT_NOPREFIX;
 /*
  * for vertical text
- */	
-	if(mLabelPiece_isWordBreak(self))
-		uFormat |= DT_WORDBREAK;
+ */    
+    if(mLabelPiece_isWordBreak(self))
+        uFormat |= DT_WORDBREAK;
 
     SetBkMode(hdc, BM_TRANSPARENT);
     
-	DrawText(hdc, str, -1, &rcClient, uFormat);
+    DrawText(hdc, str, -1, &rcClient, uFormat);
 }
 
 static BOOL mColorableLabelPiece_setProperty(mColorableLabelPiece *self, int id, DWORD value)
 {
-	if(id == NCSP_CLP_PIECE_COLOR) {
-		self->txtColor = value;
-		return TRUE;
-	}
-	return Class(mLabelPiece).setProperty((mLabelPiece *)self, id, value);
+    if(id == NCSP_CLP_PIECE_COLOR) {
+        self->txtColor = value;
+        return TRUE;
+    }
+    return Class(mLabelPiece).setProperty((mLabelPiece *)self, id, value);
 }
 
 static DWORD mColorableLabelPiece_getProperty(mColorableLabelPiece *self, int id)
 {
-	if(id == NCSP_CLP_PIECE_COLOR) {
-		return self->txtColor;
-	}
-	return Class(mLabelPiece).getProperty((mLabelPiece *)self, id);
+    if(id == NCSP_CLP_PIECE_COLOR) {
+        return self->txtColor;
+    }
+    return Class(mLabelPiece).getProperty((mLabelPiece *)self, id);
 }
 
 
 
 BEGIN_MINI_CLASS(mColorableLabelPiece, mLabelPiece)
-	CLASS_METHOD_MAP(mColorableLabelPiece, construct)
-	CLASS_METHOD_MAP(mColorableLabelPiece, paint)
-	CLASS_METHOD_MAP(mColorableLabelPiece, setProperty)
-	CLASS_METHOD_MAP(mColorableLabelPiece, getProperty)
+    CLASS_METHOD_MAP(mColorableLabelPiece, construct)
+    CLASS_METHOD_MAP(mColorableLabelPiece, paint)
+    CLASS_METHOD_MAP(mColorableLabelPiece, setProperty)
+    CLASS_METHOD_MAP(mColorableLabelPiece, getProperty)
 END_MINI_CLASS

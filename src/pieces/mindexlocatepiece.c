@@ -42,17 +42,17 @@
 
 #include "mgncs4touch.h"
 
-#define IL_WIDTH	20
-#define IL_ITEM_WIDTH	20
-#define IL_ITEM_HEIGHT	15
+#define IL_WIDTH    20
+#define IL_ITEM_WIDTH    20
+#define IL_ITEM_HEIGHT    15
 
-#define IL_BG_COLOR_NORMAL	0x00000000
-#define IL_BG_COLOR_TOUCHED	0x80808080
+#define IL_BG_COLOR_NORMAL    0x00000000
+#define IL_BG_COLOR_TOUCHED    0x80808080
 
-#define MARGIN_TOP	8
-#define MARGIN_BOTTOM	5
-#define MARGIN_TOTAL	(MARGIN_TOP + MARGIN_BOTTOM)
-#define OFFSET_Y	-1
+#define MARGIN_TOP    8
+#define MARGIN_BOTTOM    5
+#define MARGIN_TOTAL    (MARGIN_TOP + MARGIN_BOTTOM)
+#define OFFSET_Y    -1
 
 static int rulerLength(mIndexLocatePiece* self)
 {
@@ -91,8 +91,8 @@ static void mIndexLocatePiece_construct(mIndexLocatePiece* self, DWORD add_data)
     Class(mPanelPiece).construct((mPanelPiece*)self, add_data);
 
     {
-	mLineVBox* box = (mLineVBox*)NEW(mLineVBox);
-	_c(self)->setLayoutManager(self, (mLayoutManager*)box);
+    mLineVBox* box = (mLineVBox*)NEW(mLineVBox);
+    _c(self)->setLayoutManager(self, (mLayoutManager*)box);
     }
 
     self->parentPiece = (mHotPiece*)add_data;
@@ -148,13 +148,13 @@ static void mIndexLocatePiece_reloadData(mIndexLocatePiece* self)
 }
 
 /* static void mIndexLocatePiece_paint(mIndexLocatePiece* self, */
-/* 				    HDC hdc, mObject * owner, DWORD add_data) */
+/*                     HDC hdc, mObject * owner, DWORD add_data) */
 /* { */
 /*     Class(mTableViewPiece).paint((mTableViewPiece*)self, hdc, owner, add_data); */
 /* } */
 
 static int mIndexLocatePiece_processMessage(mIndexLocatePiece* self, int message,
-					    WPARAM wParam, LPARAM lParam, mObject* owner)
+                        WPARAM wParam, LPARAM lParam, mObject* owner)
 {
     if (message >= MSG_FIRSTMOUSEMSG && message <= MSG_RBUTTONDBLCLK) {
         /* int x = LOSWORD(lParam); */
@@ -195,14 +195,14 @@ static int mIndexLocatePiece_processMessage(mIndexLocatePiece* self, int message
         }
     } 
     else if (message == MSG_MOUSEMOVEIN) {
-        if (wParam) {	/* move in */
+        if (wParam) {    /* move in */
             /* show background */
             _c(self->backgroundPiece)->setProperty(
                     self->backgroundPiece, NCSP_TRANROUND_BKCOLOR, IL_BG_COLOR_TOUCHED);
 
             PanelPiece_invalidatePiece(self->parentPiece, NULL);
         }
-        else {		/* move out */
+        else {        /* move out */
             /* hide background */
             _c(self->backgroundPiece)->setProperty(
                     self->backgroundPiece, NCSP_TRANROUND_BKCOLOR, IL_BG_COLOR_NORMAL);

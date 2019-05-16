@@ -117,7 +117,7 @@ void ncsAdjustNavigationItemRectWithTitle (mHotPiece* piece, const char* title, 
 
 static void mNavigationItem_construct (mNavigationItem* self, DWORD param)
 {
-	Class(mObject).construct((mObject*)self, param);
+    Class(mObject).construct((mObject*)self, param);
 
     self->default_button_font = CreateLogFont ("ttf", "helvetica", "GB2312",
     FONT_WEIGHT_BOOK, 
@@ -227,7 +227,7 @@ static DWORD mNavigationItem_getProperty (mNavigationItem* self, int id)
     if ( NULL == self )
         return (DWORD)NULL;
 
-	switch (id) {
+    switch (id) {
         case NCSP_NAVIGATIONITEM_CONTENT:
             return (DWORD)self->content;
 
@@ -259,9 +259,9 @@ static DWORD mNavigationItem_getProperty (mNavigationItem* self, int id)
 
         default:
             break;
-	}
+    }
 
-	return (DWORD)NULL;
+    return (DWORD)NULL;
 }
 
 
@@ -328,10 +328,10 @@ static m3DButtonPiece* mNavigationItem_createDefaultButton (mNavigationItem* sel
 
 
 BEGIN_MINI_CLASS(mNavigationItem, mObject)
-	CLASS_METHOD_MAP(mNavigationItem, construct)
-	CLASS_METHOD_MAP(mNavigationItem, destroy)
-	CLASS_METHOD_MAP(mNavigationItem, setProperty)
-	CLASS_METHOD_MAP(mNavigationItem, getProperty)
-	CLASS_METHOD_MAP(mNavigationItem, createDefaultButton)
+    CLASS_METHOD_MAP(mNavigationItem, construct)
+    CLASS_METHOD_MAP(mNavigationItem, destroy)
+    CLASS_METHOD_MAP(mNavigationItem, setProperty)
+    CLASS_METHOD_MAP(mNavigationItem, getProperty)
+    CLASS_METHOD_MAP(mNavigationItem, createDefaultButton)
 END_MINI_CLASS
 

@@ -52,32 +52,32 @@
 static void mShapeBoxPiece_paint(mShapeBoxPiece *self, 
         HDC hdc, mWidget *owner, DWORD add_data)
 {
-	RECT rc;
-	DWORD bgcolor;
+    RECT rc;
+    DWORD bgcolor;
     mShapePushButtonPiece *shapepiece = NULL, *p = NULL; 
-	int r = 3;
-	
+    int r = 3;
+    
     bgcolor = ncsGetElement(owner, NCS4TOUCH_BGC_BNB_BUTTON); 
-	if (add_data == NCS_ABP_PUSHED) {
+    if (add_data == NCS_ABP_PUSHED) {
         bgcolor = ncsCommRDRCalc3dboxColor(bgcolor, NCSR_COLOR_DARKER); 
-	}
+    }
     else if (add_data == NCS_ABP_HILIGHT) {
         bgcolor = ncsCommRDRCalc3dboxColor(bgcolor, NCSR_COLOR_LIGHTER); 
-	}
+    }
 
-	rc.left	    = self->left;
-	rc.top		= self->top;
-	rc.right	= self->right;
-	rc.bottom	= self->bottom;
+    rc.left        = self->left;
+    rc.top        = self->top;
+    rc.right    = self->right;
+    rc.bottom    = self->bottom;
 
-	if(NULL != (p = (mShapePushButtonPiece *)GetLeftBtnPiece(owner)) 
+    if(NULL != (p = (mShapePushButtonPiece *)GetLeftBtnPiece(owner)) 
             && (mShapeBoxPiece *)p->body == self) {
         shapepiece = p;
-	}
+    }
     else if(NULL != (p = (mShapePushButtonPiece *)GetRightBtnPiece(owner)) 
             && (mShapeBoxPiece *)p->body == self) {
         shapepiece = p;
-	} else {
+    } else {
         return;
     }
     
@@ -92,5 +92,5 @@ static void mShapeBoxPiece_paint(mShapeBoxPiece *self,
 }
 
 BEGIN_MINI_CLASS(mShapeBoxPiece, mStaticPiece)
-	CLASS_METHOD_MAP(mShapeBoxPiece, paint)
+    CLASS_METHOD_MAP(mShapeBoxPiece, paint)
 END_MINI_CLASS

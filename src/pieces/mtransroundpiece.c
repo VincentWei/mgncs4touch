@@ -48,7 +48,7 @@ static void mShapeTransRoundPiece_construct(mShapeTransRoundPiece *self, DWORD a
     ARGB colors[] = {0xff1a1a1a,0xff505050,0xff555555,0xff868890};
     float pos[] = {0.0, 0.2, 0.9, 1.0};
 
-	Class(mStaticPiece).construct((mStaticPiece*)self, add_data);
+    Class(mStaticPiece).construct((mStaticPiece*)self, add_data);
     _c(self)->getRect(self, &rc);
 
     self->hgs = MP_INV_HANDLE;
