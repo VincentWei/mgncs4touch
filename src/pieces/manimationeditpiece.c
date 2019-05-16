@@ -1,30 +1,30 @@
 /*
  *   This file is part of mGNCS4Touch, a component for MiniGUI.
- * 
+ *
  *   Copyright (C) 2008~2018, Beijing FMSoft Technologies Co., Ltd.
- * 
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
- * 
+ *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
- * 
+ *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *   Or,
- * 
+ *
  *   As this program is a library, any link to this program must follow
  *   GNU General Public License version 3 (GPLv3). If you cannot accept
  *   GPLv3, you need to be licensed from FMSoft.
- * 
+ *
  *   If you have got a commercial license of this program, please use it
  *   under the terms and conditions of the commercial license.
- * 
+ *
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/en/about/licensing-policy/>.
  */
@@ -57,55 +57,67 @@ static void cb_display_string (MGEFF_ANIMATION handle, void* target, intptr_t id
     UpdateWindow (hwnd, TRUE);
 }
 
-static int calculate_string_width (HWND hwnd,mAnimationEditPiece *self, const char *str)
+static int calculate_string_width (HWND hwnd, mAnimationEditPiece *self, const char *str)
 {
     /* calculate move distance */
     SIZE size;
     HDC hdc = GetDC (hwnd);
+    if (self->selected)
+        SelectFont(hdc, self->selected);
     GetTextExtent (hdc, str, strlen(str), &size);
     ReleaseDC (hdc);
     return size.cx;
 }
 
-static void set_font (HWND hwnd,mAnimationEditPiece *self, const char *str)
+static void select_font (HWND hwnd, mAnimationEditPiece *self, const char *str)
 {
     int i;
     RECT rc;
-    int width;
     int width_win;
+    HDC hdc;
     LOGFONT logfont;
 
     _c(self)->getRect(self,&rc);
     width_win = RECTW (rc);
 
-    if (self->pFont == NULL||self->pFont[0] == NULL)
+    if (self->fonts == NULL || self->fonts[0] == NULL)
         return;
 
-    logfont = *(self->pFont[0]);
-    if (self->pFont[1] == NULL&&self->pFont[2] == NULL)
+    logfont = *(self->fonts[0]);
+    if (self->fonts[1] == NULL&&self->fonts[2] == NULL)
     {
         for (i=1;i<TEXT_ZOOM_NO;i++)/*font[0] come from user*/
         {
-            self->pFont[i] = CreateLogFont (logfont.type, logfont.family,logfont.charset,
-                FONT_WEIGHT_BOOK,
+            self->fonts[i] = CreateLogFontEx (logfont.type, logfont.family,logfont.charset,
+                FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
-                FONT_SETWIDTH_NORMAL,
-                FONT_OTHER_AUTOSCALE,
-                FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+                FONT_FLIP_NONE,
+                FONT_OTHER_NONE,
+                FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
                 logfont.size*1/(i+1), 0);
         }
     }
-    for (i=0; i<TEXT_ZOOM_NO; ++i) {
-        SetWindowFont (hwnd, self->pFont[i]);
-        width = calculate_string_width (hwnd,self, str);
 
-        if (width <= width_win) {
-            return;
+    hdc = GetDC (hwnd);
+    for (i=0; i<TEXT_ZOOM_NO; ++i) {
+        // VW[2019-05-16]: Do not call SetWindowFont in NCS
+        // SetWindowFont (hwnd, self->fonts[i]);
+        // width = calculate_string_width (hwnd, self->fonts[i], self, str);
+
+        SIZE size;
+        SelectFont(hdc, self->fonts[i]);
+        GetTextExtent(hdc, str, strlen(str), &size);
+        if (size.cx <= width_win) {
+            self->selected = self->fonts[i];
+            break;
         }
     }
+
+    ReleaseDC (hdc);
+    return;
 }
 
-static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self, 
+static void animation_modify_string (HWND hwnd, mAnimationEditPiece *self,
         const char *key_str, BOOL append)
 {
     MGEFF_ANIMATION animation_handle = NULL;
@@ -124,8 +136,9 @@ static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self,
         sprintf (tmpstr, "%s", self->text);
         tmpstr[strlen (tmpstr) - strlen (key_str)] = 0;
     }
-    set_font (hwnd,self, tmpstr);
-    move_distance = calculate_string_width (hwnd,self, key_str);
+
+    select_font (hwnd, self, tmpstr);
+    move_distance = calculate_string_width (hwnd, self, key_str);
 
     /* create animation */
     animation_handle = mGEffAnimationCreate(self, cb_display_string, (intptr_t)hwnd, MGEFF_INT);
@@ -133,7 +146,7 @@ static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self,
     /* start val */
     _c(self)->getRect(self,&rc);
     width_win = RECTW (rc);
-    width_text = calculate_string_width (hwnd,self, self->text);
+    width_text = calculate_string_width (hwnd, self, self->text);
     self->text_offset = width_win - width_text;
     mGEffAnimationSetStartValue (animation_handle, &self->text_offset);
 
@@ -155,7 +168,7 @@ static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self,
         mGEffAnimationSyncRun (animation_handle);
         mGEffAnimationDelete (animation_handle);
         memset (&self->text[string_length - key_str_len], 0,key_str_len);
-    } 
+    }
    free (tmpstr);
 }
 
@@ -163,12 +176,11 @@ static void mAnimationEditPiece_construct(mAnimationEditPiece *self, DWORD param
 {
     int i;
 
-	Class(mStaticPiece).construct((mStaticPiece*)self, param);
+    Class(mStaticPiece).construct((mStaticPiece*)self, param);
 
     self->content_length = TEXT_BUFFER_LENGTH+1;
     self->text = (char *)calloc (1, self->content_length);
-    if (self->text == NULL)
-    {
+    if (self->text == NULL) {
         printf("calloc text mem failure!!\n");
         return;
     }
@@ -178,17 +190,18 @@ static void mAnimationEditPiece_construct(mAnimationEditPiece *self, DWORD param
     self->text_color = 0xffffffff;
     self->text_shadow_color = 0xffffffff;
 
-    self->pFont = (PLOGFONT *)calloc (TEXT_ZOOM_NO, sizeof(PLOGFONT));
+    self->fonts = (PLOGFONT *)calloc (TEXT_ZOOM_NO, sizeof(PLOGFONT));
 
-    if (self->pFont == NULL)
-    {
+    if (self->fonts == NULL) {
         printf("calloc font mem failure!!\n");
         return;
     }
-    for (i=0;i<TEXT_ZOOM_NO;i++)
-    {
-        self->pFont[i] = NULL;
+
+    for (i=0;i<TEXT_ZOOM_NO;i++) {
+        self->fonts[i] = NULL;
     }
+
+    self->selected = NULL;
 }
 
 static void mAnimationEditPiece_destroy (mAnimationEditPiece *self, DWORD param)
@@ -197,13 +210,13 @@ static void mAnimationEditPiece_destroy (mAnimationEditPiece *self, DWORD param)
     free (self->text);
     self->text = NULL;
     self->content_length = 0;
-    
+
     for (i=1; i<TEXT_ZOOM_NO; ++i) {/*font[0] come from user,will be released by user*/
-        DestroyLogFont (self->pFont[i]);
+        DestroyLogFont (self->fonts[i]);
     }
 
-    free (self->pFont);
-    self->pFont = NULL;
+    free (self->fonts);
+    self->fonts = NULL;
 }
 
 static void mAnimationEditPiece_setContent(HWND hwnd,
@@ -211,6 +224,7 @@ static void mAnimationEditPiece_setContent(HWND hwnd,
 {
     RECT rc;
     int string_width;
+
     /* check content for new string */
     if (strlen (str) >= self->content_length) {
         char *p = realloc (self->text, strlen(str)+1);
@@ -224,11 +238,11 @@ static void mAnimationEditPiece_setContent(HWND hwnd,
 
     memset (self->text, 0, self->content_length);
     strcpy (self->text, str);
-    
+
     /* calculate new string's offest */
     _c(self)->getRect(self,&rc);
-    set_font (hwnd,self, self->text);
-    string_width = calculate_string_width (hwnd,self, self->text);
+    select_font (hwnd, self, self->text);
+    string_width = calculate_string_width (hwnd, self, self->text);
     self->text_offset =(RECTW (rc) - string_width)>>1;
     if (align == TEXT_ALIGN_RIGHT)
     {
@@ -262,11 +276,11 @@ static void mAnimationEditPiece_append(HWND hwnd,mAnimationEditPiece *self, cons
         self->text = p;
         self->content_length = self->content_length * 2;
     }
-    
+
     animation_modify_string (hwnd,self, str, TRUE);
 }
 
-static void mAnimationEditPiece_tailDelete(HWND hwnd,mAnimationEditPiece *self, int num) 
+static void mAnimationEditPiece_tailDelete(HWND hwnd,mAnimationEditPiece *self, int num)
 {
     assert (num>=0);
 
@@ -283,15 +297,19 @@ static void mAnimationEditPiece_tailDelete(HWND hwnd,mAnimationEditPiece *self, 
     animation_modify_string (hwnd,self, &self->text[strlen(self->text) - num], FALSE);
 }
 
-static void mAnimationEditPiece_paint (mAnimationEditPiece *self, HDC hdc, 
+static void mAnimationEditPiece_paint (mAnimationEditPiece *self, HDC hdc,
         mWidget *owner, DWORD add_data)
 {
     SIZE size;
     int h;
     int y;
     DWORD color;
+    PLOGFONT of = NULL;
 
     SetBkMode(hdc,BM_TRANSPARENT);
+
+    if (self->selected)
+        of = SelectFont(hdc, self->selected);
 
     /* get font y  coordinate */
     GetTextExtent (hdc, "A", 1, &size);
@@ -306,15 +324,16 @@ static void mAnimationEditPiece_paint (mAnimationEditPiece *self, HDC hdc,
     SetTextColor (hdc, RGBA2Pixel(hdc, color>>16&0xff, color>>8&0xff, color&0xff, color>>24&0xff));
     TextOut (hdc, self->text_offset, y, self->text);
 
+    if (of)
+        SelectFont(hdc, of);
 }
 
 static BOOL mAnimationEditPiece_setProperty(mAnimationEditPiece *self, int id, DWORD value)
 {
     switch (id) {
         case NCSP_ANIMATIONEDITPIECE_FONT:
-            if (self->pFont != NULL)
-            {
-                self->pFont[0] = (PLOGFONT)value;
+            if (self->fonts != NULL) {
+                self->fonts[0] = (PLOGFONT)value;
             }
             break;
         case NCSP_ANIMATIONEDITPIECE_TEXTCOLOR:
@@ -331,12 +350,12 @@ static BOOL mAnimationEditPiece_setProperty(mAnimationEditPiece *self, int id, D
 
 static DWORD mAnimationEditPiece_getProperty(mAnimationEditPiece *self, int id)
 {
-	switch(id)
-	{
+    switch(id)
+    {
         case NCSP_ANIMATIONEDITPIECE_FONT:
-            if (self->pFont != NULL)
+            if (self->fonts != NULL)
             {
-                return (DWORD)self->pFont[0];
+                return (DWORD)self->fonts[0];
             }
             else
             {
@@ -346,17 +365,17 @@ static DWORD mAnimationEditPiece_getProperty(mAnimationEditPiece *self, int id)
             return (DWORD)self->text_color;
         case NCSP_ANIMATIONEDITPIECE_TEXTSHADOWCOLOR:
             return (DWORD)self->text_shadow_color;
-	}
-	return Class(mStaticPiece).getProperty((mStaticPiece*)self, id);
+    }
+    return Class(mStaticPiece).getProperty((mStaticPiece*)self, id);
 }
 
 
 BEGIN_MINI_CLASS(mAnimationEditPiece, mStaticPiece)
-	CLASS_METHOD_MAP(mAnimationEditPiece, construct)
-	CLASS_METHOD_MAP(mAnimationEditPiece, destroy)
-	CLASS_METHOD_MAP(mAnimationEditPiece, paint)
-	CLASS_METHOD_MAP(mAnimationEditPiece, setProperty)
-	CLASS_METHOD_MAP(mAnimationEditPiece, getProperty)
+    CLASS_METHOD_MAP(mAnimationEditPiece, construct)
+    CLASS_METHOD_MAP(mAnimationEditPiece, destroy)
+    CLASS_METHOD_MAP(mAnimationEditPiece, paint)
+    CLASS_METHOD_MAP(mAnimationEditPiece, setProperty)
+    CLASS_METHOD_MAP(mAnimationEditPiece, getProperty)
     CLASS_METHOD_MAP(mAnimationEditPiece, setContent)
     CLASS_METHOD_MAP(mAnimationEditPiece, getContent)
     CLASS_METHOD_MAP(mAnimationEditPiece, append)
