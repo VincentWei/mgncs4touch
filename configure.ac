@@ -80,7 +80,6 @@ AC_STRUCT_TM
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_FORK
 AC_PROG_GCC_TRADITIONAL
-AC_FUNC_MALLOC
 AC_FUNC_STAT
 AC_FUNC_VPRINTF
 AC_FUNC_ALLOCA
@@ -128,19 +127,19 @@ dnl ========================================================================
 dnl check for dependencies
 dnl ========================================================================
 
-PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.2.0])
+#PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.2.0])
 DEP_LIBS="$DEP_LIBS $MGNCS_LIBS"
 
-PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.2.0])
+#PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.2.0])
 DEP_LIBS="$DEP_LIBS $MGEFF_LIBS"
 
-PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.4.0])
+#PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.4.0])
 DEP_LIBS="$DEP_LIBS $MGPLUS_LIBS"
 
-PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.2.0])
+#PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.2.0])
 DEP_LIBS="$DEP_LIBS $MINIGUI_LIBS"
 
-PKG_CHECK_MODULES([CHIPMUNK], [chipmunk >= 5.3.1])
+#PKG_CHECK_MODULES([CHIPMUNK], [chipmunk >= 5.3.1])
 DEP_LIBS="$DEP_LIBS $CHIPMUNK_LIBS"
 
 APP_LIBS="$DEP_LIBS"
