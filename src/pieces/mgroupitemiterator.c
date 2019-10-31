@@ -45,7 +45,7 @@
 
 static void mGroupItemIterator_construct(mGroupItemIterator *self, DWORD add_data)
 {
-	Class(mItemIterator).construct((mItemIterator*)self, add_data);
+    Class(mItemIterator).construct((mItemIterator*)self, add_data);
     self->current = self->head = NULL;
     self->parent = NULL;
     self->manager = NULL;
@@ -133,9 +133,9 @@ static mGroupItemIterator* mGroupItemIterator_duplicate(mGroupItemIterator* self
 }
 
 BEGIN_MINI_CLASS(mGroupItemIterator, mItemIterator)
-	CLASS_METHOD_MAP(mGroupItemIterator, construct)
-	CLASS_METHOD_MAP(mGroupItemIterator, destroy)
-	CLASS_METHOD_MAP(mGroupItemIterator, next)
-	CLASS_METHOD_MAP(mGroupItemIterator, prev)
-	CLASS_METHOD_MAP(mGroupItemIterator, duplicate)
+    CLASS_METHOD_MAP(mGroupItemIterator, construct)
+    CLASS_METHOD_MAP(mGroupItemIterator, destroy)
+    CLASS_METHOD_MAP(mGroupItemIterator, next)
+    CLASS_METHOD_MAP(mGroupItemIterator, prev)
+    CLASS_METHOD_MAP(mGroupItemIterator, duplicate)
 END_MINI_CLASS

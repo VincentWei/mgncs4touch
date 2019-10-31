@@ -45,7 +45,7 @@
 
 static void mListItemIterator_construct(mListItemIterator *self, DWORD add_data)
 {
-	Class(mItemIterator).construct((mItemIterator*)self, add_data);
+    Class(mItemIterator).construct((mItemIterator*)self, add_data);
     self->current = self->head = NULL;
     self->manager = NULL;
 }
@@ -86,9 +86,9 @@ static mListItemIterator* mListItemIterator_duplicate(mListItemIterator* self)
 }
 
 BEGIN_MINI_CLASS(mListItemIterator, mItemIterator)
-	CLASS_METHOD_MAP(mListItemIterator, construct)
-	CLASS_METHOD_MAP(mListItemIterator, destroy)
-	CLASS_METHOD_MAP(mListItemIterator, next)
-	CLASS_METHOD_MAP(mListItemIterator, prev)
-	CLASS_METHOD_MAP(mListItemIterator, duplicate)
+    CLASS_METHOD_MAP(mListItemIterator, construct)
+    CLASS_METHOD_MAP(mListItemIterator, destroy)
+    CLASS_METHOD_MAP(mListItemIterator, next)
+    CLASS_METHOD_MAP(mListItemIterator, prev)
+    CLASS_METHOD_MAP(mListItemIterator, duplicate)
 END_MINI_CLASS

@@ -42,7 +42,7 @@
 
 static void mAbstractItemManager_construct(mAbstractItemManager *self, DWORD add_data)
 {
-	Class(mObject).construct((mObject*)self, add_data);
+    Class(mObject).construct((mObject*)self, add_data);
 }
 
 static void mAbstractItemManager_destroy(mAbstractItemManager *self)
@@ -66,10 +66,10 @@ static mItemIterator* mAbstractItemManager_createItemIterator(mAbstractItemManag
 }
 
 BEGIN_MINI_CLASS(mAbstractItemManager, mObject)
-	CLASS_METHOD_MAP(mAbstractItemManager, construct)
-	CLASS_METHOD_MAP(mAbstractItemManager, destroy)
-	CLASS_METHOD_MAP(mAbstractItemManager, addItem)
-	CLASS_METHOD_MAP(mAbstractItemManager, removeItem)
-	CLASS_METHOD_MAP(mAbstractItemManager, createItemIterator)
+    CLASS_METHOD_MAP(mAbstractItemManager, construct)
+    CLASS_METHOD_MAP(mAbstractItemManager, destroy)
+    CLASS_METHOD_MAP(mAbstractItemManager, addItem)
+    CLASS_METHOD_MAP(mAbstractItemManager, removeItem)
+    CLASS_METHOD_MAP(mAbstractItemManager, createItemIterator)
 END_MINI_CLASS
 

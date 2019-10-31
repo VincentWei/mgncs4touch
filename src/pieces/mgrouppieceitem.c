@@ -71,8 +71,8 @@ static char* mGroupPieceItem_getKey(mGroupPieceItem *self)
 }
 
 BEGIN_MINI_CLASS(mGroupPieceItem, mPieceItem)
-	CLASS_METHOD_MAP(mGroupPieceItem, construct)
-	CLASS_METHOD_MAP(mGroupPieceItem, destroy)
+    CLASS_METHOD_MAP(mGroupPieceItem, construct)
+    CLASS_METHOD_MAP(mGroupPieceItem, destroy)
     CLASS_METHOD_MAP(mGroupPieceItem, getKey)
     CLASS_METHOD_MAP(mGroupPieceItem, setKey)
 END_MINI_CLASS

@@ -43,7 +43,7 @@
 
 static void mListItemManager_construct(mListItemManager *self, DWORD add_data)
 {
-	Class(mAbstractItemManager).construct((mAbstractItemManager*)self, add_data);
+    Class(mAbstractItemManager).construct((mAbstractItemManager*)self, add_data);
     INIT_LIST_HEAD(&self->queue);
 }
 
@@ -95,11 +95,11 @@ mItemIterator* mListItemManager_createItemIterator(mListItemManager* self)
 }
 
 BEGIN_MINI_CLASS(mListItemManager, mAbstractItemManager)
-	CLASS_METHOD_MAP(mListItemManager, construct)
-	CLASS_METHOD_MAP(mListItemManager, destroy)
-	CLASS_METHOD_MAP(mListItemManager, addItem)
-	CLASS_METHOD_MAP(mListItemManager, removeItem)
-	CLASS_METHOD_MAP(mListItemManager, clear)
-	CLASS_METHOD_MAP(mListItemManager, createItemIterator)
+    CLASS_METHOD_MAP(mListItemManager, construct)
+    CLASS_METHOD_MAP(mListItemManager, destroy)
+    CLASS_METHOD_MAP(mListItemManager, addItem)
+    CLASS_METHOD_MAP(mListItemManager, removeItem)
+    CLASS_METHOD_MAP(mListItemManager, clear)
+    CLASS_METHOD_MAP(mListItemManager, createItemIterator)
 END_MINI_CLASS
 

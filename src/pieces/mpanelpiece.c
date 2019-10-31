@@ -942,7 +942,7 @@ static MGEFF_ANIMATION mPanelPiece_rotatePieceWithAnimation(mPanelPiece *self, m
         assert(anim);
 
         s = item->normalVector.angle;
-	e = angle;
+    e = angle;
         item->normalVector.x = x;
         item->normalVector.y = y;
         item->normalVector.z = z;

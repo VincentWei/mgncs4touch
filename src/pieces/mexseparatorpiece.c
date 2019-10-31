@@ -44,10 +44,10 @@
 
 static inline void line(HDC hdc, int x0,int y0, int x1, int y1, gal_pixel color)
 {
-	gal_pixel old = SetPenColor(hdc, color);
-	MoveTo(hdc, x0, y0);
-	LineTo(hdc, x1, y1);
-	SetPenColor(hdc, old);
+    gal_pixel old = SetPenColor(hdc, color);
+    MoveTo(hdc, x0, y0);
+    LineTo(hdc, x1, y1);
+    SetPenColor(hdc, old);
 }
 
 static void mExSeparatorPiece_construct(mExSeparatorPiece *self, DWORD add_data)
@@ -96,7 +96,7 @@ static void mExSeparatorPiece_paint(mExSeparatorPiece *self, HDC hdc, mWidget *o
 
     for (i=0; i<light_width; ++i) {
         color_data = ncsCommRDRCalc3dboxColor (color, (NCSR_COLOR_LIGHTER/light_width)*(i+1));
-		pixel_color = ncsColor2Pixel(hdc, color_data);
+        pixel_color = ncsColor2Pixel(hdc, color_data);
         if (self->direction == EXSEPARATOR_DIRECTION_VERTICAL) {
             line(hdc, rc.left+dark_width+i, rc.top, 
                       rc.left+dark_width+i, rc.bottom, pixel_color);
@@ -135,9 +135,9 @@ static BOOL mExSeparatorPiece_setProperty(mExSeparatorPiece *self, int id, DWORD
 }
 
 BEGIN_MINI_CLASS(mExSeparatorPiece, mStaticPiece)
-	CLASS_METHOD_MAP(mExSeparatorPiece, paint)
-	CLASS_METHOD_MAP(mExSeparatorPiece, setProperty)
-	CLASS_METHOD_MAP(mExSeparatorPiece, getProperty)
-	CLASS_METHOD_MAP(mExSeparatorPiece, construct)
+    CLASS_METHOD_MAP(mExSeparatorPiece, paint)
+    CLASS_METHOD_MAP(mExSeparatorPiece, setProperty)
+    CLASS_METHOD_MAP(mExSeparatorPiece, getProperty)
+    CLASS_METHOD_MAP(mExSeparatorPiece, construct)
 END_MINI_CLASS
 

@@ -43,7 +43,7 @@
 
 static void mWrapPaintPiece_construct(mWrapPaintPiece *self, DWORD add_data)
 {
-	Class(mLabelPiece).construct((mLabelPiece*)self, add_data);
+    Class(mLabelPiece).construct((mLabelPiece*)self, add_data);
     self->effect = NCS_WRAPPAINT_ZOOM;
     self->wrappiece = (mHotPiece*)add_data;
     self->parent = self->wrappiece->parent;
@@ -94,9 +94,9 @@ static DWORD mWrapPaintPiece_getProperty(mWrapPaintPiece* self, int id)
 
 
 BEGIN_MINI_CLASS(mWrapPaintPiece, mStaticPiece)
-	CLASS_METHOD_MAP(mWrapPaintPiece, construct)
-	CLASS_METHOD_MAP(mWrapPaintPiece, paint)
-	CLASS_METHOD_MAP(mWrapPaintPiece, setProperty)
-	CLASS_METHOD_MAP(mWrapPaintPiece, getProperty)
+    CLASS_METHOD_MAP(mWrapPaintPiece, construct)
+    CLASS_METHOD_MAP(mWrapPaintPiece, paint)
+    CLASS_METHOD_MAP(mWrapPaintPiece, setProperty)
+    CLASS_METHOD_MAP(mWrapPaintPiece, getProperty)
 END_MINI_CLASS
 

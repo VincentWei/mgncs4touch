@@ -43,9 +43,9 @@
 
 static void mTextPiece_construct(mTextPiece *self, DWORD add_data)
 {
-	Class(mLabelPiece).construct ((mLabelPiece*)self, add_data);
+    Class(mLabelPiece).construct ((mLabelPiece*)self, add_data);
 
-	self->font          = NULL;
+    self->font          = NULL;
 
     self->color         = 0xFFFFFFFF;
     self->shadow_color  = 0xFFFFFFFF;
@@ -252,10 +252,10 @@ static BOOL mTextPiece_autoSize (mTextPiece* self, mWidget *owner, const SIZE *p
 }
 
 BEGIN_MINI_CLASS(mTextPiece, mLabelPiece)
-	CLASS_METHOD_MAP(mTextPiece, construct    )
-	CLASS_METHOD_MAP(mTextPiece, paint        )
-	CLASS_METHOD_MAP(mTextPiece, setProperty  )
-	CLASS_METHOD_MAP(mTextPiece, getProperty  )
-	CLASS_METHOD_MAP(mTextPiece, autoSize     )
+    CLASS_METHOD_MAP(mTextPiece, construct    )
+    CLASS_METHOD_MAP(mTextPiece, paint        )
+    CLASS_METHOD_MAP(mTextPiece, setProperty  )
+    CLASS_METHOD_MAP(mTextPiece, getProperty  )
+    CLASS_METHOD_MAP(mTextPiece, autoSize     )
 END_MINI_CLASS
 

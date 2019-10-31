@@ -72,7 +72,8 @@ MGNCS_EXPORT extern mAnimationEditPieceClass g_stmAnimationEditPieceCls;
     char *text; \
     int content_length; \
     int text_offset; \
-    PLOGFONT *pFont; \
+    PLOGFONT *fonts; \
+    PLOGFONT selected; \
     ARGB text_color;\
     ARGB text_shadow_color;
     

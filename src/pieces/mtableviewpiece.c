@@ -51,7 +51,7 @@
 /* local function declaration */
 static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value);
 static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
-				      mHotPiece *sender, int event_id, DWORD param);
+                      mHotPiece *sender, int event_id, DWORD param);
 static mPieceItem* nextItem(mTableViewPiece* self, mItemIterator* iter, mHotPiece* prev);
 
 static int s_onContentMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner)
@@ -327,7 +327,7 @@ static void mTableViewPiece_changeMode(mTableViewPiece* self)
 static mTableViewItemPiece* mTableViewPiece_indexPathToItem(mTableViewPiece* self, const mIndexPath* indexpath)
 {
     mItemIterator* section_iter =
-	_c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
+    _c(self->tablePanel->itemManager)->createItemIterator(self->tablePanel->itemManager);
     mItemIterator* row_iter = NULL;
     int i = 0, j = 0;
     mPanelPiece* sectionPiece = NULL;
@@ -998,7 +998,7 @@ static void autoAdjustTableViewPosition(mTableViewPiece* self)
 }
 
 static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
-				      mHotPiece *sender, int event_id, DWORD param)
+                      mHotPiece *sender, int event_id, DWORD param)
 {
     RECT rc;
     int x, y;

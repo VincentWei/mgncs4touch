@@ -46,7 +46,7 @@
 
 static void mGroupItemManager_construct(mGroupItemManager *self, DWORD add_data)
 {
-	Class(mAbstractItemManager).construct((mAbstractItemManager*)self, add_data);
+    Class(mAbstractItemManager).construct((mAbstractItemManager*)self, add_data);
 
     INIT_LIST_HEAD(&self->itemList);
     self->itemCmp = strcmp;
@@ -205,14 +205,14 @@ mItemIterator* mGroupItemManager_createGroupItemIterator(mGroupItemManager* self
 }
 
 BEGIN_MINI_CLASS(mGroupItemManager, mAbstractItemManager)
-	CLASS_METHOD_MAP(mGroupItemManager, construct)
-	CLASS_METHOD_MAP(mGroupItemManager, destroy)
-	CLASS_METHOD_MAP(mGroupItemManager, searchGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, searchGreaterGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, addGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, removeGroupItem)
-	CLASS_METHOD_MAP(mGroupItemManager, clear)
-	CLASS_METHOD_MAP(mGroupItemManager, createItemIterator)
-	CLASS_METHOD_MAP(mGroupItemManager, createGroupItemIterator)
+    CLASS_METHOD_MAP(mGroupItemManager, construct)
+    CLASS_METHOD_MAP(mGroupItemManager, destroy)
+    CLASS_METHOD_MAP(mGroupItemManager, searchGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, searchGreaterGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, addGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, removeGroupItem)
+    CLASS_METHOD_MAP(mGroupItemManager, clear)
+    CLASS_METHOD_MAP(mGroupItemManager, createItemIterator)
+    CLASS_METHOD_MAP(mGroupItemManager, createGroupItemIterator)
 END_MINI_CLASS
 
