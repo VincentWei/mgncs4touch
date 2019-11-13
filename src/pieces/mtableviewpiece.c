@@ -26,7 +26,7 @@
  *   under the terms and conditions of the commercial license.
  * 
  *   For more information about the commercial license, please refer to
- *   <http://www.minigui.com/en/about/licensing-policy/>.
+ *   <http://www.minigui.com/blog/minigui-licensing-policy/>.
  */
 #if 0
 #   define LOG_TIME(prefix) printf("%s%s(%d) %06u\n", prefix, __FUNCTION__, __LINE__, ((unsigned int)times(NULL)) % 1000000u)
