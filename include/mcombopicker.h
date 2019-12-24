@@ -129,7 +129,7 @@ MTOUCH_EXPORT extern mComboPickerClass g_stmComboPickerCls;
 
 /**
  * \enum mComboPickerProperty
- * \brief the properties id of \ref mComboPicker
+ * \brief the properties id of mComboPicker
  *
  * \var NCSP_CMBPCK_HMARGIN
  * \brief Left and right ends of the blank reserved.

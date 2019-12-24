@@ -71,7 +71,7 @@ typedef struct _mSwitchButtonClass    mSwitchButtonClass;
 typedef struct _mSwitchButtonRenderer mSwitchButtonRenderer;
 
 /**
- * \enum eSwitchButtonCheckState
+ * \enum mSwitchButtonStatus
  * \brief define the check state of switchbutton
  *
  * \var NCS_SWB_OFF
@@ -97,11 +97,11 @@ enum mSwitchButtonStatus {
 
 /**
  * \struct mSwitchButton
- * \brief SwitchButton class, derived from \ref mWidget
+ * \brief SwitchButton class, derived from  mWidget
  *
  * -int \b status - the switch status, 0-OFF, 1-ON
  *
- * \sa \ref mWidget
+ * \sa mWidget
  */
 struct _mSwitchButton {
     mSwitchButtonHeader(mSwitchButton)
@@ -113,9 +113,9 @@ struct _mSwitchButton {
 
 /**
  * \struct mSwitchButtonClass
- * \brief  switchbutton struct of switchbutton control, derived from \ref mWidgetClass
+ * \brief  switchbutton struct of switchbutton control, derived from mWidgetClass
  *
- * \sa \ref mWidgetClass
+ * \sa mWidgetClass
  */
 struct _mSwitchButtonClass {
     mSwitchButtonClassHeader(mSwitchButton, mWidget)
@@ -126,7 +126,7 @@ struct _mSwitchButtonClass {
 
 /**
  * \struct mSwitchButtonRenderer
- * \brief SwitchButton class renderer interface, derived from \ref mWidgetRenderer
+ * \brief SwitchButton class renderer interface, derived from mWidgetRenderer
  *
  * \sa mSwitchButton, mSwitchButtonClass, mWidgetRenderer
  */
@@ -141,10 +141,15 @@ struct _mSwitchButtonRenderer {
 MTOUCH_EXPORT extern mSwitchButtonClass g_stmSwitchButtonCls;
 
 /**
- * \define mSwitchButtonStyle
- * \brief the style id of \ref mSwitchButton
+ * @name mSwitchButtonStyle the style id of \ref mSwitchButton
+ * @{
  */
+
 #define NCSS_SWB_SHIFT      (NCSS_WIDGET_SHIFT)
+
+/**
+ * @} end of mSwitchButtonStyle
+ */
 
 /**
  * \enum mSwitchButtonProp
@@ -159,7 +164,7 @@ enum mSwitchButtonProp {
 };
 
 /**
- * \enum eSwitchButtonNotify
+ * \enum mSwitchButtonNotify
  * \brief the notification code of \ref mSwitchButton
  *
  * \var NCSN_SWB_STATUSCHANGED

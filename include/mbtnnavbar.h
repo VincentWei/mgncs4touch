@@ -71,25 +71,24 @@ typedef struct _mBtnNavBarClass    mBtnNavBarClass;
 typedef struct _mBtnNavBarRenderer mBtnNavBarRenderer;
 
 /**
- * \define mBtnNavBarStyle
- * \brief the style id of \ref mBtnNavBar
+ * @name mBtnNavBarStyle the style id of \ref mBtnNavBar
  *
- * \var NCSS_BNB_LRECT
+ * \def NCSS_BNB_LRECT
  * \brief Identifies the left button is on behalf of the triangular shape of the left.
  *
- * \var NCSS_BNB_LOPT
+ * \def NCSS_BNB_LOPT
  * \brief Identifies the left button is a rounded rectangular shape.
  *
- * \var NCSS_BNB_LNONE
+ * \def NCSS_BNB_LNONE
  * \brief Identifies the left button is not displayed the shape.
  *
- * \var NCSS_BNB_RRECT
+ * \def NCSS_BNB_RRECT
  * \brief Identifies the right button is on behalf of the triangular shape of the right.
  *
- * \var NCSS_BNB_ROPT
+ * \def NCSS_BNB_ROPT
  * \brief Identifies the right button is a rounded rectangular shape.
  *
- * \var NCSS_BNB_RNONE
+ * \def NCSS_BNB_RNONE
  * \brief Identifies the right button is not displayed the shape.
  */
 #define NCSS_BNB_LRECT      (0x01 << NCSS_WIDGET_SHIFT)
@@ -99,6 +98,10 @@ typedef struct _mBtnNavBarRenderer mBtnNavBarRenderer;
 #define NCSS_BNB_ROPT       (0x10 << NCSS_WIDGET_SHIFT)
 #define NCSS_BNB_RNONE      (0x20 << NCSS_WIDGET_SHIFT)
 #define NCSS_BNB_SHIFT      (NCSS_WIDGET_SHIFT + 6)
+
+/**
+ * @} end of mBtnNavBarStyle
+ */
 
 /**
  * \enum mBtnNavBarProp
@@ -148,9 +151,9 @@ enum mBtnNavBarProp {
 
 /**
  * \struct mBtnNavBar
- * \brief BtnNavBar class, derived from \ref mWidget
+ * \brief BtnNavBar class, derived from mWidget
  *
- * \sa \ref mWidget
+ * \sa mWidget
  */
 struct _mBtnNavBar {
     mBtnNavBarHeader(mBtnNavBar)
@@ -161,9 +164,9 @@ struct _mBtnNavBar {
 
 /**
  * \struct mBtnNavBarClass
- * \brief  toolcaption struct of toolcaption control, derived from \ref mWidgetClass
+ * \brief  toolcaption struct of toolcaption control, derived from mWidgetClass
  *
- * \sa \ref mWidgetClass
+ * \sa mWidgetClass
  */
 struct _mBtnNavBarClass {
     mBtnNavBarClassHeader(mBtnNavBar, mWidget)
@@ -174,7 +177,7 @@ struct _mBtnNavBarClass {
 
 /**
  * \struct mBtnNavBarRenderer
- * \brief BtnNavBar class renderer interface, derived from \ref mWidgetRenderer
+ * \brief BtnNavBar class renderer interface, derived from mWidgetRenderer
  *
  * \sa mBtnNavBar, mBtnNavBarClass, mWidgetRenderer
  */

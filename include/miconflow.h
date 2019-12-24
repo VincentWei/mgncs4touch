@@ -93,7 +93,7 @@ typedef struct _mIconFlowClass mIconFlowClass;
 typedef struct _mIconFlowRenderer mIconFlowRenderer;
 
 /**
- * \def NCSCTRL_ICONFLOWIEW
+ * \def NCSCTRL_ICONFLOW
  * \brief The control class name of mIconFlow.
  */
 #define NCSCTRL_ICONFLOW NCSCLASSNAME("iconflow")

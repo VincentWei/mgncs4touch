@@ -81,9 +81,9 @@ typedef struct _mItemBarRenderer mItemBarRenderer;
 
 /**
  * \struct mItemBar
- * \brief ItemBar class, derived from \ref mWidget
+ * \brief ItemBar class, derived from mWidget
  *
- * \sa \ref mWidget
+ * \sa mWidget
  */
 struct _mItemBar {
     mItemBarHeader(mItemBar)
@@ -94,9 +94,9 @@ struct _mItemBar {
 
 /**
  * \struct mItemBarClass
- * \brief itembar struct of itembar control, derived from \ref mWidgetClass
+ * \brief itembar struct of itembar control, derived from mWidgetClass
  *
- * \sa \ref mWidgetClass
+ * \sa mWidgetClass
  */
 struct _mItemBarClass {
     mItemBarClassHeader(mItemBar, mWidget)
@@ -107,7 +107,7 @@ struct _mItemBarClass {
 
 /**
  * \struct mItemBarRenderer
- * \brief ItemBar class renderer interface, derived from \ref mWidgetRenderer
+ * \brief ItemBar class renderer interface, derived from mWidgetRenderer
  *
  * \sa mItemBar, mItemBarClass, mWidgetRenderer
  */
@@ -142,7 +142,7 @@ enum mItemBarProp {
 };
 
 /**
- * \enum eItemBarNotify
+ * \enum mItemBarNotify
  * \brief the notification code of \ref mItemBar
  *
  * \var NCSN_ITEMBAR_CHECKED
@@ -154,18 +154,22 @@ enum mItemBarNotify {
 };
 
 /**
- * \define mItemBarStyle
- * \brief the style id of \ref mItemBar
+ * @name mItemBarStyle the style id of \ref mItemBar
+ * @{
  *
- * \var NCSS_ITEMBAR_CHECKABLE
+ * \def NCSS_ITEMBAR_CHECKABLE
  * \brief Click Check whether there is support for the control.
  *
- * \var NCSS_ITEMBAR_HASCHILD
+ * \def NCSS_ITEMBAR_HASCHILD
  * \brief Whether child controls identified.
  */
 #define NCSS_ITEMBAR_CHECKABLE      (1 << NCSS_WIDGET_SHIFT)
 #define NCSS_ITEMBAR_HASCHILD       (2 << NCSS_WIDGET_SHIFT)
 #define NCSS_ITEMBAR_SHIFT          (NCSS_WIDGET_SHIFT + 2)
+
+/**
+ * @} end of mItemBarStyle
+ */
 
 /**
  * @} end of ControlItemBar

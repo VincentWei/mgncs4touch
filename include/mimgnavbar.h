@@ -70,10 +70,14 @@ typedef struct _mImgNavBarClass    mImgNavBarClass;
 typedef struct _mImgNavBarRenderer mImgNavBarRenderer;
 
 /**
- * \define mImgNavBarStyle
- * \brief the style id of \ref mImgNavBar
+ * @name mImgNavBarStyle the style id of \ref mImgNavBar
+ * @{
  */
 #define NCSS_INB_SHIFT      (NCSS_WIDGET_SHIFT + 0)
+
+/**
+ * @} end of mImgNavBarStyle
+ */
 
 /**
  * \enum mImgNavBarProp
@@ -125,9 +129,9 @@ enum mImgNavBarProp {
 
 /**
  * \struct mImgNavBar
- * \brief ImgNavBar class, derived from \ref mWidget
+ * \brief ImgNavBar class, derived from mWidget
  *
- * \sa \ref mWidget
+ * \sa mWidget
  */
 struct _mImgNavBar {
     mImgNavBarHeader(mImgNavBar)
@@ -138,9 +142,9 @@ struct _mImgNavBar {
 
 /**
  * \struct mImgNavBarClass
- * \brief  toolcaption struct of toolcaption control, derived from \ref mWidgetClass
+ * \brief  toolcaption struct of toolcaption control, derived from mWidgetClass
  *
- * \sa \ref mWidgetClass
+ * \sa mWidgetClass
  */
 struct _mImgNavBarClass {
     mImgNavBarClassHeader(mImgNavBar, mWidget)
@@ -151,7 +155,7 @@ struct _mImgNavBarClass {
 
 /**
  * \struct mImgNavBarRenderer
- * \brief ImgNavBar class renderer interface, derived from \ref mWidgetRenderer
+ * \brief ImgNavBar class renderer interface, derived from mWidgetRenderer
  *
  * \sa mImgNavBar, mImgNavBarClass, mWidgetRenderer
  */
@@ -181,10 +185,10 @@ enum mImgNavBarData {
 };
 
 /**
- * \enum eImgNavBarNotify
+ * \enum mImgNavBarNotify
  * \brief the notification code of \ref mImgNavBar
  *
- * \var NCSN_IBN_IMGCLICK
+ * \var NCSN_INB_IMGCLICK
  * \brief Around both ends of the image click event listener.
  */
 enum mImgNavBarNotify {

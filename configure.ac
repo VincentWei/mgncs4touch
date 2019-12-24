@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT([libmgncs4touch], [1.2.3])
+AC_INIT([libmgncs4touch], [1.2.4])
 AC_CONFIG_SRCDIR([src/mgncs4touch.c])
 
 dnl Set various version strings
@@ -17,9 +17,9 @@ dnl Set various version strings
 #
 MGNCS4TOUCH_MAJOR_VERSION=1
 MGNCS4TOUCH_MINOR_VERSION=2
-MGNCS4TOUCH_MICRO_VERSION=3
-MGNCS4TOUCH_INTERFACE_AGE=1
-MGNCS4TOUCH_BINARY_AGE=1
+MGNCS4TOUCH_MICRO_VERSION=4
+MGNCS4TOUCH_INTERFACE_AGE=2
+MGNCS4TOUCH_BINARY_AGE=2
 MGNCS4TOUCH_VERSION=$MGNCS4TOUCH_MAJOR_VERSION.$MGNCS4TOUCH_MINOR_VERSION.$MGNCS4TOUCH_MICRO_VERSION
 
 AC_SUBST(MGNCS4TOUCH_MAJOR_VERSION)

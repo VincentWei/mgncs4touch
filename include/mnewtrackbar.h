@@ -74,9 +74,9 @@ typedef struct _mNewTrackBarRenderer mNewTrackBarRenderer;
 
 /**
  * \struct mNewTrackBar
- * \brief NewTrakBar class, derived from \ref mTrackBar
+ * \brief NewTrakBar class, derived from mTrackBar
  *
- * \sa \ref mTrackBar
+ * \sa mTrackBar
  */
 struct _mNewTrackBar {
     mNewTrackBarHeader(mNewTrackBar)
@@ -87,9 +87,9 @@ struct _mNewTrackBar {
 
 /**
  * \struct mNewTrackBarClass
- * \brief  newtrackbar struct of newtrackbar control, derived from \ref mTrackBarClass
+ * \brief  newtrackbar struct of newtrackbar control, derived from mTrackBarClass
  *
- * \sa \ref mTrackBarClass
+ * \sa mTrackBarClass
  */
 struct _mNewTrackBarClass {
     mNewTrackBarClassHeader(mNewTrackBar, mTrackBar)
@@ -100,7 +100,7 @@ struct _mNewTrackBarClass {
 
 /**
  * \struct mNewTrackBarRenderer
- * \brief NewTrakBar class renderer interface, derived from \ref mTrackBarRenderer
+ * \brief NewTrakBar class renderer interface, derived from mTrackBarRenderer
  *
  * \sa mNewTrackBar, mNewTrackBarClass, mTrackBarRenderer
  */
@@ -115,14 +115,18 @@ struct _mNewTrackBarRenderer {
 MTOUCH_EXPORT extern mNewTrackBarClass g_stmNewTrackBarCls;
 
 /**
- * \define mNewTrackBarStyle
- * \brief the style id of \ref mNewTrackBar
+ * @name mNewTrackBarStyle the style id of mNewTrackBar
+ * @{
  *
- * \var NCSS_NTRKBAR_CIRCLE
+ * \def NCSS_NTRKBAR_CIRCLE
  * \brief Identified as a circular slider.
  */
 #define NCSS_NTRKBAR_CIRCLE       (1 << (NCSS_TRKBAR_SHIFT))
 #define NCSS_NTRKBAR_SHIFT        (1 + NCSS_TRKBAR_SHIFT)
+
+/**
+ * @} end of mNewTrackBarStyle
+ */
 
 /**
  * \enum mNewTrackBarProp

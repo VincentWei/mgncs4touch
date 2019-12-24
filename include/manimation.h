@@ -52,14 +52,14 @@
 #ifndef __MGNCS4TOUCH_ANIMATION_H__
 #define __MGNCS4TOUCH_ANIMATION_H__
 
-/**
- * \defgroup Ctrl_Aniamtion mAnimation
- * @{
-*/
 #ifdef  __cplusplus
 extern "C" {
 #endif  /* __cplusplus */
 
+/**
+ * \defgroup Ctrl_Aniamtion mAnimation
+ * @{
+*/
 
 #define NCSCTRL_ANIMATION          NCSCLASSNAME("animation")
 
@@ -119,6 +119,10 @@ struct _mAnimationRenderer {
  * \sa mAnimationClass
  */
 MGNCS_EXPORT extern mAnimationClass g_stmAnimationCls;
+
+/**
+ * @} end of Ctrl_Aniamtion
+ */
 
 #ifdef  __cplusplus
 }
