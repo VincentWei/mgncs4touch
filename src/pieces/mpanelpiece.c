@@ -54,7 +54,6 @@
 
 #include "mgncs4touch.h"
 
-#define HAVE_H_FILLLADDER
 #define ROTATE_90 90
 #define HOVER
 
@@ -76,27 +75,20 @@ typedef struct _Vector2D
     int y;
 }Vector2D;
 
-#ifdef HAVE_H_FILLLADDER
-extern void effcommon_v_fillladder(HDC src_dc, int src_left, int src_top, int src_right, int src_bottom,
+/* external functions defined in mGEff */
+extern void EffHLineApplier (HDC src_dc, int src_left, int src_top, int src_right, int src_bottom,
         HDC dst_dc, int dst_left, int dst_top, int dst_right, int dst_bottom,
         int dst_x0, int dst_y0,
         int dst_x1, int dst_y1,
         int dst_x2, int dst_y2,
         int dst_x3, int dst_y3);
-extern void effcommon_h_fillladder(HDC src_dc, int src_left, int src_top, int src_right, int src_bottom,
+extern void EffVLineApplier (HDC src_dc, int src_left, int src_top, int src_right, int src_bottom,
         HDC dst_dc, int dst_left, int dst_top, int dst_right, int dst_bottom,
         int dst_x0, int dst_y0,
         int dst_x1, int dst_y1,
         int dst_x2, int dst_y2,
         int dst_x3, int dst_y3);
-#else
-extern void effcommon_fillladder(HDC src_dc, int src_left, int src_top, int src_right, int src_bottom,
-        HDC dst_dc, int dst_left, int dst_top, int dst_right, int dst_bottom,
-        int dst_x0, int dst_y0,
-        int dst_x1, int dst_y1,
-        int dst_x2, int dst_y2,
-        int dst_x3, int dst_y3);
-#endif
+
 extern TransAffine3D* Init3DSenceTransAffine (void);
 extern int MatrixMultiply (double* A, double* B, double* C);
 extern int Set3DPointOfView (TransAffine3D* pTrans, double dXMove, double dYMove, double dZMove);
@@ -109,7 +101,6 @@ extern int Generate3DPointBy3DSence (TransAffine3D* pTrans, Vector3D* pVector);
 extern void Terminate3DSenceTransAffine (TransAffine3D* pTransAffine);
 extern int Perspective3DTo2D (Vector3D* pVector3D, Vector2D* pVector2D, int nPerspectiveZ, int nXCenter, int nYCenter);
 extern int Reset3DSenceTransAffine (TransAffine3D* pTransAffine);
-
 
 #ifdef ENABLE_ANIM_FPS_TEST
     extern void anim_fps_test_start (int new_status);
@@ -158,7 +149,6 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
         }
 
         if (mv->x) {
-#ifdef HAVE_H_FILLLADDER
             Points3D[0].x = w;
             Points3D[0].y = - h / 2;
             Points3D[0].z = 0;
@@ -212,14 +202,13 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
             }
 
             if (Points[2].yf > Points[3].yf) {
-                effcommon_h_fillladder(src_dc, rc.left, rc.top, rc.right, rc.bottom,
+                EffHLineApplier(src_dc, rc.left, rc.top, rc.right, rc.bottom,
                         dst_dc, rc.left, rc.top, rc.right, rc.bottom,
                         Points[0].xf, Points[0].yf,
                         Points[1].xf, Points[1].yf,
                         Points[2].xf, Points[2].yf,
                         Points[3].xf, Points[3].yf);
             }
-#endif
         } else if (mv->y) {
             Points3D[0].x = - w / 2;
             Points3D[0].y = h;
@@ -282,7 +271,7 @@ static void rotate(HDC dst_dc, HDC src_dc, mNormalVector *mv)
 #endif
 
             if (Points[1].xf > Points[0].xf) {
-                effcommon_v_fillladder(src_dc, rc.left, rc.top, rc.right, rc.bottom,
+                EffVLineApplier(src_dc, rc.left, rc.top, rc.right, rc.bottom,
                         dst_dc, rc.left, rc.top, rc.right, rc.bottom,
                         Points[1].xf, Points[1].yf,
                         Points[2].xf, Points[2].yf,
