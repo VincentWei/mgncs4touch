@@ -4,14 +4,14 @@
 
 The MiniGUI development team announces the availability of mGNCS4Touch 1.4.0.
 
-All users of MiniGUI are encouraged to test this version carefully, and
-report any bugs and incompatibilities on GitHub:
+All users of MiniGUI are encouraged to use this version, and report any bugs
+and incompatibilities on GitHub:
 
 <https://github.com/VincentWei/mgncs4touch>
 
 ### What's new in this version
 
-- Tune code to comply with mGEff 1.4.0.
+- Tune code to comply with MiniGUI 5.0.0 and mGEff 1.4.0.
 
 ## Version 1.2.4
 
