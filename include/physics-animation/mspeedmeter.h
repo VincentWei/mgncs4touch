@@ -19,7 +19,7 @@
 
     This file is part of mGNCS4Touch, one of MiniGUI components.
 
-    Copyright (C) 2008-2018 FMSoft (http://www.fmsoft.cn).
+    Copyright (C) 2008-2020 FMSoft (http://www.fmsoft.cn).
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -61,7 +61,6 @@ extern "C" {
 /* 
  * Easy APIs
  */
-EXPORT int QueryMouseMoveVelocity(float *v_x, float *v_y);
 
 /* Proc for MiniGUI */
 EXPORT int SpeedMeterProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam);
@@ -73,6 +72,7 @@ EXPORT BOOL SpeedMeterMessageHandler(mWidget*, int message, int x, int y, DWORD 
 
 #if 0
 EXPORT int QueryMouseMovePath(POINT *points, unsigned int *times, int count);
+EXPORT int  mSpeedMeter_getpath(SPEEDMETER handle, POINT *points, unsigned int *times, int count);
 #endif
 
 /* 
@@ -81,15 +81,13 @@ EXPORT int QueryMouseMovePath(POINT *points, unsigned int *times, int count);
 /* DECLARE_HANDLE(SPEEDMETER) */
 typedef struct _notused_mSpeedMeter_handle{ int not_used; } *SPEEDMETER;
 
-EXPORT SPEEDMETER mSpeedMeter_create(int duration_ms, int precision_ms);
-EXPORT void mSpeedMeter_destroy(SPEEDMETER handle);
-EXPORT void mSpeedMeter_append(SPEEDMETER handle, int x, int y, unsigned int t);
-EXPORT void mSpeedMeter_stop(SPEEDMETER handle);
-EXPORT void mSpeedMeter_reset(SPEEDMETER handle);
-EXPORT int mSpeedMeter_velocity(SPEEDMETER handle, float *v_x, float *v_y);
-#if 0
-EXPORT int  mSpeedMeter_getpath(SPEEDMETER handle, POINT *points, unsigned int *times, int count);
-#endif
+EXPORT SPEEDMETER mSpeedMeter_create (int duration_ms, int precision_ms);
+EXPORT void mSpeedMeter_destroy (SPEEDMETER handle);
+EXPORT void mSpeedMeter_append (SPEEDMETER handle, int x, int y, unsigned int t);
+EXPORT void mSpeedMeter_stop (SPEEDMETER handle);
+EXPORT void mSpeedMeter_reset (SPEEDMETER handle);
+EXPORT int mSpeedMeter_velocity (SPEEDMETER handle, float *v_x, float *v_y);
+EXPORT int mSpeedMeter_query_velocity (SPEEDMETER handle, float *v_x, float *v_y);
 
 #ifdef __cplusplus
 }
