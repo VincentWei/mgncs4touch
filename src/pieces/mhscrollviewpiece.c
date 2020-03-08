@@ -301,8 +301,10 @@ static void s_finish_cb(MGEFF_ANIMATION handle) {
 
     phyanim_destroy(handle);
     self->m_animation = NULL;
+    self->m_speedmeter = NULL;
     self->m_phy_ctx = NULL;
-    SetTimerEx((HWND)self, ((LINT)self) + 1, SCROLLBAR_TIMEOUT_MS / 10, s_hideScrollBar);
+    SetTimerEx((HWND)self, ((LINT)self) + 1, SCROLLBAR_TIMEOUT_MS / 10,
+            s_hideScrollBar);
 }
 
 static int s_viewOnMouseRelease(mHotPiece *_self, int message,
@@ -391,15 +393,6 @@ static int s_onMousePress(mHotPiece *_self, int message,
     self->m_oldMousePos.y = HISWORD(lParam);
     self->m_pressMousePos = self->m_oldMousePos;
 
-    /* VW (2020-03-08): handle mouse capture */
-    mWidget_captureHotPiece ((mWidget *)owner, (mObject*)_self);
-
-    /* VW (2020-03-08): Insteall speed meter here */
-    self->m_speedmeter = mSpeedMeter_create(1000, 10);
-    mSpeedMeter_reset (self->m_speedmeter);
-    mSpeedMeter_append (self->m_speedmeter, self->m_oldMousePos.x,
-            self->m_oldMousePos.y, GetTickCount() * 10);
-
     if (self->m_animation) {
         mGEffAnimationStop(self->m_animation);
         self->m_animation = NULL;
@@ -423,6 +416,11 @@ static BOOL s_onMouseMoveLeft(mHScrollViewPiece *self, mObject *owner)
 
     /* VM (2020-03-08): use mSpeedMeter_query_velocity instead */
     mSpeedMeter_query_velocity (self->m_speedmeter, &v_x, &v_y);
+
+    // VM (2020-03-08): destroy speed meter
+    mSpeedMeter_destroy (self->m_speedmeter);
+    self->m_speedmeter = NULL;
+
     if ((v_x < 0) && (-v_x > 10*abs(v_x))) {
         child = s_getContent(self);
         piece = _c(child)->getPiece(child);
@@ -435,7 +433,6 @@ static BOOL s_onMouseMoveLeft(mHScrollViewPiece *self, mObject *owner)
         return TRUE;
     }
 
-    _DBG_PRINTF ("not handled MouseMoveLeft.\n");
     return FALSE;
 }
 
@@ -444,24 +441,6 @@ static int s_onMouseRelease (mHotPiece *_self, int message,
 {
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
     if (!self->m_bPressed) {
-        return 0;
-    }
-
-    /* VW (2020-03-08): handle mouse capture and speed meter */
-    if (mWidget_getCapturedHotPiece ((mWidget*)owner) == (mObject*)_self) {
-        int x = LOSWORD(lParam);
-        int y = HISWORD(lParam);
-
-        ScreenToClient (((mWidget*)owner)->hwnd, &x, &y);
-        lParam = MAKELONG (x, y);
-
-        mWidget_releaseCapturedHotPiece ();
-        self->m_bPressed = FALSE;
-
-        mSpeedMeter_append (self->m_speedmeter, x, y, GetTickCount() * 10);
-        mSpeedMeter_stop (self->m_speedmeter);
-    }
-    else {
         return 0;
     }
 
@@ -497,15 +476,34 @@ static int s_onMouseRelease (mHotPiece *_self, int message,
         return -1;
     }
     else if (self->m_bMouseMoved) {
+
+        /* VW (2020-03-08): handle mouse capture and speed meter */
+        if (mWidget_getCapturedHotPiece ((mWidget*)owner) == (mObject*)_self) {
+            int x = LOSWORD(lParam);
+            int y = HISWORD(lParam);
+
+            ScreenToClient (((mWidget*)owner)->hwnd, &x, &y);
+            lParam = MAKELONG (x, y);
+
+            mWidget_releaseCapturedHotPiece ();
+            self->m_bPressed = FALSE;
+
+            mSpeedMeter_append (self->m_speedmeter, x, y, GetTickCount() * 10);
+            mSpeedMeter_stop (self->m_speedmeter);
+        }
+
         if (s_canScroll(self))
             s_viewOnMouseRelease(_self, message, wParam, lParam, owner);
         if (s_onMouseMoveLeft(self, owner))
             return -1; /* Pass to the child */
     }
 
-    /* VM (2020-03-08): destroy speed meter */
-    mSpeedMeter_destroy (self->m_speedmeter);
-    self->m_speedmeter = NULL;
+    /* VM (2020-03-08): check and destroy speed meter */
+    if (self->m_speedmeter) {
+        mSpeedMeter_destroy (self->m_speedmeter);
+        self->m_speedmeter = NULL;
+    }
+
     return 0;
 }
 
@@ -516,21 +514,6 @@ static int s_onMouseMove (mHotPiece *_self, int message,
     if (!self->m_bPressed) {
         _DBG_PRINTF ("mouse move without pressed.\n");
         return 0; /* Drop it */
-    }
-
-    /* VW (2020-03-08): handle mouse capture and speed meter */
-    if (mWidget_getCapturedHotPiece ((mWidget*)owner) == (mObject*)_self) {
-        int x = LOSWORD(lParam);
-        int y = HISWORD(lParam);
-
-        ScreenToClient (((mWidget*)owner)->hwnd, &x, &y);
-        lParam = MAKELONG (x, y);
-
-        assert (self->m_speedmeter);
-        mSpeedMeter_append (self->m_speedmeter, x, y, GetTickCount() * 10);
-    }
-    else {
-        return 0;
     }
 
     self->m_bMouseMoved = TRUE;
@@ -545,6 +528,29 @@ static int s_onMouseMove (mHotPiece *_self, int message,
         return -1; /* Pass to the child */
     }
     else {
+        /* VW (2020-03-08): handle mouse capture and speed meter */
+        if (mWidget_getCapturedHotPiece ((mWidget*)owner) == (mObject*)_self) {
+            int x = LOSWORD(lParam);
+            int y = HISWORD(lParam);
+
+            ScreenToClient (((mWidget*)owner)->hwnd, &x, &y);
+            lParam = MAKELONG (x, y);
+
+            assert (self->m_speedmeter);
+            mSpeedMeter_append (self->m_speedmeter, x, y, GetTickCount() * 10);
+        }
+        else {
+            /* VW (2020-03-08): capture mouse here */
+            mWidget_captureHotPiece ((mWidget *)owner, (mObject*)self);
+
+            /* VW (2020-03-08): Install speed meter here */
+            assert (self->m_speedmeter == NULL);
+            self->m_speedmeter = mSpeedMeter_create (1000, 10);
+            mSpeedMeter_reset (self->m_speedmeter);
+            mSpeedMeter_append (self->m_speedmeter, self->m_oldMousePos.x,
+                    self->m_oldMousePos.y, GetTickCount() * 10);
+        }
+
         return s_viewOnMouseMove (_self, MSG_MOUSEMOVE, wParam, lParam, owner);
     }
 }
