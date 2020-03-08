@@ -94,6 +94,7 @@ MGNCS_EXPORT extern mHScrollViewPieceClass g_stmHScrollViewPieceCls;
     mPieceItem *m_content; \
     mPieceItem *m_scrollbar; \
     MGEFF_ANIMATION m_animation; \
+    SPEEDMETER m_speedmeter; \
     void *m_phy_ctx;
 
 struct _mHScrollViewPiece
