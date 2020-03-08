@@ -12,6 +12,15 @@ and incompatibilities on GitHub:
 ### What's new in this version
 
 - Tune code to comply with MiniGUI 5.0.0 and mGEff 1.4.0.
+- Tune the implementation of `ScrollViewPiece` and `HScrollViewPiece`:
+   - Capture the mouse.
+   - Use speed meter.
+
+The following API changed:
+
+- `QueryMouseMoveVelocity` was removed. You should use `mSpeedMeter_query_velocity`
+  instead.
+- Re-implement `SpeedMeterProc` and `SpeedMeterMessageHandler` doing nothing.
 
 ## Version 1.2.4
 
