@@ -403,9 +403,13 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
 
 static NCS_EVENT_HANDLER mymain_handlers [] = {
     {MSG_CREATE, mymain_onCreate },
+#if 0   /* Since 1.4.0, deprecated code */
+    /* VM (2020-03-08): no need to install the following handlers.
+       You can reserve the following code, but they do nothing. */
     {MSG_LBUTTONDOWN, SpeedMeterMessageHandler },
     {MSG_LBUTTONUP, SpeedMeterMessageHandler },
     {MSG_MOUSEMOVE, SpeedMeterMessageHandler },
+#endif  /* deprecated code */
     {0, NULL}
 };
 
