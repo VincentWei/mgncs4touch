@@ -65,6 +65,10 @@
 #include "mlinevbox.h"
 #include "mfillboxex.h"
 
+#include "physics-animation/chipmunk-utils.h"
+#include "physics-animation/mspeedmeter.h"
+#include "physics-animation/physics-animation.h"
+
 #include "pieces/mnsdrawpiece.h"
 #include "pieces/mtransroundpiece.h"
 #include "pieces/mshapepushbuttonpiece.h"
@@ -100,10 +104,6 @@
 #include "pieces/mnavigationitem.h"
 #include "pieces/mnavigationbarpiece.h"
 #include "pieces/mnavigationpanelpiece.h"
-
-#include "physics-animation/chipmunk-utils.h"
-#include "physics-animation/mspeedmeter.h"
-#include "physics-animation/physics-animation.h"
 
 #include "mswitchbutton.h"
 #include "mnewtrackbar.h"
