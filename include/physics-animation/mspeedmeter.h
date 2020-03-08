@@ -58,9 +58,11 @@
 extern "C" {
 #endif
 
-/* 
- * Easy APIs
- */
+static inline int QueryMouseMoveVelocity (float *v_x, float *v_y)
+{
+    *v_x = *v_y = 0.0f;
+    return -1;
+}
 
 /* Proc for MiniGUI */
 EXPORT int SpeedMeterProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam);
