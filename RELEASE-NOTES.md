@@ -1,26 +1,27 @@
 # Release Notes
 
-## Version 1.4.0
+## Version 1.5.0
 
-The MiniGUI development team announces the availability of mGNCS4Touch 1.4.0.
+The MiniGUI development team announces the availability of mGNCS4Touch 1.5.0.
 
 All users of MiniGUI are encouraged to use this version, and report any bugs
 and incompatibilities on GitHub:
 
-<https://github.com/VincentWei/mgncs4touch>
+<https://github.com/VincentWei/mgncs4touch/tree/dev-4-1>
 
 ### What's new in this version
 
-- Tune code to comply with MiniGUI 5.0.0 and mGEff 1.4.0.
-- Tune the implementation of `ScrollViewPiece` and `HScrollViewPiece`:
+- Tune code to comply with MiniGUI 5.0.0 and mGEff 1.5.0.
+- Enhance the implementation of `ScrollViewPiece` and `HScrollViewPiece`:
    - Capture the mouse.
    - Use speed meter.
 
 The following API changed:
 
-- `QueryMouseMoveVelocity` was removed. You should use `mSpeedMeter_query_velocity`
-  instead.
-- Re-implement `SpeedMeterProc` and `SpeedMeterMessageHandler` doing nothing.
+- `QueryMouseMoveVelocity` is now a dummy implementation for backward compatibility,
+  you should use `mSpeedMeter_query_velocity` instead.
+- `SpeedMeterProc` and `SpeedMeterMessageHandler` ary also dummy implementations just
+  for backward compatibility. Both do nothing and return 0.
 
 ## Version 1.2.4
 
