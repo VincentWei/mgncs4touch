@@ -218,7 +218,7 @@ int mSpeedMeter_query_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
     float f_x, f_y;
     mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
 
-    if (mSpeedMeter_velocity (handle, &f_x, &f_y) == 0) {
+    if (mSpeedMeter_velocity (_handle, &f_x, &f_y) == 0) {
         *v_x = 1000 * f_x;
         *v_y = 1000 * f_y;
         return 0;
