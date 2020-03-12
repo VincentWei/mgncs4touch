@@ -54,7 +54,8 @@
 
 #include "mgncs4touch.h"
 
-#define PRINT_RECT(s, rc) _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: [%s]: %d %d %d %d\n", \
+#define PRINT_RECT(s, rc)   \
+    _DBG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: [%s]: %d %d %d %d\n", \
             s, (rc)->left, (rc)->top, (rc)->right, (rc)->bottom)
 
 #define ENABLE_CACHE_BY_DEFAULT 1
@@ -86,7 +87,8 @@ static mPieceItem* s_getContent(mHScrollViewPiece* self)
 {
     if (self->m_content) {
         return self->m_content;
-    }else{
+    }
+    else {
         mItemIterator *iter = _c(self->itemManager)->createItemIterator(self->itemManager);
         mPieceItem *item;
 
@@ -299,22 +301,28 @@ static void s_finish_cb(MGEFF_ANIMATION handle) {
 
     phyanim_destroy(handle);
     self->m_animation = NULL;
+    self->m_speedmeter = NULL;
     self->m_phy_ctx = NULL;
-    SetTimerEx((HWND)self, ((LINT)self) + 1, SCROLLBAR_TIMEOUT_MS / 10, s_hideScrollBar);
+    SetTimerEx((HWND)self, ((LINT)self) + 1, SCROLLBAR_TIMEOUT_MS / 10,
+            s_hideScrollBar);
 }
 
-static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
+static int s_viewOnMouseRelease(mHotPiece *_self, int message,
+        WPARAM wParam, LPARAM lParam, mObject *owner)
+{
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
     float v_x, v_y;
     cpSpace *space;
 
     if (s_canScroll(self)) {
-        QueryMouseMoveVelocity(&v_x, &v_y);
+        // VW (2020-03-08): use mSpeedMeter_query_velocity
+        mSpeedMeter_query_velocity (self->m_speedmeter, &v_x, &v_y);
         if (v_x > 10000.0f) {
-            _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: v_x=%.2f, set to 10000 forcely\n", v_x);
+            _DBG_PRINTF ("v_x=%.2f, set to 10000 forcely\n", v_x);
             v_x = 10000.0f;
-        }else if (v_x < -10000.0f) {
-            _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: v_x=%.2f, set to -10000 forcely\n", v_x);
+        }
+        else if (v_x < -10000.0f) {
+            _DBG_PRINTF ("v_x=%.2f, set to -10000 forcely\n", v_x);
             v_x = -10000.0f;
         }
 
@@ -328,7 +336,9 @@ static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LP
     return 0;
 }
 
-static int s_viewOnMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
+static int s_viewOnMouseMove(mHotPiece *_self, int message,
+        WPARAM wParam, LPARAM lParam, mObject *owner)
+{
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
     RECT rc;
     int x, y;
@@ -364,13 +374,16 @@ static void s_checkTimeout(mHScrollViewPiece *self, mObject *owner) {
     KillTimer((HWND)self, (LINT)self);
 }
 
-static BOOL s_onTimer(HWND _self, LINT id, DWORD tickCount) {
+static BOOL s_onTimer(HWND _self, LINT id, DWORD tickCount)
+{
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
     s_checkTimeout(self, (mObject *)_c(self)->getOwner(self));
     return TRUE;
 }
 
-static int s_onMousePress(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
+static int s_onMousePress(mHotPiece *_self, int message,
+        WPARAM wParam, LPARAM lParam, mObject *owner)
+{
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
     self->m_bPressed = TRUE;
     self->m_mouseFlag = 0;
@@ -384,63 +397,78 @@ static int s_onMousePress(mHotPiece *_self, int message, WPARAM wParam, LPARAM l
         mGEffAnimationStop(self->m_animation);
         self->m_animation = NULL;
         self->m_mouseFlag |= 0x02;
-    }else{
+    }
+    else {
         KillTimer((HWND)self, (LINT)self);
         SetTimerEx((HWND)self, (LINT)self, PRESS_TIMEOUT, s_onTimer);
     }
     return 0;
 }
 
-static BOOL s_onMouseMoveLeft(mHScrollViewPiece *self, mObject *owner) {
+static BOOL s_onMouseMoveLeft(mHScrollViewPiece *self, mObject *owner)
+{
     float v_x, v_y;
     mPieceItem *child;
     mHotPiece *piece;
     RECT viewPort;
     LPARAM lParam;
     self->m_bMouseMoved = FALSE;
-    QueryMouseMoveVelocity(&v_x, &v_y);
+
+    /* VM (2020-03-08): use mSpeedMeter_query_velocity instead */
+    mSpeedMeter_query_velocity (self->m_speedmeter, &v_x, &v_y);
+
+    // VM (2020-03-08): destroy speed meter
+    mSpeedMeter_destroy (self->m_speedmeter);
+    self->m_speedmeter = NULL;
+
     if ((v_x < 0) && (-v_x > 10*abs(v_x))) {
         child = s_getContent(self);
         piece = _c(child)->getPiece(child);
 
         _c(self)->getViewport(self, &viewPort);
-        lParam = MAKELONG(self->m_pressMousePos.x + viewPort.left, self->m_pressMousePos.y + viewPort.top);
+        lParam = MAKELONG(self->m_pressMousePos.x + viewPort.left,
+                self->m_pressMousePos.y + viewPort.top);
         _c(piece)->processMessage(piece, MSG_LBUTTONDOWN, 0, lParam, owner);
 
         return TRUE;
     }
 
-    _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: not handled MouseMoveLeft.\n");
     return FALSE;
 }
 
-static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
+static int s_onMouseRelease (mHotPiece *_self, int message,
+        WPARAM wParam, LPARAM lParam, mObject *owner)
+{
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
-    if (! self->m_bPressed) {
+    if (!self->m_bPressed) {
         return 0;
     }
 
-    self->m_bPressed = FALSE;
     if ((self->m_mouseFlag & 0x02) == 0) {
         int flag;
         if ((self->m_mouseFlag & 0x01) == 0) {
             flag = 0;
-        }else{
+        }
+        else {
             if (GetTickCount() < self->m_timePressed + CLICK_TIMEOUT
                     && (ABS(LOSWORD(lParam) - self->m_pressMousePos.x)
-                        + ABS(HISWORD(lParam) - self->m_pressMousePos.y) < CLICK_MICRO_MOVEMENT)) {
+                        + ABS(HISWORD(lParam) - self->m_pressMousePos.y) <
+                        CLICK_MICRO_MOVEMENT)) {
                 flag = 0;
-            }else{
+            }
+            else {
                 flag = 1;
             }
 
-            _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: ***** release-press=%lu, movement=%d\n",
+            _DBG_PRINTF ("***** release-press=%lu, movement=%d\n",
                     GetTickCount() - self->m_timePressed,
-                    ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y));
+                    ABS(LOSWORD(lParam) - self->m_pressMousePos.x) +
+                    ABS(HISWORD(lParam) - self->m_pressMousePos.y));
         }
+
         if (flag == 0) {
             self->m_timePressed -= PRESS_TIMEOUT;
-            s_checkTimeout(self, owner);
+            s_checkTimeout (self, owner);
         }
     }
 
@@ -448,18 +476,43 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
         return -1;
     }
     else if (self->m_bMouseMoved) {
+
+        /* VW (2020-03-08): handle mouse capture and speed meter */
+        if (mWidget_getCapturedHotPiece ((mWidget*)owner) == (mObject*)_self) {
+            int x = LOSWORD(lParam);
+            int y = HISWORD(lParam);
+
+            ScreenToClient (((mWidget*)owner)->hwnd, &x, &y);
+            lParam = MAKELONG (x, y);
+
+            mWidget_releaseCapturedHotPiece ();
+            self->m_bPressed = FALSE;
+
+            mSpeedMeter_append (self->m_speedmeter, x, y, GetTickCount() * 10);
+            mSpeedMeter_stop (self->m_speedmeter);
+        }
+
         if (s_canScroll(self))
             s_viewOnMouseRelease(_self, message, wParam, lParam, owner);
         if (s_onMouseMoveLeft(self, owner))
             return -1; /* Pass to the child */
     }
+
+    /* VM (2020-03-08): check and destroy speed meter */
+    if (self->m_speedmeter) {
+        mSpeedMeter_destroy (self->m_speedmeter);
+        self->m_speedmeter = NULL;
+    }
+
     return 0;
 }
 
-static int s_onMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
+static int s_onMouseMove (mHotPiece *_self, int message,
+        WPARAM wParam, LPARAM lParam, mObject *owner)
+{
     mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
-    if (! self->m_bPressed) {
-        _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: mouse move without pressed.\n");
+    if (!self->m_bPressed) {
+        _DBG_PRINTF ("mouse move without pressed.\n");
         return 0; /* Drop it */
     }
 
@@ -471,14 +524,42 @@ static int s_onMouseMove(mHotPiece *_self, int message, WPARAM wParam, LPARAM lP
     }
 
     if (self->m_bTimedout) {
-        _MG_PRINTF ("mGNCS4Touch>mHScrollViewPiece: Mouse move timed out, pass to child.\n");
+        _DBG_PRINTF ("Mouse move timed out, pass to child.\n");
         return -1; /* Pass to the child */
-    }else{
-        return s_viewOnMouseMove(_self, MSG_MOUSEMOVE, wParam, lParam, owner);
+    }
+    else {
+        /* VW (2020-03-08): handle mouse capture and speed meter */
+        if (mWidget_getCapturedHotPiece ((mWidget*)owner) == (mObject*)_self) {
+            int x = LOSWORD(lParam);
+            int y = HISWORD(lParam);
+
+            ScreenToClient (((mWidget*)owner)->hwnd, &x, &y);
+            lParam = MAKELONG (x, y);
+
+            assert (self->m_speedmeter);
+            mSpeedMeter_append (self->m_speedmeter, x, y, GetTickCount() * 10);
+        }
+        else {
+            /* VW (2020-03-08): capture mouse here */
+            mWidget_captureHotPiece ((mWidget *)owner, (mObject*)self);
+
+            /* VW (2020-03-08): Install speed meter here */
+            assert (self->m_speedmeter == NULL);
+            self->m_speedmeter = mSpeedMeter_create (1000, 10);
+            mSpeedMeter_reset (self->m_speedmeter);
+            mSpeedMeter_append (self->m_speedmeter, self->m_oldMousePos.x,
+                    self->m_oldMousePos.y, GetTickCount() * 10);
+        }
+
+        return s_viewOnMouseMove (_self, MSG_MOUSEMOVE, wParam, lParam, owner);
     }
 }
 
-static int s_onMouseMoveIn(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
+static int s_onMouseMoveIn (mHotPiece *_self, int message,
+        WPARAM wParam, LPARAM lParam, mObject *owner)
+{
+    return 0;
+
     if (!((BOOL)wParam)) {
         mHScrollViewPiece *self = (mHScrollViewPiece *)_self;
         s_onMouseRelease(_self, MSG_LBUTTONUP, 0, 0, owner);
@@ -852,7 +933,8 @@ static void mHScrollViewPiece_invalidatePiece(mHScrollViewPiece *self, mHotPiece
     }
 }
 
-static void mHScrollViewPiece_movePiece(mHScrollViewPiece *self, mHotPiece *child, int x, int y)
+static void mHScrollViewPiece_movePiece(mHScrollViewPiece *self,
+        mHotPiece *child, int x, int y)
 {
     mPieceItem *item = NULL;
     BOOL reserveCache = (self->m_content && child == self->m_content->piece);
@@ -866,7 +948,8 @@ static void mHScrollViewPiece_movePiece(mHScrollViewPiece *self, mHotPiece *chil
 
         /* update new position */
         _c(self)->invalidatePiece(self, child, NULL, reserveCache);
-    }else{
+    }
+    else {
         assert(0);
     }
 }

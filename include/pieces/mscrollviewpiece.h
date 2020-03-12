@@ -108,6 +108,7 @@ MGNCS_EXPORT extern mScrollViewPieceClass g_stmScrollViewPieceCls;
     mPieceItem *m_content; \
     mPieceItem *m_scrollbar; \
     MGEFF_ANIMATION m_animation; \
+    SPEEDMETER m_speedmeter; \
     void *m_phy_ctx; \
     int bkgnd_mode; \
     DWORD bkgnd_data;

@@ -40,14 +40,6 @@
  *   For more information about the commercial license, please refer to
  *   <http://www.minigui.com/blog/minigui-licensing-policy/>.
  */
-#define dbg() printf("%s %d\n", __FUNCTION__, __LINE__)
-
-#ifdef DEBUG_SPEEDMETER
-#   define sdbg(x) printf x
-#else
-#   define sdbg(x) /* NULL */
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -121,11 +113,11 @@ void mSpeedMeter_append(SPEEDMETER _handle, int x, int y, unsigned int t){
     assert(handle);
 
     if (handle->m_count > 0 && handle->m_records[old_index].m_t == t) {
-        sdbg(("M [%d] (%d,%u)\n", old_index, y, t));
+        _DBG_PRINTF(("M [%d] (%d,%u)\n", old_index, y, t));
         handle->m_records[old_index].m_x = x;
         handle->m_records[old_index].m_y = y;
     }else{
-        sdbg(("+ [%d] (%d,%u)\n", handle->m_index, y, t));
+        _DBG_PRINTF(("+ [%d] (%d,%u)\n", handle->m_index, y, t));
         handle->m_records[handle->m_index].m_x = x;
         handle->m_records[handle->m_index].m_y = y;
         handle->m_records[handle->m_index].m_t = t;
@@ -140,32 +132,28 @@ void mSpeedMeter_append(SPEEDMETER _handle, int x, int y, unsigned int t){
     }
 }
 
-void mSpeedMeter_stop(SPEEDMETER _handle){
+void mSpeedMeter_stop (SPEEDMETER _handle)
+{
     mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
     assert(handle);
 }
 
-void mSpeedMeter_reset(SPEEDMETER _handle){
+void mSpeedMeter_reset (SPEEDMETER _handle)
+{
     mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
     assert(handle);
     handle->m_index = 0;
     handle->m_count = 0;
 }
 
-int mSpeedMeter_velocity(SPEEDMETER _handle, float *v_x, float *v_y){
+int mSpeedMeter_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
+{
     mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
     int step, I;
     int i;
     float WX, WY, W;
 
-    if (! handle) {
-        fprintf(stderr,
-                "**************************************************\n"
-                "* Did you register the handles for mouse events? *\n"
-                "* Please refer /ncs4pad/test/test-scrollview.c   *\n"
-                "**************************************************\n"
-               );
-        /* assert(0); */
+    if (!handle) {
         *v_x = *v_y = 0.0f;
         return -1;
     }
@@ -202,7 +190,7 @@ int mSpeedMeter_velocity(SPEEDMETER _handle, float *v_x, float *v_y){
         vy = 1.0f * (handle->m_records[i2].m_y - handle->m_records[i1].m_y) / dT;
         w = 1.0f; /* TODO */
 
-        sdbg(("[%d] v=(%.2f, %.2f) dT=%d w=%.2f\n", i, vx, vy, dT, w));
+        _DBG_PRINTF(("[%d] v=(%.2f, %.2f) dT=%d w=%.2f\n", i, vx, vy, dT, w));
         WX += vx * w;
         WY += vy * w;
         W += w;
@@ -210,20 +198,50 @@ int mSpeedMeter_velocity(SPEEDMETER _handle, float *v_x, float *v_y){
     *v_x = WX / W;
     *v_y = WY / W;
 
-#ifdef DEBUG_SPEEDMETER
+#ifdef _DEBUG
     {
         int i;
         for (i=0; i<handle->m_count; ++i) {
             int index = s_mod(handle->m_index - handle->m_count + i, handle->m_size);
-            sdbg(("[%d] %d %u\n", index, handle->m_records[index].m_y, handle->m_records[index].m_t));
+            _DBG_PRINTF(("[%d] %d %u\n", index, handle->m_records[index].m_y, handle->m_records[index].m_t));
         }
-        sdbg(("\n"));
-        sdbg(("v_x=%.4f v_y=%.4f\n", 1000.0f * *v_x, 1000.0f * *v_y));
+        _DBG_PRINTF(("\n"));
+        _DBG_PRINTF(("v_x=%.4f v_y=%.4f\n", 1000.0f * *v_x, 1000.0f * *v_y));
     }
 #endif
     return 0;
 }
 
+/* VW (2020-03-08): */
+int mSpeedMeter_query_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
+{
+    float f_x, f_y;
+    mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
+
+    if (mSpeedMeter_velocity (_handle, &f_x, &f_y) == 0) {
+        *v_x = 1000 * f_x;
+        *v_y = 1000 * f_y;
+        return 0;
+    }
+
+    return -1;
+}
+
+/* VW (2020-03-8): backward definiation */
+int SpeedMeterProc (HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+{
+    // do nothging
+    return 0;
+}
+
+/* VW (2020-03-8): backward definiation */
+BOOL SpeedMeterMessageHandler(mWidget *notused, int message, int x, int y, DWORD keyStatus)
+{
+    // do nothging
+    return FALSE;
+}
+
+#if 0   /* deprecated code */
 /*
 int mSpeedMeter_getpath(SPEEDMETER _handle, POINT *points, unsigned int *times, int count){
     mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
@@ -300,3 +318,5 @@ int QueryMouseMoveVelocity(float *v_x, float *v_y){
         return -1;
     }
 }
+
+#endif   /* deprecated code */
