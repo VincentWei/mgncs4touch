@@ -20,7 +20,7 @@ The following API changed:
 
 - `QueryMouseMoveVelocity` is now a dummy implementation for backward compatibility,
   you should use `mSpeedMeter_query_velocity` instead.
-- `SpeedMeterProc` and `SpeedMeterMessageHandler` ary also dummy implementations just
+- `SpeedMeterProc` and `SpeedMeterMessageHandler` are also dummy implementations just
   for backward compatibility. Both do nothing and return 0.
 
 ## Version 1.2.4
