@@ -7,7 +7,7 @@ The MiniGUI development team announces the availability of mGNCS4Touch 1.5.0.
 All users of MiniGUI are encouraged to use this version, and report any bugs
 and incompatibilities on GitHub:
 
-<https://github.com/VincentWei/mgncs4touch/tree/dev-4-1>
+<https://github.com/VincentWei/mgncs4touch/tree/rel-5-0>
 
 ### What's new in this version
 
