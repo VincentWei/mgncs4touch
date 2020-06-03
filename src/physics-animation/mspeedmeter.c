@@ -113,11 +113,11 @@ void mSpeedMeter_append(SPEEDMETER _handle, int x, int y, unsigned int t){
     assert(handle);
 
     if (handle->m_count > 0 && handle->m_records[old_index].m_t == t) {
-        _DBG_PRINTF(("M [%d] (%d,%u)\n", old_index, y, t));
+        _DBG_PRINTF("M [%d] (%d,%u)\n", old_index, y, t);
         handle->m_records[old_index].m_x = x;
         handle->m_records[old_index].m_y = y;
     }else{
-        _DBG_PRINTF(("+ [%d] (%d,%u)\n", handle->m_index, y, t));
+        _DBG_PRINTF("+ [%d] (%d,%u)\n", handle->m_index, y, t);
         handle->m_records[handle->m_index].m_x = x;
         handle->m_records[handle->m_index].m_y = y;
         handle->m_records[handle->m_index].m_t = t;
@@ -190,7 +190,7 @@ int mSpeedMeter_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
         vy = 1.0f * (handle->m_records[i2].m_y - handle->m_records[i1].m_y) / dT;
         w = 1.0f; /* TODO */
 
-        _DBG_PRINTF(("[%d] v=(%.2f, %.2f) dT=%d w=%.2f\n", i, vx, vy, dT, w));
+        _DBG_PRINTF("[%d] v=(%.2f, %.2f) dT=%d w=%.2f\n", i, vx, vy, dT, w);
         WX += vx * w;
         WY += vy * w;
         W += w;
@@ -203,10 +203,10 @@ int mSpeedMeter_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
         int i;
         for (i=0; i<handle->m_count; ++i) {
             int index = s_mod(handle->m_index - handle->m_count + i, handle->m_size);
-            _DBG_PRINTF(("[%d] %d %u\n", index, handle->m_records[index].m_y, handle->m_records[index].m_t));
+            _DBG_PRINTF("[%d] %d %u\n", index, handle->m_records[index].m_y, handle->m_records[index].m_t);
         }
-        _DBG_PRINTF(("\n"));
-        _DBG_PRINTF(("v_x=%.4f v_y=%.4f\n", 1000.0f * *v_x, 1000.0f * *v_y));
+        _DBG_PRINTF("\n");
+        _DBG_PRINTF("v_x=%.4f v_y=%.4f\n", 1000.0f * *v_x, 1000.0f * *v_y);
     }
 #endif
     return 0;
@@ -216,7 +216,7 @@ int mSpeedMeter_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
 int mSpeedMeter_query_velocity (SPEEDMETER _handle, float *v_x, float *v_y)
 {
     float f_x, f_y;
-    mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
+    //mSpeedMeter_t *handle = (mSpeedMeter_t *)_handle;
 
     if (mSpeedMeter_velocity (_handle, &f_x, &f_y) == 0) {
         *v_x = 1000 * f_x;
