@@ -1449,7 +1449,7 @@ mPanelPiece *PanelPiece_getTopPanel(mHotPiece *piece)
     while (parent) {
         piece = parent;
         if (parent == (mHotPiece*)-1) {
-            _MG_PRINTF ("%p piece is delContent from parent!!!\n", p);
+            _WRN_PRINTF ("%p piece is dettached from parent!!!\n", p);
             return NULL;
         }
         parent = piece->parent;
