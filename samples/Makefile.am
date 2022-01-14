@@ -6,11 +6,11 @@ SUBDIRS = res
 
 AM_CPPFLAGS = -I$(TOP_DIR) -I$(TOP_DIR)/include -I.
 
-COMMON_LADD = ../src/libmgncs4touch.la
+COMMON_LADD = ../src/libmgncs4touch.la -lefence
 
 noinst_PROGRAMS = switchbutton picker newtrackbar commdraw datepicker \
     timepicker exlist btnnavbar imgnavbar name2value itembar balloontip \
-    hscrollview iconflow tableview settingtableview
+    hscrollview iconflow tableview
 
 switchbutton_SOURCES = switchbutton.c
 switchbutton_LDADD = $(COMMON_LADD) @APP_LIBS@
@@ -57,9 +57,9 @@ iconflow_LDADD = ${COMMON_LADD} @APP_LIBS@
 tableview_SOURCES = tableview.c msimpletableviewpiece.h
 tableview_LDADD = ${COMMON_LADD} @APP_LIBS@
 
-settingtableview_SOURCES = settingtableview.c settingtableview.h settingmainwinpiece.h \
-	settingsubwinpiece.h settingmainwinpiece.c settingsubwinpiece.c
-settingtableview_LDADD = ${COMMON_LADD} @APP_LIBS@
+#settingtableview_SOURCES = settingtableview.c settingtableview.h settingmainwinpiece.h \
+#	settingsubwinpiece.h settingmainwinpiece.c settingsubwinpiece.c
+#settingtableview_LDADD = ${COMMON_LADD} @APP_LIBS@
 
 EXTRA_DIST =
 

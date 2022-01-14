@@ -64,7 +64,7 @@ mHotPiece *m_barBack;
 PLOGFONT m_btnFont;
 PLOGFONT m_itemTextFont;
 
-char* m_settingData[] = {
+const char *m_settingData[] = {
    "Clock",
    "Anykey answer",
    "Automatic redial",

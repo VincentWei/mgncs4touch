@@ -68,7 +68,7 @@ extern mNavigationItem *m_navItems[TYPE_WIN_MAX_NUM];
 extern mHotPiece *m_okBtn;
 extern mHotPiece *m_barBack;
 
-extern char* m_settingData[];
+extern const char* m_settingData[];
 
 extern HWND m_hWnd;
 int m_DataLen = 13;
