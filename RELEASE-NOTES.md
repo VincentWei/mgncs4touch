@@ -1,5 +1,19 @@
 # Release Notes
 
+## Version 1.5.1
+
+On Jan. 14, 2022, FMSoft announces the availability of mGNCS4Touch 1.5.1.
+
+All users of MiniGUI are encouraged to use this version, and report any bugs
+and incompatibilities on GitHub:
+
+<https://github.com/VincentWei/mgncs4touch/tree/rel-5-0>
+
+### What's new in this version
+
+- Tune warning prompts.
+- Remove unmaintained sample `settingstableview`.
+
 ## Version 1.5.0
 
 The MiniGUI development team announces the availability of mGNCS4Touch 1.5.0.
