@@ -291,7 +291,7 @@ static int drawAlphaCover(HDC hdc, PRECT prc, DWORD color, int alpha)
     Rectangle(tmpDC, 0, 0, RECTWP(prc)-1, RECTHP(prc)-1);
 
     SetMemDCAlpha(tmpDC, MEMDC_FLAG_SRCALPHA, alpha);
-    BitBlt(tmpDC, 0, 0, 0, 0, hdc, prc->left, prc->top, -1);
+    BitBlt(tmpDC, 0, 0, 0, 0, hdc, prc->left, prc->top, 0);
 
     DeleteCompatibleDC(tmpDC);
     return 0;

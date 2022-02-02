@@ -189,7 +189,7 @@ static int put_frame_to_window(HWND hwnd, HDC secondary_dc,
         HWND add_ctrl = GetDlgItem (hwnd, IDC_ADDITIONAL);
         BitBlt(secondary_dc, secondary_rc->left, secondary_rc->top,
             RECTWP(secondary_rc), RECTHP(secondary_rc), real_dc,
-            real_rc->left, real_rc->top, -1);
+            real_rc->left, real_rc->top, 0);
             if (HWND_INVALID != add_ctrl) {
                 DWORD addition = GetWindowAdditionalData (add_ctrl);
                 if (0 != addition) { /* addition data should be not equal to 0 */
