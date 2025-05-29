@@ -7,6 +7,6 @@ Name: mGNCS4Touch
 Description: An extended new control set for smart device with a touch panel
 Version: @MGNCS4TOUCH_VERSION@
 Requires:
-Libs: -L${libdir} @PC_LIBS@
-Libs.private:
+Libs: -lmgncs4touch
+Libs.private: @PC_LIBS@
 Cflags: -I${includedir} @PC_CFLAGS@

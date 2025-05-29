@@ -1,8 +1,9 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.61)
-AC_INIT([libmgncs4touch], [1.5.2])
+AC_PREREQ([2.71])
+AC_INIT([libmgncs4touch],[1.5.2])
 AC_CONFIG_SRCDIR([src/mgncs4touch.c])
+AC_CONFIG_MACRO_DIRS([m4])
 
 dnl Set various version strings
 #
@@ -50,22 +51,19 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AC_CANONICAL_SYSTEM
+AC_CANONICAL_TARGET
 
 dnl ========================================================================
 # Checks for programs.
 AC_PROG_CC
-AC_PROG_LD
-AC_PROG_RANLIB
-AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+LT_INIT
 
 AM_INIT_AUTOMAKE
 
 AC_HEADER_DIRENT
-AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/ioctl.h sys/time.h termio.h termios.h unistd.h])
 
@@ -85,7 +83,7 @@ AC_FUNC_VPRINTF
 AC_FUNC_ALLOCA
 AC_CHECK_FUNCS([bzero dup2 getcwd memmove memset putenv strchr strdup strerror strstr])
 
-AC_CONFIG_HEADER(mgncs4touchconfig.h)
+AC_CONFIG_HEADERS([mgncs4touchconfig.h])
 
 devel_mode="no"
 AC_ARG_ENABLE(develmode,
@@ -158,18 +156,18 @@ if test "x$devel_mode" = "xyes"; then
         CPPFLAGS="$CPPFLAGS -DDEBUG"
     fi
 
-    if test "$ac_cv_prog_gcc" = "yes"; then
+    if test "$ac_cv_c_compiler_gnu" = "yes"; then
         CPPFLAGS="$CPPFLAGS -Wall -Werror"
     fi
 else
     CPPFLAGS="$CPPFLAGS -DNDEBUG"
 fi
 
-if test "$ac_cv_prog_gcc" = "yes"; then
+if test "$ac_cv_c_compiler_gnu" = "yes"; then
     CFLAGS="$CFLAGS -Wstrict-prototypes -pipe"
 fi
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
     Makefile
     mgncs4touch.pc
     m4/Makefile
@@ -190,6 +188,7 @@ AC_OUTPUT([
     plugin/guibuilder/uieditor/Makefile
     plugin/guibuilder/uieditor/defines/Makefile
 ])
+AC_OUTPUT
 
 echo
 echo "Creating include directory for samples"
