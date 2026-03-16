@@ -4,10 +4,15 @@
 # District, Beijing, P. R. CHINA 100191.                             #
 # All rights reserved.                                               #
 #                                                                    #
-# This software is the confidential and proprietary information of   #
-# Beijing FMSoft Technology Co., Ltd. ("Confidential Information").  #
-# You shall not disclose such Confidential Information and shall     #
-# use it only in accordance you entered into with FMSoft.            #
+# This file is available under the GNU General Public License        #
+# version 3 (GPLv3). If you cannot accept GPLv3, you need to be      #
+# licensed from FMSoft.                                              #
+#                                                                    #
+# If you have got a commercial license of this program, please use   #
+# it under the terms and conditions of the commercial license.       #
+#                                                                    #
+# For more information about the commercial license, please refer to #
+# http://www.minigui.com/blog/minigui-licensing-policy/.             #
 #                                                                    #
 #          http://www.minigui.com                                    #
 #                                                                    #
